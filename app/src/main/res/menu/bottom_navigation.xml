@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homepage"
+        android:icon="@drawable/home"
+        android:title="homepage"
+
+        />
+    <item
+        android:id="@+id/filter"
+        android:icon="@drawable/filter"
+        android:title="filter"
+
+        />
+    <item
+        android:id="@+id/mealList"
+        android:icon="@drawable/list"
+        android:title="mealList"
+        />
+    <item
+        android:id="@+id/stats"
+        android:icon="@drawable/stats"
+        android:title="statistics"
+        />
+    <item
+        android:id="@+id/plan"
+        android:icon="@drawable/plan"
+        android:title="plan"
+        />
+</menu>
