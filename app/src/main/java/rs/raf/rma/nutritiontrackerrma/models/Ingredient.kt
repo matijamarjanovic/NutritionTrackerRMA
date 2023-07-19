@@ -1,4 +1,4 @@
 package rs.raf.rma.nutritiontrackerrma.models
 
-class Ingredient(val id: Int, val name: String, val type: String, val desc: String) {
+class Ingredient(var id: Int, var name: String, var type: String, var desc: String) {
 }

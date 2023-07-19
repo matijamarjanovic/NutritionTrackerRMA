@@ -2,9 +2,9 @@ package rs.raf.rma.nutritiontrackerrma.models
 
 import android.hardware.Camera.Area
 
-class Meal(val id: Int, val name: String, val category: Category, val area: Area,
-           val drinkAlt: String, val instructions: String, val thumbnailLink: String,
-            val tags: ArrayList<String>, val ytLink: String, val ingridients: Map<Ingredient, String>) {
+class Meal(var id: Int, var name: String, var category: Category, var area: Area,
+           var drinkAlt: String, var instructions: String, var thumbnailLink: String,
+            var tags: ArrayList<String>, var ytLink: String, var ingridients: Map<Ingredient, String>) {
 
 
 }
