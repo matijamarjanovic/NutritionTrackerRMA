@@ -1,16 +1,19 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    // We dont use this right now
+    id 'kotlin-parcelize'
 }
 
 android {
     namespace 'rs.raf.rma.nutritiontrackerrma'
-    compileSdk 33
+    compileSdk 32
 
     defaultConfig {
         applicationId "rs.raf.rma.nutritiontrackerrma"
         minSdk 26
-        targetSdk 33
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -30,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -41,4 +47,67 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // UI
+    implementation "com.google.android.material:material:1.7.0-alpha01"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
+    // Activity
+    implementation "androidx.activity:activity-ktx:1.4.0"
+
+    // Fragment
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.1"
+
+    // Utility
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxjava:2.2.9"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
+
+    // Koin
+    def koinVersion = '2.1.5'
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-androidx-scope:$koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
+    implementation "org.koin:koin-androidx-fragment:$koinVersion"
+    implementation "org.koin:koin-androidx-ext:$koinVersion"
+    testImplementation "org.koin:koin-test:$koinVersion"
+
+    /* DATA */
+
+    // Retrofit
+    def retrofitVersion = '2.9.0'
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-moshi:${retrofitVersion}"
+
+    // okHTTP
+    def okHttpVersion = '4.9.0'
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:$okHttpVersion"
+
+    def roomVersion = '2.4.2'
+    implementation "androidx.room:room-runtime:$roomVersion"
+/*
+    kapt "androidx.room:room-compiler:$roomVersion"
+*/
+    implementation "androidx.room:room-rxjava2:$roomVersion"
+
+    // Moshi
+    def moshiVersion = '1.12.0'
+    implementation "com.squareup.moshi:moshi-adapters:$moshiVersion"
+    // Do not update codegen version it will produce compile error when used with moshi retrofit converter!
+/*
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+*/
+    implementation 'androidx.paging:paging-common-ktx:3.1.1'
+    implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
 }

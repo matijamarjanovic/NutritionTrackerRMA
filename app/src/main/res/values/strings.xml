@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">NutritionTrackerRMA</string>
+    <string name="homepage">Home Page</string>
+    <string name="filter">Filter</string>
+    <string name="filterByKcal">Filter By Kcal</string>
+    <string name="reset">Reset</string>
+    <string name="api">API</string>
+    <string name="db">Database</string>
+
 </resources>

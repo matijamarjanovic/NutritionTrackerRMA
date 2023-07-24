@@ -3,13 +3,13 @@
     <item
         android:id="@+id/homepage"
         android:icon="@drawable/home"
-        android:title="homepage"
+        android:title="@string/homepage"
 
         />
     <item
         android:id="@+id/filter"
         android:icon="@drawable/filter"
-        android:title="filter"
+        android:title="@string/filter"
 
         />
     <item
