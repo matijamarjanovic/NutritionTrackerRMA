@@ -1,7 +1,13 @@
 package rs.raf.rma.nutritiontrackerrma.application
 
 import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidFileProperties
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.fragment.koin.fragmentFactory
+import org.koin.core.context.startKoin
 import rs.raf.rma.nutritiontrackerrma.modules.*
+import org.koin.core.logger.Level
 import timber.log.Timber
 
 class NutTrackApplication : Application() {
@@ -25,8 +31,7 @@ class NutTrackApplication : Application() {
             coreModule
         )
 
-
-/*        startKoin {
+        startKoin {
             androidLogger(Level.ERROR)
             // Use application context
             androidContext(this@NutTrackApplication)
@@ -36,6 +41,6 @@ class NutTrackApplication : Application() {
             fragmentFactory()
             // modules
             modules(modules)
-        }*/
+        }
     }
 }
