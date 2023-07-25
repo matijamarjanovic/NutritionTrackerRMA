@@ -1,7 +1,7 @@
 package rs.raf.rma.nutritiontrackerrma.application
 
 import android.app.Application
-import rs.raf.vezbe11.modules.coreModule
+import rs.raf.rma.nutritiontrackerrma.modules.*
 import timber.log.Timber
 
 class NutTrackApplication : Application() {
