@@ -9,6 +9,8 @@ import io.reactivex.schedulers.Schedulers.single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
+import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -20,58 +22,58 @@ val coreModule = module {
 
 
 
-/*    single<SharedPreferences> {
-        androidApplication().getSharedPreferences(androidApplication().packageName, Context.MODE_PRIVATE)
-    }
+ single<SharedPreferences> {
+     androidApplication().getSharedPreferences(androidApplication().packageName, Context.MODE_PRIVATE)
+ }
 
-    single { Room.databaseBuilder(androidContext(), MovieDataBase::class.java, "MovieDb")
-        .fallbackToDestructiveMigration()
-        .build() }*/
+/*  single{ Room.databaseBuilder(androidContext(), MovieDataBase::class.java, "MovieDb")
+     .fallbackToDestructiveMigration()
+     .build() }*/
 
 
-    single { createRetrofit(moshi = get(), httpClient = get()) }
+ single { createRetrofit(moshi = get(), httpClient = get()) }
 
-    single { createMoshi() }
+ single { createMoshi() }
 
-    single { createOkHttpClient() }
+ single { createOkHttpClient() }
 }
 
 fun createMoshi(): Moshi {
-    return Moshi.Builder()
-        .add(Date::class.java, Rfc3339DateJsonAdapter())
-        .build()
+ return Moshi.Builder()
+     .add(Date::class.java, Rfc3339DateJsonAdapter())
+     .build()
 }
 
 fun createRetrofit(moshi: Moshi,
-                   httpClient: OkHttpClient
+                httpClient: OkHttpClient
 ): Retrofit {
-    return Retrofit.Builder()
-        .baseUrl("https://ghibliapi.vercel.app/")
+ return Retrofit.Builder()
+     .baseUrl("https://ghibliapi.vercel.app/")
 //        .baseUrl("https://ghibliapi.herokuapp.com/")
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
-        .client(httpClient)
-        .build()
+     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+     .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
+     .client(httpClient)
+     .build()
 }
 
 fun createOkHttpClient(): OkHttpClient {
-    val httpClient = OkHttpClient.Builder()
-    httpClient.readTimeout(60, TimeUnit.SECONDS)
-    httpClient.connectTimeout(60, TimeUnit.SECONDS)
-    httpClient.writeTimeout(60, TimeUnit.SECONDS)
+ val httpClient = OkHttpClient.Builder()
+ httpClient.readTimeout(60, TimeUnit.SECONDS)
+ httpClient.connectTimeout(60, TimeUnit.SECONDS)
+ httpClient.writeTimeout(60, TimeUnit.SECONDS)
 
-    if (BuildConfig.DEBUG) {
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
-        httpClient.addInterceptor(logging)
-    }
+ if (BuildConfig.DEBUG) {
+     val logging = HttpLoggingInterceptor()
+     logging.level = HttpLoggingInterceptor.Level.BODY
+     httpClient.addInterceptor(logging)
+ }
 
-    return httpClient.build()
+ return httpClient.build()
 }
 
 // Metoda koja kreira servis
 inline fun <reified T> create(retrofit: Retrofit): T  {
-    return retrofit.create(T::class.java)
+ return retrofit.create(T::class.java)
 }
 
 

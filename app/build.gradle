@@ -73,13 +73,12 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
 
     // Koin
-    def koinVersion = '3.0.1'
-    implementation "io.insert-koin:koin-core:$koinVersion"
-/*    implementation "io.insert-koin:koin-androidx-scope:$koinVersion"
-    implementation "io.insert-koin:koin-androidx-viewmodel:$koinVersion"
-    implementation "io.insert-koin:koin-androidx-fragment:$koinVersion"
-    implementation "io.insert-koin:koin-androidx-ext:$koinVersion"*/
-    testImplementation "io.insert-koin:koin-test:$koinVersion"
+    def koinVersion = '3.1.5'
+    implementation "io.insert-koin:koin-android:$koinVersion"
+    implementation "io.insert-koin:koin-androidx-navigation:$koinVersion"
+    implementation "io.insert-koin:koin-androidx-workmanager:$koinVersion"
+    implementation "io.insert-koin:koin-androidx-compose:$koinVersion"
+    testImplementation "io.insert-koin:koin-test:3.4.0"
 
     /* DATA */
 
