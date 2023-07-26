@@ -48,7 +48,7 @@ fun createRetrofit(moshi: Moshi,
                 httpClient: OkHttpClient
 ): Retrofit {
  return Retrofit.Builder()
-     .baseUrl("https://ghibliapi.vercel.app/")
+     .baseUrl("www.themealdb.com/api/json/v1/1/")
 //        .baseUrl("https://ghibliapi.herokuapp.com/")
      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
      .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
