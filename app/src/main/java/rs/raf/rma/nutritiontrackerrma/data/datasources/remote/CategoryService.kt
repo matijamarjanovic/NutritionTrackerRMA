@@ -9,6 +9,6 @@ import rs.raf.rma.nutritiontrackerrma.data.models.CategoryData
 interface CategoryService {
 
     @GET("categories.php")
-    fun getAll(@Query("limit") limit: Int = 1000) : Observable<List<CategoryData>>
+    fun getAll(@Query("limit") limit: Int = 50) : Observable<List<CategoryData>>
 
 }

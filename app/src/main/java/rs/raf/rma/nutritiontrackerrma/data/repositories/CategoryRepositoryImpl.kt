@@ -1,10 +1,12 @@
 package rs.raf.rma.nutritiontrackerrma.data.repositories
 
+import io.reactivex.Completable
 import io.reactivex.Observable
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.CategoryDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.CategoryEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.CategoryService
 import rs.raf.rma.nutritiontrackerrma.data.models.Category
+import rs.raf.rma.nutritiontrackerrma.data.models.CategoryData
 import rs.raf.rma.nutritiontrackerrma.data.models.Resource
 import timber.log.Timber
 
@@ -26,7 +28,7 @@ class CategoryRepositoryImpl (
                         it.desc
                     )
                 }
-                //localDataSource.deleteAndInsertAll(entities)
+                localDataSource.deleteAndInsertAll(entities)
             }
             .map {
                 Resource.Success(Unit)
@@ -41,5 +43,11 @@ class CategoryRepositoryImpl (
                     Category(it.name, it.thumb, it.desc)
                 }
             }
+    }
+
+    override fun insert(cat: Category): Completable {
+        val categoryEntity = CategoryEntity(0, cat.name, cat.thumbLink, cat.desc)
+        return localDataSource
+            .insertCategory(categoryEntity)
     }
 }
