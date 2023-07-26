@@ -15,27 +15,23 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import rs.raf.rma.nutritiontrackerrma.BuildConfig
+import rs.raf.rma.nutritiontrackerrma.data.datasources.local.database.MealsDatabase
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 val coreModule = module {
 
+    single {
+        Room.databaseBuilder(androidContext(), MealsDatabase::class.java, "MealsDB")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
 
+     single { createRetrofit(moshi = get(), httpClient = get()) }
 
- single<SharedPreferences> {
-     androidApplication().getSharedPreferences(androidApplication().packageName, Context.MODE_PRIVATE)
- }
+     single { createMoshi() }
 
-/*  single{ Room.databaseBuilder(androidContext(), MovieDataBase::class.java, "MovieDb")
-     .fallbackToDestructiveMigration()
-     .build() }*/
-
-
- single { createRetrofit(moshi = get(), httpClient = get()) }
-
- single { createMoshi() }
-
- single { createOkHttpClient() }
+     single { createOkHttpClient() }
 }
 
 fun createMoshi(): Moshi {
