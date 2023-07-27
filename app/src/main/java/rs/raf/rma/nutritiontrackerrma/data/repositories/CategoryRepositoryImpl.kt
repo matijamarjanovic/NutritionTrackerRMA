@@ -22,7 +22,7 @@ class CategoryRepositoryImpl (
                 Timber.e("Upis u bazu")
                 val entities = it.map {
                     CategoryEntity(
-                        it.id,
+                        0,
                         it.name,
                         it.thumbLink,
                         it.desc

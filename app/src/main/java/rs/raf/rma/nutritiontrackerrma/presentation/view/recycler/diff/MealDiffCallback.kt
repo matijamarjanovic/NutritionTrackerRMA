@@ -10,13 +10,13 @@ class MealDiffCallback : DiffUtil.ItemCallback<Meal>() {
         oldItem: Meal,
         newItem: Meal
     ): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.name == newItem.name && oldItem.ingridients == newItem.ingridients
     }
 
     override fun areContentsTheSame(
         oldItem: Meal,
         newItem: Meal
     ): Boolean {
-        return oldItem.name == newItem.name && oldItem.ingridients == newItem.ingridients
+        return oldItem.ingridients == newItem.ingridients
     }
 }

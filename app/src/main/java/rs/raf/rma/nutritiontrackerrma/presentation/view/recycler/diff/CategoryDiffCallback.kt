@@ -10,13 +10,13 @@ class CategoryDiffCallback : DiffUtil.ItemCallback<Category>() {
         oldItem: Category,
         newItem: Category
     ): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.name == newItem.name && oldItem.desc == newItem.desc
     }
 
     override fun areContentsTheSame(
         oldItem: Category,
         newItem: Category
     ): Boolean {
-        return oldItem.name == newItem.name && oldItem.desc == newItem.desc
+        return oldItem.desc == newItem.desc
     }
 }
