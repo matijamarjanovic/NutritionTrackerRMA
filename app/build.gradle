@@ -78,7 +78,16 @@ dependencies {
     implementation "io.insert-koin:koin-androidx-navigation:$koinVersion"
     implementation "io.insert-koin:koin-androidx-workmanager:$koinVersion"
     implementation "io.insert-koin:koin-androidx-compose:$koinVersion"
-    testImplementation "io.insert-koin:koin-test:3.4.0"
+    testImplementation "io.insert-koin:koin-test:$koinVersion"
+
+/*    def koinVersion = '2.1.5'
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-androidx-scope:$koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
+    implementation "org.koin:koin-androidx-fragment:$koinVersion"
+    implementation "org.koin:koin-androidx-ext:$koinVersion"
+    testImplementation "org.koin:koin-test:$koinVersion"*/
+
 
     /* DATA */
 
