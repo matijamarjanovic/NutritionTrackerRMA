@@ -6,7 +6,6 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.CategoryDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.CategoryEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.CategoryService
 import rs.raf.rma.nutritiontrackerrma.data.models.Category
-import rs.raf.rma.nutritiontrackerrma.data.models.CategoryData
 import rs.raf.rma.nutritiontrackerrma.data.models.Resource
 import timber.log.Timber
 
@@ -16,7 +15,27 @@ class CategoryRepositoryImpl (
 ) : CategoryRepository {
 
     override fun fetchAll(): Observable<Resource<Unit>> {
+
         return remoteDataSource
+            .getAll()
+            .map { response ->
+                val categories = response.categories
+
+                val entities = categories.map {
+                    CategoryEntity(
+                        0,
+                        it.name,
+                        it.thumbLink,
+                        it.desc
+                    )
+                }
+                localDataSource.deleteAndInsertAll(entities)
+
+                // Return a success resource
+                Resource.Success(Unit)
+            }
+
+        /*        return remoteDataSource
             .getAll()
             .doOnNext {
                 Timber.e("Upis u bazu")
@@ -28,11 +47,12 @@ class CategoryRepositoryImpl (
                         it.desc
                     )
                 }
+
                 localDataSource.deleteAndInsertAll(entities)
             }
             .map {
                 Resource.Success(Unit)
-            }
+            }*/
     }
 
     override fun getAll(): Observable<List<Category>> {
