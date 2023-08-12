@@ -29,6 +29,8 @@ class CategoryRepositoryImpl (
                         it.desc
                     )
                 }
+
+                //TODO problem sa fetchom
                 localDataSource.deleteAndInsertAll(entities)
 
                 // Return a success resource
