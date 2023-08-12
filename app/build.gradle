@@ -109,10 +109,11 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$roomVersion"
 
     // Moshi
-    def moshiVersion = '1.12.0'
+    def moshiVersion = '1.14.0'
     implementation "com.squareup.moshi:moshi-adapters:$moshiVersion"
     // Do not update codegen version it will produce compile error when used with moshi retrofit converter!
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
     implementation 'androidx.paging:paging-common-ktx:3.1.1'
     implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
 
