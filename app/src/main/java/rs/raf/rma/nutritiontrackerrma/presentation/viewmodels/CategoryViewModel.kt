@@ -89,5 +89,10 @@ class CategoryViewModel(
         subscriptions.add(subscription)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        subscriptions.dispose()
+    }
+
 
 }

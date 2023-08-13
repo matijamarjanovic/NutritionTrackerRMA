@@ -30,6 +30,7 @@ class CategoryRepositoryImpl (
                     )
                 }
 
+                Timber.e(entities[1].toString())
                 //TODO problem sa fetchom
                 localDataSource.deleteAndInsertAll(entities)
 

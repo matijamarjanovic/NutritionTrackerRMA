@@ -71,8 +71,8 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
             renderState(it)
         })
 
-        categoryViewModel.getAllCategories()
 
+        categoryViewModel.getAllCategories()
         categoryViewModel.fetchAllCategories()
     }
 
