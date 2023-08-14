@@ -2,9 +2,8 @@ package rs.raf.rma.nutritiontrackerrma.presentation.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import rs.raf.rma.nutritiontrackerrma.R
 import rs.raf.rma.nutritiontrackerrma.databinding.ActivityMainBinding
-import rs.raf.vezbe11.presentation.view.adapters.MainPagerAdapter
+import rs.raf.rma.nutritiontrackerrma.presentation.view.adapters.MainPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 

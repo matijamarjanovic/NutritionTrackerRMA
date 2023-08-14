@@ -1,10 +1,9 @@
-package rs.raf.vezbe11.presentation.view.adapters
+package rs.raf.rma.nutritiontrackerrma.presentation.view.adapters
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.ListFragment
 import rs.raf.rma.nutritiontrackerrma.R
 import rs.raf.rma.nutritiontrackerrma.presentation.view.fragments.FilterFragment
 import rs.raf.rma.nutritiontrackerrma.presentation.view.fragments.HomepageFragment
@@ -16,7 +15,7 @@ class MainPagerAdapter(
 ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
-        private const val ITEM_COUNT = 2
+        private const val ITEM_COUNT = 5
         const val FRAGMENT_1 = 0
         const val FRAGMENT_2 = 1
         const val FRAGMENT_3 = 2

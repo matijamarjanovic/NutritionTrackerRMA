@@ -24,7 +24,7 @@ class CategoryRepositoryImpl (
 
                 val entities = categories.map {
                     CategoryEntity(
-                        it.id,
+                        (it.id).toInt(),
                         it.name,
                         it.thumbLink,
                         it.desc
@@ -64,13 +64,13 @@ class CategoryRepositoryImpl (
             .getAll()
             .map {
                 it.map {
-                    Category(it.name, it.thumb, it.desc)
+                    Category((it.id).toInt(),it.name, it.thumb, it.desc)
                 }
             }
     }
 
     override fun insert(cat: CategoryData): Completable {
-        val categoryEntity = CategoryEntity(cat.id, cat.name, cat.thumbLink, cat.desc)
+        val categoryEntity = CategoryEntity((cat.id).toInt(), cat.name, cat.thumbLink, cat.desc)
         return localDataSource
             .insertCategory(categoryEntity)
     }
