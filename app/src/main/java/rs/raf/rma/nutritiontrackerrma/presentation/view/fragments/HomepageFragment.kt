@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,12 +58,10 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun initListeners() {
-/*        binding.inputEt.doAfterTextChanged {
+        binding.searchBar.doAfterTextChanged {
             val filter = it.toString()
-            categoryViewModel.getMoviesByName(filter)
-        }*/
-
-        //TODO()
+            categoryViewModel.getCategoryByName(filter)
+        }
     }
 
     private fun initObservers() {

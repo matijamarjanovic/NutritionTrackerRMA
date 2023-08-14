@@ -28,7 +28,7 @@ class CategoryViewModel(
             .distinctUntilChanged()
             .switchMap {
                 categoryRepository
-                    .getAll()  //TODO GETALL BY NAME
+                    .getAllByName(it)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError {
@@ -70,6 +70,10 @@ class CategoryViewModel(
                 }
             )
         subscriptions.add(subscription)
+    }
+
+    override fun getCategoryByName(name: String) {
+        publishSubject.onNext(name)
     }
 
     override fun getAllCategories() {

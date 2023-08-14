@@ -69,6 +69,16 @@ class CategoryRepositoryImpl (
             }
     }
 
+    override fun getAllByName(name: String): Observable<List<Category>> {
+        return localDataSource
+            .getByName(name)
+            .map {
+                it.map {
+                    Category(it.id, it.name, it.thumb, it.desc)
+                }
+            }
+    }
+
     override fun insert(cat: CategoryData): Completable {
         val categoryEntity = CategoryEntity((cat.id).toInt(), cat.name, cat.thumbLink, cat.desc)
         return localDataSource

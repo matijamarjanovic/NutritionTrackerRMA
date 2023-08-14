@@ -10,6 +10,7 @@ interface CategoryRepository {
 
     fun fetchAll(): Observable<Resource<Unit>>
     fun getAll(): Observable<List<Category>>
+    fun getAllByName(name: String): Observable<List<Category>>
     fun insert(cat: CategoryData): Completable
 
     //getAllByName za filtriranje
