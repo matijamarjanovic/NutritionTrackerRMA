@@ -97,9 +97,9 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun showLoadingState(loading: Boolean) {
-        binding.searchBar.isVisible = !loading
+/*        binding.searchBar.isVisible = !loading
         binding.listRv.isVisible = !loading
-        binding.loadingPb.isVisible = loading
+        binding.loadingPb.isVisible = loading*/
     }
 
     override fun onDestroyView() {

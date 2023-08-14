@@ -7,37 +7,47 @@
     android:layout_margin="10dp"
     app:cardElevation="6dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp">
-
-        <ImageView
-            android:id="@+id/imageview"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
-
-        <TextView
-            android:id="@+id/titleTv"
-            android:layout_width="wrap_content"
+    <!--    <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/imageview"
-            android:layout_toStartOf="@+id/dotsButton"
-            android:layout_marginStart="10dp"
-            android:text="Item"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:padd"5dp">
 
-        <!-- Three-dots button -->
-        <ImageButton
-            android:id="@+id/dotsButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/dots"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/titleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageview"
+                android:layout_toStartOf="@+id/dotsButton"
+                android:layout_marginStart="10dp"
+                android:text="Item"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            &lt;!&ndash; Three-dots button &ndash;&gt;
+            <ImageButton
+                android:id="@+id/dotsButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/dots"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+        </RelativeLayout>-->
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageview"
+        android:layout_toStartOf="@+id/dotsButton"
+        android:layout_marginStart="10dp"
+        android:text="Item"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </androidx.cardview.widget.CardView>

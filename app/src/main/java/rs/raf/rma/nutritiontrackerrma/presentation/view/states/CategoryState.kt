@@ -1,8 +1,6 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.view.states
 
-import androidx.constraintlayout.utils.widget.MockView
-import rs.raf.rma.nutritiontrackerrma.data.models.Category
-import rs.raf.rma.nutritiontrackerrma.data.models.CategoryData
+import rs.raf.rma.nutritiontrackerrma.data.models.categories.Category
 
 
 sealed class CategoryState {

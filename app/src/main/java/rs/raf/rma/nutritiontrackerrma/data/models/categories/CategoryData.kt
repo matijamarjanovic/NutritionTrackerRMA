@@ -1,4 +1,4 @@
-package rs.raf.rma.nutritiontrackerrma.data.models
+package rs.raf.rma.nutritiontrackerrma.data.models.categories
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

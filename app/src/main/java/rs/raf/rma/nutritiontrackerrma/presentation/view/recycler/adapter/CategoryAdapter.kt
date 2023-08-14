@@ -3,7 +3,7 @@ package rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import rs.raf.rma.nutritiontrackerrma.data.models.Category
+import rs.raf.rma.nutritiontrackerrma.data.models.categories.Category
 import rs.raf.rma.nutritiontrackerrma.databinding.CategoryItemBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.diff.CategoryDiffCallback
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.viewholder.CategoryViewHolder

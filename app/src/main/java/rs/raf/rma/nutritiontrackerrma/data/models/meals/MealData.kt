@@ -1,6 +1,8 @@
-package rs.raf.rma.nutritiontrackerrma.data.models
+package rs.raf.rma.nutritiontrackerrma.data.models.meals
 
 import android.hardware.Camera
+import rs.raf.rma.nutritiontrackerrma.data.models.ingredients.Ingredient
+import rs.raf.rma.nutritiontrackerrma.data.models.categories.Category
 
 data class MealData(var id: Int,
                     var name: String,
