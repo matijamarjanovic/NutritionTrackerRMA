@@ -9,7 +9,7 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.CategoryEnti
 
 @Database(
     entities = [CategoryEntity::class],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)

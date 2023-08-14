@@ -6,6 +6,7 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.CategoryDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.CategoryEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.CategoryService
 import rs.raf.rma.nutritiontrackerrma.data.models.Category
+import rs.raf.rma.nutritiontrackerrma.data.models.CategoryData
 import rs.raf.rma.nutritiontrackerrma.data.models.Resource
 import timber.log.Timber
 
@@ -23,7 +24,7 @@ class CategoryRepositoryImpl (
 
                 val entities = categories.map {
                     CategoryEntity(
-                        0,
+                        it.id,
                         it.name,
                         it.thumbLink,
                         it.desc
@@ -31,7 +32,7 @@ class CategoryRepositoryImpl (
                 }
 
                 Timber.e(entities[1].toString())
-                //TODO problem sa fetchom
+
                 localDataSource.deleteAndInsertAll(entities)
 
                 // Return a success resource
@@ -68,8 +69,8 @@ class CategoryRepositoryImpl (
             }
     }
 
-    override fun insert(cat: Category): Completable {
-        val categoryEntity = CategoryEntity(0, cat.name, cat.thumbLink, cat.desc)
+    override fun insert(cat: CategoryData): Completable {
+        val categoryEntity = CategoryEntity(cat.id, cat.name, cat.thumbLink, cat.desc)
         return localDataSource
             .insertCategory(categoryEntity)
     }
