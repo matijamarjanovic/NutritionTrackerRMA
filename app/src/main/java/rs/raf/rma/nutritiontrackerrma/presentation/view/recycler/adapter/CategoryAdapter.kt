@@ -1,5 +1,6 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -14,7 +15,7 @@ class CategoryAdapter(private val onButtonClick: (String) -> Unit) : ListAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val itemBinding = CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CategoryViewHolder(itemBinding)
+        return CategoryViewHolder(itemBinding, parent.context)
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {

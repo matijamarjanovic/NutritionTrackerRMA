@@ -57,10 +57,9 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
     private fun initRecycler() {
         binding.listRv.layoutManager = LinearLayoutManager(context)
 
-        adapter = CategoryAdapter { text ->
+        adapter = CategoryAdapter{ text ->
             showDialogue(text)
         }
-
         //adapter = CategoryAdapter()
         binding.listRv.adapter = adapter
 
