@@ -1,9 +1,12 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.view.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -53,8 +56,14 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
 
     private fun initRecycler() {
         binding.listRv.layoutManager = LinearLayoutManager(context)
-        adapter = CategoryAdapter()
+
+        adapter = CategoryAdapter { text ->
+            showDialogue(text)
+        }
+
+        //adapter = CategoryAdapter()
         binding.listRv.adapter = adapter
+
     }
 
     private fun initListeners() {
@@ -62,6 +71,8 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
             val filter = it.toString()
             categoryViewModel.getCategoryByName(filter)
         }
+
+
     }
 
     private fun initObservers() {
@@ -96,15 +107,36 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun showLoadingState(loading: Boolean) {
-        /*       binding.searchBar.isVisible = !loading
-               binding.listRv.isVisible = !loading
+           binding.searchBar.isVisible = !loading
+           binding.listRv.isVisible = !loading
 
-               binding.loadingPb.isVisible = loading
-       */
+           binding.loadingPb.isVisible = loading
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun showDialogue(text: String) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_layout, null)
+
+        val dialogTextView: TextView = dialogView.findViewById(R.id.dialogTitle)
+        val dialogEditText: EditText = dialogView.findViewById(R.id.dialogEditText)
+
+        // Set the title and text in the dialog
+        dialogTextView.text = "Category Description"
+        dialogEditText.setText(text)
+
+        val dialogBuilder = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setPositiveButton("OK") { dialog, _ ->
+                // Handle the OK button click if needed
+                dialog.dismiss()
+            }
+
+        val dialog = dialogBuilder.create()
+        dialog.show()
+    }
+
 }

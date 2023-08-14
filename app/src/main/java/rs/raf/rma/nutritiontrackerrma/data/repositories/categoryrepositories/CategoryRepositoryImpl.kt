@@ -24,7 +24,7 @@ class CategoryRepositoryImpl (
 
                 val entities = categories.map {
                     CategoryEntity(
-                        (it.id).toInt(),
+                        it.id,
                         it.name,
                         it.thumbLink,
                         it.desc
@@ -32,7 +32,6 @@ class CategoryRepositoryImpl (
                 }
 
                 Timber.e(entities[1].toString())
-
                 localDataSource.deleteAndInsertAll(entities)
 
                 // Return a success resource

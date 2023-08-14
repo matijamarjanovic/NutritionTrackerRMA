@@ -8,7 +8,9 @@ import rs.raf.rma.nutritiontrackerrma.databinding.CategoryItemBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.diff.CategoryDiffCallback
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.viewholder.CategoryViewHolder
 
-class CategoryAdapter : ListAdapter<Category, CategoryViewHolder>(CategoryDiffCallback()) {
+class CategoryAdapter(private val onButtonClick: (String) -> Unit) : ListAdapter<Category, CategoryViewHolder>(CategoryDiffCallback()) {
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val itemBinding = CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -16,6 +18,9 @@ class CategoryAdapter : ListAdapter<Category, CategoryViewHolder>(CategoryDiffCa
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)) { text ->
+            onButtonClick(text)
+        }
+
     }
 }
