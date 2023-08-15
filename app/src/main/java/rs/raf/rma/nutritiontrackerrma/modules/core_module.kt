@@ -21,6 +21,10 @@ import java.util.concurrent.TimeUnit
 
 val coreModule = module {
 
+    single<SharedPreferences> {
+        androidApplication().getSharedPreferences(androidApplication().packageName, Context.MODE_PRIVATE)
+    }
+
     single {
         Room.databaseBuilder(androidContext(), MealsDatabase::class.java, "MealsDB")
             .fallbackToDestructiveMigration()
