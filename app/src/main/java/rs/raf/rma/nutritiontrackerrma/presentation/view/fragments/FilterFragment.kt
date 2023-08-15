@@ -70,6 +70,23 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             val filter = it.toString()
             filterViewModel.getItemByName(filter)
         }
+
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.areaRb -> {
+                    filterViewModel.getAllAreas()
+                    filterViewModel.fetchAllAreas()
+                }
+                R.id.catRb -> {
+                    filterViewModel.getAllCategories()
+                    filterViewModel.fetchAllCategories()
+                }
+                R.id.ingRb -> {
+                    filterViewModel.getAllIngredients()
+                    filterViewModel.fetchAllIngredients()
+                }
+            }
+        }
     }
 
     private fun initObservers() {
@@ -77,8 +94,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             Timber.e(it.toString())
             renderState(it)
         })
-        filterViewModel.getAllAreas()
-        filterViewModel.fetchAllAreas()
+
+        binding.areaRb.isChecked = true
+
     }
 
     private fun renderState(state: FilterState) {
@@ -93,7 +111,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             }
             is FilterState.DataFetched -> {
                 showLoadingState(false)
-                Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
             }
             is FilterState.Loading -> {
                 showLoadingState(true)

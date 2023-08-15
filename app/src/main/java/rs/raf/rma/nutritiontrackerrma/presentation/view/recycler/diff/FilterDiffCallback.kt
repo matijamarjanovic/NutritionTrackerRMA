@@ -11,11 +11,7 @@ class FilterDiffCallback : DiffUtil.ItemCallback<Filter>() {
     }
 
     override fun areContentsTheSame(oldItem: Filter, newItem: Filter): Boolean {
-        TODO("Not yet implemented")
+        return oldItem.name == newItem.name
     }
-
-//    override fun areContentsTheSame(oldItem: ListMeal, newItem: ListMeal): Boolean {
-//        return
-//    }
 
 }

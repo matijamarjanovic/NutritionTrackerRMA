@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingTop="16dp">
@@ -10,8 +11,11 @@
     <EditText
         android:id="@+id/inputEt"
         android:layout_width="0dp"
-        android:text="SEARCH"
         android:layout_height="wrap_content"
+        android:hint="Search"
+        android:drawableStart="@drawable/seatch"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,19 +29,48 @@
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputEt"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingTop="16dp"
         android:clipToPadding="false"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputEt">
+
+        <RadioButton
+            android:id="@+id/areaRb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/area" />
+
+        <RadioButton
+            android:id="@+id/catRb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/category" />
+
+        <RadioButton
+            android:id="@+id/ingRb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ingredient" />
+
+    </RadioGroup>
 
     <ProgressBar
         android:id="@+id/loadingPb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
         android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

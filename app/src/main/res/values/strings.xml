@@ -6,5 +6,8 @@
     <string name="reset">Reset</string>
     <string name="api">API</string>
     <string name="db">Database</string>
+    <string name="area">Area</string>
+    <string name="category">Category</string>
+    <string name="ingredient">Ingredient</string>
 
 </resources>
