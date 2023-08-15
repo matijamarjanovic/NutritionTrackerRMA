@@ -26,7 +26,7 @@ class CategoryViewModel(
         val subscription = publishSubject
             .debounce(200, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
-            .switchMap {
+            .switchMap { it ->
                 categoryRepository
                     .getAllByName(it)
                     .subscribeOn(Schedulers.io())

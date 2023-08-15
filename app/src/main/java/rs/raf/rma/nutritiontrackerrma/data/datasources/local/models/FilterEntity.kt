@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "itemFilters")
 data class FilterEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    var id: Int,
     var name: String,
     )

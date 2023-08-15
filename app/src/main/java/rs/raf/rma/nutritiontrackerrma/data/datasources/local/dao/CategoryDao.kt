@@ -19,7 +19,6 @@ abstract class CategoryDao {
     @Query("SELECT * FROM categories WHERE name LIKE :name || '%'")
     abstract fun getByName(name: String): Observable<List<CategoryEntity>>
 
-
     @Query("DELETE FROM categories")
     abstract fun deleteAll()
 

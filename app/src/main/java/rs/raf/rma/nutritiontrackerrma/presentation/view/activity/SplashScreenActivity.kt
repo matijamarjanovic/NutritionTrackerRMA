@@ -24,7 +24,7 @@ class SplashScreenActivity() : AppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
 //        var isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
-        var isLoggedIn = true
+        var isLoggedIn = false
 
         if (isLoggedIn){
             handler.postDelayed({

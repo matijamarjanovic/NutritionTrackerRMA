@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import rs.raf.rma.nutritiontrackerrma.R
 import rs.raf.rma.nutritiontrackerrma.databinding.ActivityMainBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.view.adapters.MainPagerAdapter
 
@@ -29,7 +30,32 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager,
                 this
             )
-//        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.homepage -> {
+                    binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_1
+                    true
+                }
+                R.id.filter -> {
+                    binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_2
+                    true
+                }
+                R.id.mealList -> {
+                    binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_2
+                    true
+                }
+                R.id.stats -> {
+                    binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_2
+                    true
+                }
+                R.id.plan -> {
+                    binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_2
+                    true
+                }
+                // Add more cases for additional menu items
+                else -> false
+            }
+        }
     }
 
 }

@@ -26,6 +26,7 @@ class FilterRepositoryImpl(
 
             val entities = items.map {
                 FilterEntity(
+                    0,
                     it.name
                 )
             }
@@ -44,6 +45,7 @@ class FilterRepositoryImpl(
 
                 val entities = items.map {
                     FilterEntity(
+                        0,
                         it.name
                     )
                 }
@@ -62,6 +64,7 @@ class FilterRepositoryImpl(
 
                 val entities = items.map {
                     FilterEntity(
+                        0,
                         it.name
                     )
                 }
