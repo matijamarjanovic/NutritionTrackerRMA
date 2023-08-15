@@ -63,7 +63,7 @@ class FilterViewModel(
 
     override fun fetchAllCategorys() {
         val subscription = filterRepository
-            .fetchAllCategorys()
+            .fetchAllCategories()
             .startWith(Resource.Loading()) //Kada se pokrene fetch hocemo da postavimo stanje na Loading
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -135,7 +135,7 @@ class FilterViewModel(
 
     override fun getAllCategories() {
         val subscription = filterRepository
-            .getAllCategorys()
+            .getAllCategories()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
