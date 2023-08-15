@@ -12,14 +12,14 @@ data class FilterDataIng(@Json(name = "strIngredient") val name: String)
 
 @JsonClass(generateAdapter = true)
 data class FilterResponseArea(
-    val filterItems: List<FilterDataArea>
+    val meals: List<FilterDataArea>
 )
 @JsonClass(generateAdapter = true)
 data class FilterResponseCat(
-    val filterItems2: List<FilterDataCat>
+    val meals: List<FilterDataCat>
 )
 @JsonClass(generateAdapter = true)
 data class FilterResponseIng(
-    val filterItems3: List<FilterDataIng>
+    val meals: List<FilterDataIng>
 )
 

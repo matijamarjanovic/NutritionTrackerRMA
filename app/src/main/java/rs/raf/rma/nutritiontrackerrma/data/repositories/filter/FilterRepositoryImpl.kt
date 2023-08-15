@@ -22,7 +22,7 @@ class FilterRepositoryImpl(
         return remoteDataSource
         .getAllAreas()
         .map { response ->
-            val items = response.filterItems
+            val items = response.meals
             Timber.e(items.toString())
 
             val entities = items.map {
@@ -42,7 +42,7 @@ class FilterRepositoryImpl(
         return remoteDataSource
             .getAllCategories()
             .map { response ->
-                val items = response.filterItems2
+                val items = response.meals
 
                 val entities = items.map {
                     FilterEntity(
@@ -60,7 +60,7 @@ class FilterRepositoryImpl(
         return remoteDataSource
             .getAllIngredients()
             .map { response ->
-                val items = response.filterItems3
+                val items = response.meals
 
                 val entities = items.map {
                     FilterEntity(
