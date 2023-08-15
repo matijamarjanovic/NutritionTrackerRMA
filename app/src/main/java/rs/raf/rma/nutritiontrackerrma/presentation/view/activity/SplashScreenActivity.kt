@@ -13,14 +13,26 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+        var loggedin  = true
+
         supportActionBar?.hide()
 
         val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 3000)
+
+        if (loggedin){
+            handler.postDelayed({
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 3000)
+
+        }else{
+            handler.postDelayed({
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 3000)
+        }
 
     }
 }
