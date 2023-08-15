@@ -61,7 +61,7 @@ class FilterViewModel(
 
 
 
-    override fun fetchAllCategorys() {
+    override fun fetchAllCategories() {
         val subscription = filterRepository
             .fetchAllCategories()
             .startWith(Resource.Loading()) //Kada se pokrene fetch hocemo da postavimo stanje na Loading

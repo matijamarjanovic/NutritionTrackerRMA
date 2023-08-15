@@ -12,7 +12,7 @@ interface FilterContract {
 
         val filterdItemsState: LiveData<FilterState>
 
-        fun fetchAllCategorys()
+        fun fetchAllCategories()
         fun fetchAllAreas()
         fun fetchAllIngredients()
 
