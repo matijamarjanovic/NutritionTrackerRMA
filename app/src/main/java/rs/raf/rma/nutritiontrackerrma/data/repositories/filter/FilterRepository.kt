@@ -12,11 +12,11 @@ import rs.raf.rma.nutritiontrackerrma.data.models.filter.FilterResponseIng
 
 interface FilterRepository {
     fun fetchAllAreas(): Observable<Resource<Unit>>
-    fun fetchAllCategorys(): Observable<Resource<Unit>>
+    fun fetchAllCategories(): Observable<Resource<Unit>>
     fun fetchAllIngredients(): Observable<Resource<Unit>>
 
     fun getAllAreas(): Observable<List<Filter>>
-    fun getAllCategorys(): Observable<List<Filter>>
+    fun getAllCategories(): Observable<List<Filter>>
     fun getAllIngredients(): Observable<List<Filter>>
 
     fun getAllByName(name: String): Observable<List<Filter>>

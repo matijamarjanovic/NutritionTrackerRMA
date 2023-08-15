@@ -37,7 +37,7 @@ class FilterRepositoryImpl(
         }
     }
 
-    override fun fetchAllCategorys(): Observable<Resource<Unit>> {
+    override fun fetchAllCategories(): Observable<Resource<Unit>> {
         return remoteDataSource
             .getAllCategorys()
             .map { response ->
@@ -85,7 +85,7 @@ class FilterRepositoryImpl(
             }
     }
 
-    override fun getAllCategorys(): Observable<List<Filter>> {
+    override fun getAllCategories(): Observable<List<Filter>> {
         return localDataSource
             .getAll()
             .map {
