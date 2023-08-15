@@ -12,15 +12,15 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.FilterEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.ListMealEntity
 
 @Database(
-    entities = [CategoryEntity::class,ListMealEntity::class, FilterEntity::class],
-    version = 6,
+    entities = [CategoryEntity::class, ListMealEntity::class, FilterEntity::class],
+    version = 7,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)
 abstract class MealsDatabase : RoomDatabase() {
 
     abstract fun getCategoryDao() : CategoryDao
-    abstract fun getListMealDao():ListMealDao
-    abstract fun getFilterDao():FilterDao
+    abstract fun getListMealDao() : ListMealDao
+    abstract fun getFilterDao() : FilterDao
 
 }

@@ -12,7 +12,7 @@ import rs.raf.rma.nutritiontrackerrma.data.models.meals.singleMeals.SingleMealRe
 
 interface FilterService {
     @GET("list.php?c=list")
-    fun getAllCategorys(): Observable<FilterResponseCat>
+    fun getAllCategories(): Observable<FilterResponseCat>
     @GET("list.php?a=list")
     fun getAllAreas(): Observable<FilterResponseArea>
     @GET("list.php?i=list")

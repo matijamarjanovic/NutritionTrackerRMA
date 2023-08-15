@@ -16,10 +16,10 @@ data class FilterResponseArea(
 )
 @JsonClass(generateAdapter = true)
 data class FilterResponseCat(
-    val filterItems: List<FilterDataCat>
+    val filterItems2: List<FilterDataCat>
 )
 @JsonClass(generateAdapter = true)
 data class FilterResponseIng(
-    val filterItems: List<FilterDataIng>
+    val filterItems3: List<FilterDataIng>
 )
 

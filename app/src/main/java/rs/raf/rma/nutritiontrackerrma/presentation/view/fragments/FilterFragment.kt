@@ -77,8 +77,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             Timber.e(it.toString())
             renderState(it)
         })
-        filterViewModel.getAllCategories()
-        filterViewModel.fetchAllCategorys()
+        filterViewModel.getAllAreas()
+        filterViewModel.fetchAllAreas()
     }
 
     private fun renderState(state: FilterState) {

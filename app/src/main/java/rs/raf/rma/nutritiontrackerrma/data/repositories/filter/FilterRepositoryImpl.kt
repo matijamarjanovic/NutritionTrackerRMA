@@ -23,6 +23,7 @@ class FilterRepositoryImpl(
         .getAllAreas()
         .map { response ->
             val items = response.filterItems
+            Timber.e(items.toString())
 
             val entities = items.map {
                 FilterEntity(
@@ -30,7 +31,7 @@ class FilterRepositoryImpl(
                     it.name
                 )
             }
-            Timber.e(entities[1].toString())
+
             localDataSource.deleteAndInsertAll(entities)
             // Return a success resource
             Resource.Success(Unit)
@@ -39,9 +40,9 @@ class FilterRepositoryImpl(
 
     override fun fetchAllCategories(): Observable<Resource<Unit>> {
         return remoteDataSource
-            .getAllCategorys()
+            .getAllCategories()
             .map { response ->
-                val items = response.filterItems
+                val items = response.filterItems2
 
                 val entities = items.map {
                     FilterEntity(
@@ -49,7 +50,6 @@ class FilterRepositoryImpl(
                         it.name
                     )
                 }
-                Timber.e(entities[1].toString())
                 localDataSource.deleteAndInsertAll(entities)
                 // Return a success resource
                 Resource.Success(Unit)
@@ -60,7 +60,7 @@ class FilterRepositoryImpl(
         return remoteDataSource
             .getAllIngredients()
             .map { response ->
-                val items = response.filterItems
+                val items = response.filterItems3
 
                 val entities = items.map {
                     FilterEntity(
@@ -68,7 +68,6 @@ class FilterRepositoryImpl(
                         it.name
                     )
                 }
-                Timber.e(entities[1].toString())
                 localDataSource.deleteAndInsertAll(entities)
                 // Return a success resource
                 Resource.Success(Unit)
