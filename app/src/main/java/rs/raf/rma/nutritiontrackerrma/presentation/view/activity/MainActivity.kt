@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager,
                 this
             )
+//        binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
 }

@@ -29,7 +29,9 @@ class NutTrackApplication : Application() {
     private fun initKoin() {
         val modules = listOf(
             coreModule,
-            categoryModule
+            categoryModule,
+            mealsModule,
+            filterModule
         )
 
         startKoin {

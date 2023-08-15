@@ -1,7 +1,6 @@
 package rs.raf.rma.nutritiontrackerrma.data.models.meals
 
 import android.hardware.Camera.Area
-import rs.raf.rma.nutritiontrackerrma.data.models.ingredients.Ingredient
 import rs.raf.rma.nutritiontrackerrma.data.models.categories.Category
 
 class Meal(var name: String,
@@ -12,7 +11,4 @@ class Meal(var name: String,
            var thumbnailLink: String,
            var tags: ArrayList<String>,
            var ytLink: String,
-           var ingridients: Map<Ingredient, String>) {
-
-
-}
+)
