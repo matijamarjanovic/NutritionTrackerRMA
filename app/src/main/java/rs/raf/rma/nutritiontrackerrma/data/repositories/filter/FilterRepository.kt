@@ -14,9 +14,18 @@ interface FilterRepository {
     fun fetchAllAreas(): Observable<Resource<Unit>>
     fun fetchAllCategories(): Observable<Resource<Unit>>
     fun fetchAllIngredients(): Observable<Resource<Unit>>
-    fun getAllAreas(asc: Boolean): Observable<List<Filter>>
-    fun getAllCategories(asc: Boolean): Observable<List<Filter>>
-    fun getAllIngredients(asc: Boolean): Observable<List<Filter>>
+    fun getAllAreas(): Observable<List<Filter>>
+    fun getAllCategories(): Observable<List<Filter>>
+    fun getAllIngredients(): Observable<List<Filter>>
+
+    fun getAllAreasAscending(): Observable<List<Filter>>
+    fun getAllCategoriesAscending(): Observable<List<Filter>>
+    fun getAllIngredientsAscending(): Observable<List<Filter>>
+
+    fun getAllAreasDescending(): Observable<List<Filter>>
+    fun getAllCategoriesDescending(): Observable<List<Filter>>
+    fun getAllIngredientsDescending(): Observable<List<Filter>>
+
 
     fun getAllByName(name: String): Observable<List<Filter>>
 }

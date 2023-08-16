@@ -16,9 +16,17 @@ interface FilterContract {
         fun fetchAllAreas()
         fun fetchAllIngredients()
 
-        fun getAllCategories(asc : Boolean)
-        fun getAllAreas(asc : Boolean)
-        fun getAllIngredients(asc : Boolean)
+        fun getAllCategories()
+        fun getAllAreas()
+        fun getAllIngredients()
+
+        fun getAllCategoriesAscending()
+        fun getAllAreasAscending()
+        fun getAllIngredientsAscending()
+        fun getAllCategoriesDescending()
+        fun getAllAreasDescending()
+        fun getAllIngredientsDescending()
+
 
         //val filterState: LiveData<FilterState>
         //val addDone: LiveData<AddListMealState>

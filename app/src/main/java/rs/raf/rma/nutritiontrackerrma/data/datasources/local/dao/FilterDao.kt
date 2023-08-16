@@ -17,6 +17,12 @@ abstract class FilterDao {
     @Query("SELECT * FROM itemFilters")
     abstract fun getAll(): Observable<List<FilterEntity>>
 
+    @Query("SELECT * FROM itemFilters ORDER BY name ASC")
+    abstract fun getAllAscending(): Observable<List<FilterEntity>>
+
+    @Query("SELECT * FROM itemFilters ORDER BY name DESC")
+    abstract fun getAllDescending(): Observable<List<FilterEntity>>
+
     @Query("SELECT * FROM itemFilters WHERE name LIKE :name || '%'")
     abstract fun getByName(name: String): Observable<List<FilterEntity>>
 

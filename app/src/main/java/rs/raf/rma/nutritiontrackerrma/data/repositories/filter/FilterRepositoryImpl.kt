@@ -75,9 +75,8 @@ class FilterRepositoryImpl(
             }
     }
 
-    override fun getAllAreas(asc: Boolean): Observable<List<Filter>> {
+    override fun getAllAreas(): Observable<List<Filter>> {
 
-        if (asc){
             return localDataSource
                 .getAll()
                 .map {
@@ -85,20 +84,12 @@ class FilterRepositoryImpl(
                         Filter(it.name)
                     }
                 }
-        }else{
-            return localDataSource
-                .getAll()
-                .map {
-                    it.map {
-                        Filter(it.name)
-                    }
-                }
-        }
+
     }
 
-    override fun getAllCategories(asc: Boolean): Observable<List<Filter>> {
+    override fun getAllCategories(): Observable<List<Filter>> {
 
-        if (asc){
+
             return localDataSource
                 .getAll()
                 .map {
@@ -106,21 +97,11 @@ class FilterRepositoryImpl(
                         Filter(it.name)
                     }
                 }
-        }else{
-            return localDataSource
-                .getAll()
-                .map {
-                    it.map {
-                        Filter(it.name)
-                    }
-                }
-        }
+
     }
 
-    override fun getAllIngredients(asc: Boolean): Observable<List<Filter>> {
+    override fun getAllIngredients(): Observable<List<Filter>> {
 
-
-        if (asc){
             return localDataSource
                 .getAll()
                 .map {
@@ -128,15 +109,67 @@ class FilterRepositoryImpl(
                         Filter(it.name)
                     }
                 }
-        }else{
-            return localDataSource
-                .getAll()
-                .map {
-                    it.map {
-                        Filter(it.name)
-                    }
+
+    }
+
+    override fun getAllAreasAscending(): Observable<List<Filter>> {
+        return localDataSource
+            .getAllAscending()
+            .map {
+                it.map {
+                    Filter(it.name)
                 }
-        }
+            }
+    }
+
+    override fun getAllCategoriesAscending(): Observable<List<Filter>> {
+        return localDataSource
+            .getAllAscending()
+            .map {
+                it.map {
+                    Filter(it.name)
+                }
+            }
+    }
+
+    override fun getAllIngredientsAscending(): Observable<List<Filter>> {
+        return localDataSource
+            .getAllAscending()
+            .map {
+                it.map {
+                    Filter(it.name)
+                }
+            }
+    }
+
+    override fun getAllAreasDescending(): Observable<List<Filter>> {
+        return localDataSource
+            .getAllDescending()
+            .map {
+                it.map {
+                    Filter(it.name)
+                }
+            }
+    }
+
+    override fun getAllCategoriesDescending(): Observable<List<Filter>> {
+        return localDataSource
+            .getAllDescending()
+            .map {
+                it.map {
+                    Filter(it.name)
+                }
+            }
+    }
+
+    override fun getAllIngredientsDescending(): Observable<List<Filter>> {
+        return localDataSource
+            .getAllDescending()
+            .map {
+                it.map {
+                    Filter(it.name)
+                }
+            }
     }
 
     override fun getAllByName(name: String): Observable<List<Filter>> {

@@ -12,7 +12,7 @@ class MealsAdapter : ListAdapter<ListMeal, MealsViewHolder>(MealsDiffCallback())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealsViewHolder {
         val itemBinding = LayoutItemMealBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MealsViewHolder(itemBinding)
+        return MealsViewHolder(itemBinding, parent.context)
     }
 
     override fun onBindViewHolder(holder: MealsViewHolder, position: Int) {

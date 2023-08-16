@@ -71,33 +71,108 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             filterViewModel.getItemByName(filter)
         }
 
-        binding.sortDescendingBtn.visibility = View.GONE
+        var area = true
+        var cat = false
+        var ing = false
+        var asc = true
+
+        binding.sortAscendingBtn.visibility = View.GONE
 
         binding.sortAscendingBtn.setOnClickListener{
+
             binding.sortDescendingBtn.visibility = View.VISIBLE
             binding.sortAscendingBtn.visibility = View.GONE
+            asc = !asc
+
+            if(area){
+                filterViewModel.getAllAreasAscending()
+                filterViewModel.fetchAllAreas()
+            }else if(cat){
+                filterViewModel.getAllCategoriesAscending()
+                filterViewModel.fetchAllCategories()
+            }else{
+                filterViewModel.getAllIngredientsAscending()
+                filterViewModel.fetchAllIngredients()
+            }
+
         }
 
         binding.sortDescendingBtn.setOnClickListener{
             binding.sortDescendingBtn.visibility = View.GONE
             binding.sortAscendingBtn.visibility = View.VISIBLE
+            asc = !asc
+
+            if(area){
+                filterViewModel.getAllAreasDescending()
+                filterViewModel.fetchAllAreas()
+            }else if(cat){
+                filterViewModel.getAllCategoriesDescending()
+                filterViewModel.fetchAllCategories()
+            }else{
+                filterViewModel.getAllIngredientsDescending()
+                filterViewModel.fetchAllIngredients()
+            }
+
         }
 
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.areaRb -> {
-                    filterViewModel.getAllAreas(binding.sortDescendingBtn.visibility == View.VISIBLE)
-                    filterViewModel.fetchAllAreas()
+            if(asc){
+                when (checkedId) {
+                    R.id.areaRb -> {
+                        filterViewModel.getAllAreasAscending()
+                        filterViewModel.fetchAllAreas()
+
+                        area = true
+                        cat = false
+                        ing = false
+                    }
+                    R.id.catRb -> {
+                        filterViewModel.getAllCategoriesAscending()
+                        filterViewModel.fetchAllCategories()
+
+                        area = false
+                        cat = true
+                        ing = false
+                    }
+                    R.id.ingRb -> {
+                        filterViewModel.getAllIngredientsAscending()
+                        filterViewModel.fetchAllIngredients()
+
+                        area = false
+                        cat = false
+                        ing = true
+                    }
                 }
-                R.id.catRb -> {
-                    filterViewModel.getAllCategories(binding.sortDescendingBtn.visibility == View.VISIBLE)
-                    filterViewModel.fetchAllCategories()
-                }
-                R.id.ingRb -> {
-                    filterViewModel.getAllIngredients(binding.sortDescendingBtn.visibility == View.VISIBLE)
-                    filterViewModel.fetchAllIngredients()
+            }else{
+                when (checkedId) {
+                    R.id.areaRb -> {
+                        filterViewModel.getAllAreasDescending()
+                        filterViewModel.fetchAllAreas()
+
+                        area = true
+                        cat = false
+                        ing = false
+                    }
+                    R.id.catRb -> {
+                        filterViewModel.getAllCategoriesDescending()
+                        filterViewModel.fetchAllCategories()
+
+                        area = false
+                        cat = true
+                        ing = false
+                    }
+                    R.id.ingRb -> {
+                        filterViewModel.getAllIngredientsDescending()
+                        filterViewModel.fetchAllIngredients()
+
+                        area = false
+                        cat = false
+                        ing = true
+                    }
                 }
             }
+
+
         }
     }
 

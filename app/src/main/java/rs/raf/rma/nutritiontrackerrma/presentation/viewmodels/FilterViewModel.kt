@@ -133,11 +133,10 @@ class FilterViewModel(
         subscriptions.add(subscription)
     }
 
-    override fun getAllCategories(asc: Boolean) {
+    override fun getAllCategories() {
 
         val subscription = filterRepository
-            .getAllCategories(asc)
-            .sorted()
+            .getAllCategories()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -152,10 +151,9 @@ class FilterViewModel(
         subscriptions.add(subscription)
     }
 
-    override fun getAllAreas(asc: Boolean) {
+    override fun getAllAreas() {
         val subscription = filterRepository
-            .getAllAreas(asc)
-            .sorted()
+            .getAllAreas()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -169,10 +167,9 @@ class FilterViewModel(
             )
         subscriptions.add(subscription)    }
 
-    override fun getAllIngredients(asc: Boolean) {
+    override fun getAllIngredients() {
         val subscription = filterRepository
-            .getAllIngredients(asc)
-            .sorted()
+            .getAllIngredients()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -185,6 +182,108 @@ class FilterViewModel(
                 }
             )
         subscriptions.add(subscription)    }
+
+    override fun getAllCategoriesAscending() {
+        val subscription = filterRepository
+            .getAllCategoriesAscending()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    filterdItemsState.value = FilterState.Success(it)
+                },
+                {
+                    filterdItemsState.value = FilterState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun getAllAreasAscending() {
+        val subscription = filterRepository
+            .getAllAreasAscending()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    filterdItemsState.value = FilterState.Success(it)
+                },
+                {
+                    filterdItemsState.value = FilterState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun getAllIngredientsAscending() {
+        val subscription = filterRepository
+            .getAllIngredientsAscending()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    filterdItemsState.value = FilterState.Success(it)
+                },
+                {
+                    filterdItemsState.value = FilterState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun getAllCategoriesDescending() {
+        val subscription = filterRepository
+            .getAllCategoriesDescending()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    filterdItemsState.value = FilterState.Success(it)
+                },
+                {
+                    filterdItemsState.value = FilterState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun getAllAreasDescending() {
+        val subscription = filterRepository
+            .getAllAreasDescending()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    filterdItemsState.value = FilterState.Success(it)
+                },
+                {
+                    filterdItemsState.value = FilterState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun getAllIngredientsDescending() {
+        val subscription = filterRepository
+            .getAllIngredientsDescending()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    filterdItemsState.value = FilterState.Success(it)
+                },
+                {
+                    filterdItemsState.value = FilterState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
 
     override fun getItemByName(name: String) {
         publishSubject.onNext(name)
