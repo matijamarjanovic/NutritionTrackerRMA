@@ -13,7 +13,3 @@ data class MealData(var id: Int,
                     var tags: ArrayList<String>,
                     var ytLink: String,
                     )
-
-fun MealData.toMeal() : Meal {
-    return Meal(name, category, area, drinkAlt, instructions, thumbnailLink, tags, ytLink)
-}

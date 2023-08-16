@@ -44,11 +44,11 @@ class MainActivity : AppCompatActivity() {
                     binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_3
                     true
                 }
-/*                R.id.stats -> {
-                    binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_2
+                R.id.stats -> {
+                    binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_4
                     true
                 }
-                R.id.plan -> {
+/*                R.id.plan -> {
                     binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_2
                     true
                 }*/

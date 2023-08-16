@@ -12,6 +12,7 @@ import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.data.repositories.meal.ListMealRepository
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.AddListMealState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
 
 import timber.log.Timber
@@ -24,6 +25,8 @@ class MealsViewModel(
     private val subscriptions = CompositeDisposable()
     //    override val moviesState: MutableLiveData<MoviesState> = MutableLiveData()
     override val mealsState: MutableLiveData<MealsState> = MutableLiveData()
+    override val mealsState2: MutableLiveData<MealPageState> = MutableLiveData()
+
     override val addDone: MutableLiveData<AddListMealState> = MutableLiveData()
 
 
@@ -89,6 +92,7 @@ class MealsViewModel(
                         is Resource.Loading -> mealsState.value = MealsState.Loading
                         is Resource.Success -> mealsState.value = MealsState.DataFetched
                         is Resource.Error -> mealsState.value = MealsState.Error("Error happened while fetching data from the server")
+
                     }
                 },
                 {
@@ -115,11 +119,32 @@ class MealsViewModel(
                 },
                 {
                     mealsState.value = MealsState.Error("Error happened while fetching data from the server")
+
                     Timber.e(it)
                 }
             )
         subscriptions.add(subscription)
     }
+
+    override fun getSingleMeal(mealId: String) {
+        val subscription = listMealRepository
+            .getSingleMeal(mealId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    mealsState2.value = MealPageState.Success(it)
+                },
+                {
+
+                    mealsState2.value = MealPageState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+
     override fun getAllMeals() {
         val subscription = listMealRepository
             .getAllMeals()
@@ -131,6 +156,8 @@ class MealsViewModel(
                 },
                 {
                     mealsState.value = MealsState.Error("Error happened while fetching data from db")
+                    mealsState2.value = MealPageState.Error("Error happened while fetching data from db")
+
                     Timber.e(it)
                 }
             )

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/purple_500"
+    android:backgroundTintMode="screen"
+    android:padding="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Meal Image -->
+    <ImageView
+        android:id="@+id/mealImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:padding="16dp"
+        android:src="@drawable/raf"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Meal Name -->
+    <TextView
+        android:id="@+id/mealNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/mealImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Delicious Meal Name"
+        android:background="@drawable/border_bottom" />
+
+    <!-- Area -->
+    <TextView
+        android:id="@+id/areaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Area: Tasty Area"
+        android:background="@drawable/border_bottom" />
+
+    <!-- Description -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/videoLinkTextView"
+        tools:ignore="NestedScrolling">
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        tools:ignore="MissingConstraints"
+        tools:text="Description: Lorem ipsum dolor sit amet..." />
+    </ScrollView>
+
+
+    <!-- Ingredients -->
+    <TextView
+        android:id="@+id/ingredientsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/areaTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Ingredients: Ingredient 1, Ingredient 2, Ingredient 3"
+        android:background="@drawable/border_bottom" />
+
+    <!-- Video Link -->
+    <TextView
+        android:id="@+id/videoLinkTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/ingredientsTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Video Link: https://www.youtube.com/watch?v=your_video_id"
+        android:background="@drawable/border_bottom" />
+
+    <ProgressBar
+        android:id="@+id/loadingPb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
