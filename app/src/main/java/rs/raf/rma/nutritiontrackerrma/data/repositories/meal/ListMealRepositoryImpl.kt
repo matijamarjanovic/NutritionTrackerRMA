@@ -42,7 +42,7 @@ class ListMealRepositoryImpl(
         var area : String
 
         return remoteDataSource
-            .getAllMealsByArea(area)
+            .getAllMealsByArea()
             .map { response ->
                 // Extract the categories array from the ApiResponse
                 val meals = response.meals
