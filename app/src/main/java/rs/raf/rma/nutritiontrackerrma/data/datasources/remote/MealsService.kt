@@ -7,8 +7,8 @@ import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMealRespon
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.singleMeals.SingleMealResponse
 
 interface MealsService {
-    @GET("filter.php?a=Canadian")
-    fun getAllMealsByArea(): Observable<ListMealResponse>
+    @GET("filter.php")
+    fun getAllMealsByArea(@Query("a") category: String): Observable<ListMealResponse>
     @GET("filter.php")
     fun getAllMealsByCategory(@Query("c") category: String): Observable<ListMealResponse>
     @GET("filter.php")

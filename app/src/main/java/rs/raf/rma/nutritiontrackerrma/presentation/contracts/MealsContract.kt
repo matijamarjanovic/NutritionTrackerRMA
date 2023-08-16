@@ -12,7 +12,7 @@ interface MealsContract {
         val mealsState: LiveData<MealsState>
         val addDone: LiveData<AddListMealState>
 
-        fun fetchAllMealsByArea()
+        fun fetchAllMealsByArea(area:String)
         fun fetchAllMealsByCategory(category: String)
         fun fetchAllMealsByIngridient(ingridient: String)
 

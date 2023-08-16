@@ -1,5 +1,6 @@
 package rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals
 
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -8,7 +9,7 @@ data class ListMealResponse(
 )
 @JsonClass(generateAdapter = true)
 data class ListMealData(
-    val idMeal: Int,
-    val strMeal: String,
-    val strMealTumb : String,
+    @Json(name = "idMeal") val idMeal: Int,
+    @Json(name = "strMeal")val strMeal: String,
+    @Json(name = "strMealThumb")val strMealThumb : String,
 )

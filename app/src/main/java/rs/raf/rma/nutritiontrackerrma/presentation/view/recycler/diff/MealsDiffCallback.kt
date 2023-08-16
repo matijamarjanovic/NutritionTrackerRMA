@@ -11,7 +11,7 @@ class MealsDiffCallback : DiffUtil.ItemCallback<ListMeal>() {
 
     override fun areContentsTheSame(oldItem: ListMeal, newItem: ListMeal): Boolean {
         return oldItem.strMeal == newItem.strMeal &&
-                oldItem.strMealTumb == newItem.strMealTumb
+                oldItem.strMealThumb == newItem.strMealThumb
     }
 
 }

@@ -4,7 +4,7 @@ data class ListMeal(
 
     val idMeal: Int,
     val strMeal: String,
-    val strMealTumb : String,
+    val strMealThumb : String,
 
 //
 //    "idMeal": "52772",

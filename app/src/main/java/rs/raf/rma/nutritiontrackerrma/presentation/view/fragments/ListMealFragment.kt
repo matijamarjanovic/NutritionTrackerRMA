@@ -81,7 +81,7 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
         // Pokrecemo operaciju dovlacenja podataka sa servera, kada podaci stignu,
         // bice sacuvani u bazi, tada ce se triggerovati observable na koji smo se pretplatili
         // preko metode getAllMovies()
-        mealsViewModel.fetchAllMealsByArea()
+        mealsViewModel.fetchAllMealsByArea("British")
     }
 
     private fun renderState(state: MealsState) {

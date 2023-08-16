@@ -6,6 +6,7 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.ListMealDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.ListMealEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.MealsService
 import rs.raf.rma.nutritiontrackerrma.data.models.ListMealResource
+import rs.raf.rma.nutritiontrackerrma.data.models.Resource
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 
 class ListMealRepositoryImpl(
@@ -13,9 +14,9 @@ class ListMealRepositoryImpl(
     private val remoteDataSource: MealsService
 ) : ListMealRepository {
 
-    override fun fetchAllByArea(): Observable<ListMealResource<Unit>> {
+    override fun fetchAllByArea(area:String): Observable<Resource<Unit>> {
         return remoteDataSource
-            .getAllMealsByArea()
+            .getAllMealsByArea(area)
             .map { response ->
                 // Extract the categories array from the ApiResponse
                 val meals = response.meals
@@ -25,24 +26,22 @@ class ListMealRepositoryImpl(
                     ListMealEntity(
                         it.idMeal,
                         it.strMeal,
-                        it.strMealTumb
+                        it.strMealThumb
                     )
                 }
                 localDataSource.deleteAndInsertAll(entities)
 
                 // Return a success resource
-                ListMealResource.Success(Unit)
+                Resource.Success(Unit)
             }
     }
 
 
 
-    override fun fetchAllByCategory(category: String): Observable<ListMealResource<Unit>> {
-
-        var area : String
+    override fun fetchAllByCategory(category: String): Observable<Resource<Unit>> {
 
         return remoteDataSource
-            .getAllMealsByArea()
+            .getAllMealsByCategory(category)
             .map { response ->
                 // Extract the categories array from the ApiResponse
                 val meals = response.meals
@@ -52,16 +51,17 @@ class ListMealRepositoryImpl(
                     ListMealEntity(
                         it.idMeal,
                         it.strMeal,
-                        it.strMealTumb
+                        it.strMealThumb
                     )
                 }
                 localDataSource.deleteAndInsertAll(entities)
 
                 // Return a success resource
-                ListMealResource.Success(Unit)
-            }    }
+                Resource.Success(Unit)
+            }
+    }
 
-    override fun fetchAllByIngredient(ingredient: String): Observable<ListMealResource<Unit>> {
+    override fun fetchAllByIngredient(ingredient: String): Observable<Resource<Unit>> {
         return remoteDataSource
             .getAllMealsByIngredient(ingredient)
             .map { response ->
@@ -73,13 +73,13 @@ class ListMealRepositoryImpl(
                     ListMealEntity(
                         it.idMeal,
                         it.strMeal,
-                        it.strMealTumb
+                        it.strMealThumb
                     )
                 }
                 localDataSource.deleteAndInsertAll(entities)
 
                 // Return a success resource
-                ListMealResource.Success(Unit)
+                Resource.Success(Unit)
             }    }
 
     override fun getAllMeals(): Observable<List<ListMeal>> {
@@ -102,7 +102,7 @@ class ListMealRepositoryImpl(
             }
     }
     override fun insert(meal: ListMeal): Completable {
-        val listMealEntity = ListMealEntity(meal.idMeal,meal.strMeal,meal.strMealTumb)
+        val listMealEntity = ListMealEntity(meal.idMeal,meal.strMeal,meal.strMealThumb)
         return localDataSource
             .insert(listMealEntity)
     }
