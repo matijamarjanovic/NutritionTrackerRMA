@@ -133,9 +133,11 @@ class FilterViewModel(
         subscriptions.add(subscription)
     }
 
-    override fun getAllCategories() {
+    override fun getAllCategories(asc: Boolean) {
+
         val subscription = filterRepository
-            .getAllCategories()
+            .getAllCategories(asc)
+            .sorted()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -150,9 +152,10 @@ class FilterViewModel(
         subscriptions.add(subscription)
     }
 
-    override fun getAllAreas() {
+    override fun getAllAreas(asc: Boolean) {
         val subscription = filterRepository
-            .getAllAreas()
+            .getAllAreas(asc)
+            .sorted()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -166,9 +169,10 @@ class FilterViewModel(
             )
         subscriptions.add(subscription)    }
 
-    override fun getAllIngredients() {
+    override fun getAllIngredients(asc: Boolean) {
         val subscription = filterRepository
-            .getAllIngredients()
+            .getAllIngredients(asc)
+            .sorted()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -184,6 +188,11 @@ class FilterViewModel(
 
     override fun getItemByName(name: String) {
         publishSubject.onNext(name)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        subscriptions.dispose()
     }
 
 }

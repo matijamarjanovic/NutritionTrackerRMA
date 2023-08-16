@@ -61,7 +61,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private fun initRecycler() {
         binding.listRv.layoutManager = LinearLayoutManager(context)
-        adapter =FilterAdapter()
+        adapter = FilterAdapter()
         binding.listRv.adapter = adapter
     }
 
@@ -71,18 +71,30 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             filterViewModel.getItemByName(filter)
         }
 
+        binding.sortDescendingBtn.visibility = View.GONE
+
+        binding.sortAscendingBtn.setOnClickListener{
+            binding.sortDescendingBtn.visibility = View.VISIBLE
+            binding.sortAscendingBtn.visibility = View.GONE
+        }
+
+        binding.sortDescendingBtn.setOnClickListener{
+            binding.sortDescendingBtn.visibility = View.GONE
+            binding.sortAscendingBtn.visibility = View.VISIBLE
+        }
+
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.areaRb -> {
-                    filterViewModel.getAllAreas()
+                    filterViewModel.getAllAreas(binding.sortDescendingBtn.visibility == View.VISIBLE)
                     filterViewModel.fetchAllAreas()
                 }
                 R.id.catRb -> {
-                    filterViewModel.getAllCategories()
+                    filterViewModel.getAllCategories(binding.sortDescendingBtn.visibility == View.VISIBLE)
                     filterViewModel.fetchAllCategories()
                 }
                 R.id.ingRb -> {
-                    filterViewModel.getAllIngredients()
+                    filterViewModel.getAllIngredients(binding.sortDescendingBtn.visibility == View.VISIBLE)
                     filterViewModel.fetchAllIngredients()
                 }
             }
@@ -122,6 +134,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private fun showLoadingState(loading: Boolean) {
            binding.inputEt.isVisible = !loading
            binding.listRv.isVisible = !loading
+
 
            binding.loadingPb.isVisible = loading
     }

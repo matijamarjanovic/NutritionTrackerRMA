@@ -50,6 +50,7 @@ class FilterRepositoryImpl(
                         it.name
                     )
                 }
+
                 localDataSource.deleteAndInsertAll(entities)
                 // Return a success resource
                 Resource.Success(Unit)
@@ -74,33 +75,68 @@ class FilterRepositoryImpl(
             }
     }
 
-    override fun getAllAreas(): Observable<List<Filter>> {
-        return localDataSource
-            .getAll()
-            .map {
-                it.map {
-                    Filter(it.name)
+    override fun getAllAreas(asc: Boolean): Observable<List<Filter>> {
+
+        if (asc){
+            return localDataSource
+                .getAll()
+                .map {
+                    it.map {
+                        Filter(it.name)
+                    }
                 }
-            }
+        }else{
+            return localDataSource
+                .getAll()
+                .map {
+                    it.map {
+                        Filter(it.name)
+                    }
+                }
+        }
     }
 
-    override fun getAllCategories(): Observable<List<Filter>> {
-        return localDataSource
-            .getAll()
-            .map {
-                it.map {
-                    Filter(it.name)
-                }
-            }    }
+    override fun getAllCategories(asc: Boolean): Observable<List<Filter>> {
 
-    override fun getAllIngredients(): Observable<List<Filter>> {
-        return localDataSource
-            .getAll()
-            .map {
-                it.map {
-                    Filter(it.name)
+        if (asc){
+            return localDataSource
+                .getAll()
+                .map {
+                    it.map {
+                        Filter(it.name)
+                    }
                 }
-            }
+        }else{
+            return localDataSource
+                .getAll()
+                .map {
+                    it.map {
+                        Filter(it.name)
+                    }
+                }
+        }
+    }
+
+    override fun getAllIngredients(asc: Boolean): Observable<List<Filter>> {
+
+
+        if (asc){
+            return localDataSource
+                .getAll()
+                .map {
+                    it.map {
+                        Filter(it.name)
+                    }
+                }
+        }else{
+            return localDataSource
+                .getAll()
+                .map {
+                    it.map {
+                        Filter(it.name)
+                    }
+                }
+        }
     }
 
     override fun getAllByName(name: String): Observable<List<Filter>> {
