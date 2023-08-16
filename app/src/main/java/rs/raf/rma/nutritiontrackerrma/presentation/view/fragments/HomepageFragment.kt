@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.rma.nutritiontrackerrma.R
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentHomepageBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.CategoryContract
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.CategoryAdapter
@@ -57,7 +58,7 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
     private fun initRecycler() {
         binding.listRv.layoutManager = LinearLayoutManager(context)
 
-        adapter = CategoryAdapter{ text ->
+        adapter = CategoryAdapter { text ->
             showDialogue(text)
         }
         //adapter = CategoryAdapter()
@@ -137,5 +138,6 @@ class HomepageFragment : Fragment(R.layout.fragment_homepage) {
         val dialog = dialogBuilder.create()
         dialog.show()
     }
+
 
 }

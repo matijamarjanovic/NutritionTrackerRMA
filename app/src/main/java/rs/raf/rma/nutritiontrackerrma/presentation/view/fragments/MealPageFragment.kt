@@ -120,7 +120,6 @@ class MealPageFragment : Fragment(R.layout.fragment_meal_page) {
         }
 
 
-
         Glide
             .with(this)
             .load(meal.strMealThumb)

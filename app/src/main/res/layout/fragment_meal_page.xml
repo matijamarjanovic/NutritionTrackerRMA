@@ -15,10 +15,12 @@
         android:id="@+id/mealImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxHeight="200dp"
         android:scaleType="centerCrop"
         android:padding="16dp"
         android:src="@drawable/raf"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mealNameTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
