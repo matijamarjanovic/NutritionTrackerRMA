@@ -18,7 +18,7 @@ class ListMealRepositoryImpl(
             .getAllMealsByArea()
             .map { response ->
                 // Extract the categories array from the ApiResponse
-                val meals = response.listMeals
+                val meals = response.meals
 
                 // Save the categories to the local database
                 val entities = meals.map {
@@ -38,11 +38,14 @@ class ListMealRepositoryImpl(
 
 
     override fun fetchAllByCategory(category: String): Observable<ListMealResource<Unit>> {
+
+        var area : String
+
         return remoteDataSource
-            .getAllMealsByArea()
+            .getAllMealsByArea(area)
             .map { response ->
                 // Extract the categories array from the ApiResponse
-                val meals = response.listMeals
+                val meals = response.meals
 
                 // Save the categories to the local database
                 val entities = meals.map {
@@ -63,7 +66,7 @@ class ListMealRepositoryImpl(
             .getAllMealsByIngredient(ingredient)
             .map { response ->
                 // Extract the categories array from the ApiResponse
-                val meals = response.listMeals
+                val meals = response.meals
 
                 // Save the categories to the local database
                 val entities = meals.map {

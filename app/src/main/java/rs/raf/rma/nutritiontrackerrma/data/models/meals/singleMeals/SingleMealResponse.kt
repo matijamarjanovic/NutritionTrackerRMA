@@ -4,7 +4,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class SingleMealResponse(
-    val Meals: List<SingleMealData>
+    val meals: List<SingleMealData>
 )
 @JsonClass(generateAdapter = true)
 data class SingleMealData(

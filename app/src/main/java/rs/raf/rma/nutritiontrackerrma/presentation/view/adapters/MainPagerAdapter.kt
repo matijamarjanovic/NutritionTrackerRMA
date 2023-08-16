@@ -16,10 +16,10 @@ class MainPagerAdapter(
 ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
-        private const val ITEM_COUNT = 2
+        private const val ITEM_COUNT = 3
         const val FRAGMENT_1 = 0
         const val FRAGMENT_2 = 1
-       // const val FRAGMENT_3 = 2
+        const val FRAGMENT_3 = 2
 //        const val FRAGMENT_4 = 3
 //        const val FRAGMENT_5 = 4
 
@@ -28,8 +28,9 @@ class MainPagerAdapter(
     override fun getItem(position: Int): Fragment {
         return when(position) {
             FRAGMENT_1 -> HomepageFragment()
-//            FRAGMENT_2 -> ListMealFragment()
-            else -> FilterFragment()
+            FRAGMENT_2 -> FilterFragment()
+            FRAGMENT_3 ->ListMealFragment()
+            else -> ListMealFragment()
         }
     }
 
@@ -39,7 +40,9 @@ class MainPagerAdapter(
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position) {
-            FRAGMENT_1 -> context.getString(R.string.filter)
+            FRAGMENT_1 -> context.getString(R.string.homepage)
+            FRAGMENT_2 -> context.getString(R.string.filter)
+            FRAGMENT_3 -> context.getString(R.string.meals)
             else -> context.getString(R.string.filter)
         }
     }
