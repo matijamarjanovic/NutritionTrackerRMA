@@ -12,4 +12,5 @@
     <string name="ingredient">Ingredient</string>
     <string name="asc">Sort Asc</string>
     <string name="desc">Sort Des</string>
+    <string name="showRec">Show Recipe</string>
 </resources>

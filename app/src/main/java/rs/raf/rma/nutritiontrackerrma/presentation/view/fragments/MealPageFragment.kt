@@ -28,8 +28,7 @@ class MealPageFragment : Fragment(R.layout.fragment_meal_page) {
     private val mealsViewModel: MealsContract.ViewModel by sharedViewModel<MealsViewModel>()
 
     private var _binding: FragmentMealPageBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
 
     override fun onCreateView(

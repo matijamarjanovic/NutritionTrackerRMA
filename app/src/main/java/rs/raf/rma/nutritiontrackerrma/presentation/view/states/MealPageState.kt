@@ -7,6 +7,6 @@ sealed class MealPageState {
 
     object Loading: MealPageState()
     object DataFetched: MealPageState()
-    data class Success(val meals: Meal): MealPageState()
+    data class Success(val meals: Meal, val mealss: List<Meal>): MealPageState()
     data class Error(val message: String): MealPageState()
 }

@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager,
                 this
             )
+
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homepage -> {

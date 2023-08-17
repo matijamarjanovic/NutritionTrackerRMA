@@ -8,6 +8,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import rs.raf.rma.nutritiontrackerrma.data.models.ListMealResource
 import rs.raf.rma.nutritiontrackerrma.data.models.Resource
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.data.repositories.meal.ListMealRepository
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
@@ -133,7 +134,9 @@ class MealsViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    mealsState2.value = MealPageState.Success(it)
+                    var list :  ArrayList<Meal> = ArrayList<Meal>()
+                    list.add(it)
+                    mealsState2.value = MealPageState.Success(it, list)
                 },
                 {
 
