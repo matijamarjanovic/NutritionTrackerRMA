@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.rma.nutritiontrackerrma.R
+import rs.raf.rma.nutritiontrackerrma.data.models.categories.Category
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentHomepageBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.CategoryContract
@@ -42,7 +43,8 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
     private lateinit var adapter2 : MealsAdapter
     private lateinit var adapter3: SingleMealAdapter
 
-    private lateinit var meal : Meal
+    private var meal : Meal? = null
+    private var cat : Category? = null
 
 
     override fun onCreateView(
@@ -72,28 +74,34 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
         binding.listRv.layoutManager = LinearLayoutManager(context)
         binding.backButton.visibility = View.GONE
 
-        adapter2 = MealsAdapter{text ->
-
-            mealsViewModel.getSingleMeal(text)
-
-            binding.searchBar.visibility = View.GONE
-            binding.backButton.visibility = View.VISIBLE
-
-            binding.listRv.adapter = adapter2
-            mealsViewModel.fetchAllMealsByArea(meal.strArea)
-
-
-        }
         adapter = CategoryAdapter { text ->
 
             if (text.length < 30) {
 
                 binding.listRv.adapter = adapter2
                 binding.backButton.visibility = View.VISIBLE
+
                 mealsViewModel.getAllMeals()
                 mealsViewModel.fetchAllMealsByCategory(text)
+                
             } else
                 showDialogue(text)
+
+        }
+
+        adapter2 = MealsAdapter{text ->
+
+            mealsViewModel.getSingleMeal(text)
+
+            binding.searchBar.isEnabled = false
+            binding.backButton.visibility = View.VISIBLE
+
+            binding.listRv.adapter = adapter3
+
+            meal?.let {
+                mealsViewModel.fetchAllMealsByArea(it.strArea)
+            }
+
 
         }
 
@@ -105,26 +113,32 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun initListeners() {
-
-        if (binding.listRv.adapter == adapter) {
-            binding.searchBar.doAfterTextChanged {
-                val filter = it.toString()
+        
+            binding.searchBar.doAfterTextChanged { it1 ->
+                val filter = it1.toString()
                 categoryViewModel.getCategoryByName(filter)
+                
+                if (binding.listRv.adapter == adapter2){ 
+                    binding.searchBar.doAfterTextChanged {
+                        val filter = it.toString()
+                        mealsViewModel.getMealByName(filter)
+                    }
+                }
             }
-        }else if (binding.listRv.adapter == adapter2){
-            binding.searchBar.doAfterTextChanged {
-                val filter = it.toString()
-                mealsViewModel.getMealByName(filter)
-            }
-        }
 
         binding.backButton.setOnClickListener{
             if (binding.listRv.adapter == adapter2){
                 binding.listRv.adapter = adapter
                 binding.backButton.visibility = View.GONE
 
+                binding.searchBar.doAfterTextChanged {
+                    val filter = it.toString()
+                    categoryViewModel.getCategoryByName(filter)
+                }
+
             }else if(binding.listRv.adapter == adapter3){
                 binding.listRv.adapter = adapter2
+                binding.searchBar.isEnabled = true
             }
 
         }
@@ -195,8 +209,8 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
 
         when (state) {
             is MealPageState.Success -> {
-                meal = state.meals
                 showLoadingState(false)
+                meal = state.meals
                 adapter3.submitList(state.mealss)
             }
             is MealPageState.Error -> {

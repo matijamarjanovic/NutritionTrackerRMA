@@ -134,7 +134,7 @@ class MealsViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    var list :  ArrayList<Meal> = ArrayList<Meal>()
+                    var list :  ArrayList<Meal> = ArrayList()
                     list.add(it)
                     mealsState2.value = MealPageState.Success(it, list)
                 },

@@ -20,6 +20,5 @@ class CategoryAdapter(private val onButtonClick: (String) -> Unit) : ListAdapter
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(getItem(position), onButtonClick)
 
-
     }
 }
