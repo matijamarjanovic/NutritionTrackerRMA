@@ -15,7 +15,7 @@ import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.diff.MealsDiffC
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.viewholder.FilterViewHolder
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.viewholder.MealsViewHolder
 
-class FilterAdapter : ListAdapter<Filter, FilterViewHolder>(FilterDiffCallback()) {
+class FilterAdapter(private val onButtonClick: (String) -> Unit) : ListAdapter<Filter, FilterViewHolder>(FilterDiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
@@ -25,7 +25,7 @@ class FilterAdapter : ListAdapter<Filter, FilterViewHolder>(FilterDiffCallback()
     }
 
     override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onButtonClick)
     }
     
 

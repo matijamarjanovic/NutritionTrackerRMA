@@ -44,7 +44,6 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
     private lateinit var adapter3: SingleMealAdapter
 
     private var meal : Meal? = null
-    private var cat : Category? = null
 
 
     override fun onCreateView(
@@ -177,7 +176,7 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
             }
             is CategoryState.DataFetched -> {
                 showLoadingState(false)
-                Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
+//                Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
             }
             is CategoryState.Loading -> {
                 showLoadingState(true)
@@ -197,7 +196,7 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
             }
             is MealsState.DataFetched -> {
                 showLoadingState(false)
-                Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
+//                Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
             }
             is MealsState.Loading -> {
                 showLoadingState(true)

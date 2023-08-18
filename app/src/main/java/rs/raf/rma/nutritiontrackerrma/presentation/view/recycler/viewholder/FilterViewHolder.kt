@@ -8,8 +8,12 @@ import rs.raf.rma.nutritiontrackerrma.databinding.LayoutItemMealBinding
 
 class FilterViewHolder(private val itemBinding: LayoutFilterItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(item: Filter) {
+    fun bind(item: Filter, onButtonClick: (String) -> Unit) {
         itemBinding.titleTv.text = item.name
+
+        itemBinding.root.setOnClickListener{
+            onButtonClick(item.name)
+        }
     }
 
 }
