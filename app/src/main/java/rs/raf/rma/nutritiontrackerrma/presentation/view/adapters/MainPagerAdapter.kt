@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import rs.raf.rma.nutritiontrackerrma.R
-import rs.raf.rma.nutritiontrackerrma.presentation.view.fragments.FilterFragment
-import rs.raf.rma.nutritiontrackerrma.presentation.view.fragments.HomepageFragment
-import rs.raf.rma.nutritiontrackerrma.presentation.view.fragments.ListMealFragment
-import rs.raf.rma.nutritiontrackerrma.presentation.view.fragments.MealPageFragment
+import rs.raf.rma.nutritiontrackerrma.presentation.view.fragments.*
 
 
 class MainPagerAdapter(
@@ -30,7 +27,7 @@ class MainPagerAdapter(
         return when(position) {
             FRAGMENT_1 -> HomepageFragment()
             FRAGMENT_2 -> FilterFragment()
-            FRAGMENT_3 ->ListMealFragment()
+            FRAGMENT_3 -> AddMealFragment()
             FRAGMENT_4 -> MealPageFragment()
             else -> ListMealFragment()
         }
@@ -44,7 +41,7 @@ class MainPagerAdapter(
         return when(position) {
             FRAGMENT_1 -> context.getString(R.string.homepage)
             FRAGMENT_2 -> context.getString(R.string.filter)
-            FRAGMENT_3 -> context.getString(R.string.meals)
+            FRAGMENT_3 -> context.getString(R.string.add)
             else -> context.getString(R.string.filter)
         }
     }
