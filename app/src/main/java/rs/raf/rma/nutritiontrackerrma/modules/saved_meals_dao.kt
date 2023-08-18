@@ -9,16 +9,15 @@ import rs.raf.rma.nutritiontrackerrma.data.repositories.meal.ListMealRepository
 import rs.raf.rma.nutritiontrackerrma.data.repositories.meal.ListMealRepositoryImpl
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.MealsViewModel
 
-val mealsModule = module {
+val savedMealsModule = module {
 
     viewModel { MealsViewModel(listMealRepository = get()) }
 
     single<ListMealRepository> { ListMealRepositoryImpl(localDataSource = get(), remoteDataSource = get(),remoteDataSourceCalories =get()) }
 
-    single { get<MealsDatabase>().getListMealDao()  }
+    single { get<MealsDatabase>().getSavedMealDao()  }
 
     single<MealsService> {  create(retrofit = get(qualifier = named("mealsRetrofit"))) }
     //single<CaloriesService> {  create(retrofit = get(qualifier = named("caloriesRetrofit"))) }
 
 }
-

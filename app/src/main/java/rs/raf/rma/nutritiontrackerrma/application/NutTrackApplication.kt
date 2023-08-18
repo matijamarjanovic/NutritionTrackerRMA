@@ -31,7 +31,8 @@ class NutTrackApplication : Application() {
             coreModule,
             categoryModule,
             mealsModule,
-            filterModule
+            filterModule,
+            savedMealsModule
         )
 
         startKoin {
