@@ -2,20 +2,115 @@ package rs.raf.rma.nutritiontrackerrma.data.repositories.meal
 
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
+import retrofit2.HttpException
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.ListMealDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.ListMealEntity
+import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.CaloriesService
 import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.MealsService
 import rs.raf.rma.nutritiontrackerrma.data.models.ListMealResource
 import rs.raf.rma.nutritiontrackerrma.data.models.Resource
+import rs.raf.rma.nutritiontrackerrma.data.models.calories.Calorie
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.SimpleMeal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.singleMeals.SingleMealResponse
+import timber.log.Timber
 
 class ListMealRepositoryImpl(
     private val localDataSource: ListMealDao,
-    private val remoteDataSource: MealsService
+    private val remoteDataSource: MealsService,
+    private val remoteDataSourceCalories: CaloriesService
 ) : ListMealRepository {
 
-    override fun fetchAllByArea(area:String): Observable<Resource<Unit>> {
+//    override fun fetchAllByArea(area:String): Observable<Resource<Unit>> {
+//        val observable1 = remoteDataSource.getAllMealsByArea(area)
+//        val observable2 = remoteDataSourceCalories.getCalories("1lb brisket and fries")
+//
+//        return Observable.zip(
+//            observable1,observable2,
+//            {response1,response2 ->
+//                val meals1 =response1.meals
+//                val resultList = mutableListOf<SimpleMeal>()
+//
+//                val entities = meals1.map { meal ->
+//                    remoteDataSource.singleMeal(meal.idMeal.toString())
+//                        .subscribeOn(Schedulers.io())
+//                        .subscribe({ response ->
+//                            val meals = response.meals
+//                            if (meals.isNotEmpty()) {
+//                                val mealItem = meals[0]
+//                                val simpleMeal = SimpleMeal(
+//                                    mealItem.idMeal,
+//                                    mealItem.strMeal ?: "",
+//                                    mealItem.strIngredient1 ?: "", mealItem.strIngredient2 ?: "", mealItem.strIngredient3 ?: "",
+//                                    mealItem.strIngredient4 ?: "", mealItem.strIngredient5 ?: "", mealItem.strIngredient6 ?: "",
+//                                    mealItem.strIngredient7 ?: "", mealItem.strIngredient8 ?: "", mealItem.strIngredient9 ?: "",
+//                                    mealItem.strIngredient10 ?: "", mealItem.strIngredient11 ?: "", mealItem.strIngredient12 ?: "",
+//                                    mealItem.strIngredient13 ?: "", mealItem.strIngredient14 ?: "", mealItem.strIngredient15 ?: "",
+//                                    mealItem.strIngredient16 ?: "", mealItem.strIngredient17 ?: "", mealItem.strIngredient18 ?: "",
+//                                    mealItem.strIngredient19 ?: "", mealItem.strIngredient20 ?: "",
+//
+//                                    mealItem.strMeasure1 ?: "", mealItem.strMeasure2 ?: "", mealItem.strMeasure3 ?: "",
+//                                    mealItem.strMeasure4 ?: "", mealItem.strMeasure5 ?: "", mealItem.strMeasure6 ?: "",
+//                                    mealItem.strMeasure7 ?: "", mealItem.strMeasure8 ?: "", mealItem.strMeasure9 ?: "",
+//                                    mealItem.strMeasure10 ?: "", mealItem.strMeasure11 ?: "", mealItem.strMeasure12 ?: "",
+//                                    mealItem.strMeasure13 ?: "", mealItem.strMeasure14 ?: "", mealItem.strMeasure15 ?: "",
+//                                    mealItem.strMeasure16 ?: "", mealItem.strMeasure17 ?: "", mealItem.strMeasure18 ?: "",
+//                                    mealItem.strMeasure19 ?: "", mealItem.strMeasure20 ?: ""
+//                                )
+//                                val upit =    simpleMeal.strIngredient1+" "+mealItem.strMeasure1+" and "+simpleMeal.strIngredient2+" "+mealItem.strMeasure2+" "+
+//                                              simpleMeal.strIngredient3+" "+mealItem.strMeasure3+" and "+simpleMeal.strIngredient4+" "+mealItem.strMeasure4+" "+
+//                                              simpleMeal.strIngredient5+" "+mealItem.strMeasure5+" and "+simpleMeal.strIngredient6+" "+mealItem.strMeasure6+" "+
+//                                              simpleMeal.strIngredient7+" "+mealItem.strMeasure7+" and "+simpleMeal.strIngredient8+" "+mealItem.strMeasure8+" "+
+//                                              simpleMeal.strIngredient9+" "+mealItem.strMeasure9+" and "+simpleMeal.strIngredient10+" "+mealItem.strMeasure10+" "+
+//                                              simpleMeal.strIngredient11+" "+mealItem.strMeasure11+" and "+simpleMeal.strIngredient12+" "+mealItem.strMeasure12+" "+
+//                                              simpleMeal.strIngredient13+" "+mealItem.strMeasure13+" and "+simpleMeal.strIngredient14+" "+mealItem.strMeasure14+" "+
+//                                              simpleMeal.strIngredient15+" "+mealItem.strMeasure15+" and "+simpleMeal.strIngredient16+" "+mealItem.strMeasure16+" "+
+//                                              simpleMeal.strIngredient17+" "+mealItem.strMeasure17+" and "+simpleMeal.strIngredient18+" "+mealItem.strMeasure18+" "+
+//                                              simpleMeal.strIngredient19+" "+mealItem.strMeasure19+" and "+simpleMeal.strIngredient20+" "+mealItem.strMeasure20
+//                                var result = upit.substringBefore("and     ")
+//                                result=result.trim()
+//
+//                                //println("222 UPIT:= "+result)
+//                                //println("111"+simpleMeal.idMeal+simpleMeal.strMeal+"ING : "+simpleMeal.strIngredient1)
+//                                resultList.add(simpleMeal)
+//
+//                                remoteDataSourceCalories.getCalories(result).map {
+//                                    it.map { response ->
+//                                        Calorie(
+//                                            name = response.name,
+//                                            calories = response.calories,
+//                                        )
+//                                        println("sadsdasdad"+response.name+response.calories)
+//                                    }
+//                                }
+//                            }
+//                        })
+//
+//                    ListMealEntity(
+//                        meal.idMeal,
+//                        meal.strMeal,
+//                        meal.strMealThumb,
+//                        0.0
+//                    )
+//                }
+//
+//                localDataSource.deleteAndInsertAll(entities)
+//                Resource.Success(Unit)
+//            }
+//        )
+//    }
+
+    override fun getCalories(list: String): Int {
+
+        return 0
+    }
+
+    override fun fetchAllByArea(area: String): Observable<Resource<Unit>> {
         return remoteDataSource
             .getAllMealsByArea(area)
             .map { response ->
@@ -27,16 +122,64 @@ class ListMealRepositoryImpl(
                     ListMealEntity(
                         it.idMeal,
                         it.strMeal,
-                        it.strMealThumb
+                        it.strMealThumb,
+                        0.0
                     )
                 }
+
+               for(i in entities){
+
+                   remoteDataSource.singleMeal(i.idMeal.toString())
+                        .subscribeOn(Schedulers.io())
+                        .map{ response ->
+                            val meals = response.meals
+                            if (meals.isNotEmpty()) {
+                                val mealItem = meals[0]
+                                val simpleMeal = SimpleMeal(
+                                    mealItem.idMeal,
+                                    mealItem.strMeal ?: "",
+                                    mealItem.strIngredient1 ?: "", mealItem.strIngredient2 ?: "", mealItem.strIngredient3 ?: "",
+                                    mealItem.strIngredient4 ?: "", mealItem.strIngredient5 ?: "", mealItem.strIngredient6 ?: "",
+                                    mealItem.strIngredient7 ?: "", mealItem.strIngredient8 ?: "", mealItem.strIngredient9 ?: "",
+                                    mealItem.strIngredient10 ?: "", mealItem.strIngredient11 ?: "", mealItem.strIngredient12 ?: "",
+                                    mealItem.strIngredient13 ?: "", mealItem.strIngredient14 ?: "", mealItem.strIngredient15 ?: "",
+                                    mealItem.strIngredient16 ?: "", mealItem.strIngredient17 ?: "", mealItem.strIngredient18 ?: "",
+                                    mealItem.strIngredient19 ?: "", mealItem.strIngredient20 ?: "",
+
+                                    mealItem.strMeasure1 ?: "", mealItem.strMeasure2 ?: "", mealItem.strMeasure3 ?: "",
+                                    mealItem.strMeasure4 ?: "", mealItem.strMeasure5 ?: "", mealItem.strMeasure6 ?: "",
+                                    mealItem.strMeasure7 ?: "", mealItem.strMeasure8 ?: "", mealItem.strMeasure9 ?: "",
+                                    mealItem.strMeasure10 ?: "", mealItem.strMeasure11 ?: "", mealItem.strMeasure12 ?: "",
+                                    mealItem.strMeasure13 ?: "", mealItem.strMeasure14 ?: "", mealItem.strMeasure15 ?: "",
+                                    mealItem.strMeasure16 ?: "", mealItem.strMeasure17 ?: "", mealItem.strMeasure18 ?: "",
+                                    mealItem.strMeasure19 ?: "", mealItem.strMeasure20 ?: ""
+                                )
+                                val upit =    simpleMeal.strIngredient1+" "+mealItem.strMeasure1+" and "+simpleMeal.strIngredient2+" "+mealItem.strMeasure2+" "+
+                                              simpleMeal.strIngredient3+" "+mealItem.strMeasure3+" and "+simpleMeal.strIngredient4+" "+mealItem.strMeasure4+" "+
+                                              simpleMeal.strIngredient5+" "+mealItem.strMeasure5+" and "+simpleMeal.strIngredient6+" "+mealItem.strMeasure6+" "+
+                                              simpleMeal.strIngredient7+" "+mealItem.strMeasure7+" and "+simpleMeal.strIngredient8+" "+mealItem.strMeasure8+" "+
+                                              simpleMeal.strIngredient9+" "+mealItem.strMeasure9+" and "+simpleMeal.strIngredient10+" "+mealItem.strMeasure10+" "+
+                                              simpleMeal.strIngredient11+" "+mealItem.strMeasure11+" and "+simpleMeal.strIngredient12+" "+mealItem.strMeasure12+" "+
+                                              simpleMeal.strIngredient13+" "+mealItem.strMeasure13+" and "+simpleMeal.strIngredient14+" "+mealItem.strMeasure14+" "+
+                                              simpleMeal.strIngredient15+" "+mealItem.strMeasure15+" and "+simpleMeal.strIngredient16+" "+mealItem.strMeasure16+" "+
+                                              simpleMeal.strIngredient17+" "+mealItem.strMeasure17+" and "+simpleMeal.strIngredient18+" "+mealItem.strMeasure18+" "+
+                                              simpleMeal.strIngredient19+" "+mealItem.strMeasure19+" and "+simpleMeal.strIngredient20+" "+mealItem.strMeasure20
+                                var result = upit.substringBefore("and     ")
+                                result=result.trim()
+                                println(result)
+                            }
+                        }
+
+
+
+                   i.calories=1.1
+                   println(i.strMeal+" "+i.calories+" aa=")
+               }
                 localDataSource.deleteAndInsertAll(entities)
 
-                // Return a success resource
                 Resource.Success(Unit)
             }
     }
-
 
 
     override fun fetchAllByCategory(category: String): Observable<Resource<Unit>> {
@@ -52,7 +195,8 @@ class ListMealRepositoryImpl(
                     ListMealEntity(
                         it.idMeal,
                         it.strMeal,
-                        it.strMealThumb
+                        it.strMealThumb,
+                        0.0
                     )
                 }
                 localDataSource.deleteAndInsertAll(entities)
@@ -74,7 +218,9 @@ class ListMealRepositoryImpl(
                     ListMealEntity(
                         it.idMeal,
                         it.strMeal,
-                        it.strMealThumb
+                        it.strMealThumb,
+                        0.0
+
                     )
                 }
                 localDataSource.deleteAndInsertAll(entities)
@@ -111,17 +257,19 @@ class ListMealRepositoryImpl(
                         it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
                     )
                 }
-
+                    println("cccc ${entities[0].idMeal}")
                 entities[0]
             }
     }
+
+
 
     override fun getAllMeals(): Observable<List<ListMeal>> {
         return localDataSource
             .getAll()
             .map {
                 it.map {
-                    ListMeal(it.idMeal, it.strMeal,it.strMealThumb)
+                    ListMeal(it.idMeal, it.strMeal,it.strMealThumb,it.calories)
                 }
             }
     }
@@ -131,12 +279,12 @@ class ListMealRepositoryImpl(
             .getByName(name)
             .map {
                 it.map {
-                    ListMeal(it.idMeal, it.strMeal,it.strMealThumb)
+                    ListMeal(it.idMeal, it.strMeal,it.strMealThumb,it.calories)
                 }
             }
     }
     override fun insert(meal: ListMeal): Completable {
-        val listMealEntity = ListMealEntity(meal.idMeal,meal.strMeal,meal.strMealThumb)
+        val listMealEntity = ListMealEntity(meal.idMeal,meal.strMeal,meal.strMealThumb,meal.calories)
         return localDataSource
             .insert(listMealEntity)
     }

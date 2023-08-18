@@ -9,4 +9,5 @@ data class ListMealEntity(
     val idMeal: Int,
     val strMeal: String,
     val strMealThumb : String,
+    var calories: Double,
 )

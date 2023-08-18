@@ -18,9 +18,7 @@ interface MealsContract {
         fun fetchAllMealsByArea(area:String)
         fun fetchAllMealsByCategory(category: String)
         fun fetchAllMealsByIngridient(ingridient: String)
-
         fun getSingleMeal(mealId : String)
-
         fun getAllMeals()
         fun getMealByName(name: String)
         fun addMeal(listMeal: ListMeal)

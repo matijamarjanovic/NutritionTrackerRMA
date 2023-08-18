@@ -11,14 +11,11 @@ interface ListMealRepository {
     fun fetchAllByArea(area: String): Observable<Resource<Unit>>
     fun fetchAllByCategory(category: String): Observable<Resource<Unit>>
     fun fetchAllByIngredient(ingredient: String): Observable<Resource<Unit>>
-
     fun getAllMeals(): Observable<List<ListMeal>>
     fun getAllByName(name: String): Observable<List<ListMeal>>
     fun insert(meal: ListMeal): Completable
-
     fun getSingleMeal(mealId : String) : Observable<Meal>
-
-
+    fun getCalories(list:String):Int
     //fun insert(listMeal: ListMeal): Completable
 
 }

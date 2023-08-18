@@ -50,7 +50,7 @@ class MealPageFragment : Fragment(R.layout.fragment_meal_page) {
     }
 
     private fun initObservers() {
-        mealsViewModel.getSingleMeal("52787")
+        mealsViewModel.getSingleMeal("52772")
         mealsViewModel.mealsState2.observe(viewLifecycleOwner, Observer {
             Timber.e(it.toString())
             renderState(it)

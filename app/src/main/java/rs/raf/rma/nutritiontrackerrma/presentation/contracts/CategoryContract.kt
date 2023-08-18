@@ -7,9 +7,7 @@ import rs.raf.rma.nutritiontrackerrma.presentation.view.states.CategoryState
 interface CategoryContract {
 
     interface ViewModel {
-
         val categoryState : LiveData<CategoryState>
-
         fun fetchAllCategories()
         fun getAllCategories()
         fun getCategoryByName(name: String)
