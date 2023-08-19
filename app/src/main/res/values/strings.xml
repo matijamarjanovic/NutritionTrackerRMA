@@ -14,10 +14,12 @@
     <string name="asc">Sort Asc</string>
     <string name="desc">Sort Des</string>
     <string name="showRec">Show Recipe</string>
-    <string name="add">Add Meal</string>
+    <string name="add">Add</string>
     <string name="mealName">Meal name</string>
     <string name="instructions">Instructions</string>
     <string name="link">Video URL</string>
     <string name="tags">Tags</string>
     <string name="thumb">Thumbnail URL</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -173,7 +173,7 @@ class MealsViewModel(
 
     override fun addMeal(meal: ListMeal) {
         val subscription = listMealRepository
-            .insert(meal)
+            .insert(meal.idMeal.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

@@ -1,11 +1,14 @@
 package rs.raf.rma.nutritiontrackerrma.data.repositories.meal
 
 import android.annotation.SuppressLint
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.ListMealDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.SavedMealDao
+import rs.raf.rma.nutritiontrackerrma.data.datasources.local.database.convreters.DateConverter
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.ListMealEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.SavedMealEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.CaloriesService
@@ -16,6 +19,8 @@ import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.SimpleMeal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ListMealRepositoryImpl(
     private val localDataSource: ListMealDao,
@@ -342,8 +347,11 @@ class ListMealRepositoryImpl(
     @SuppressLint("CheckResult")
     override fun insert(mealId: String): Completable {
 
-        val currentDate = LocalDate.now()
+        var currDate : Date = Date()
+
+        val dateConverter : DateConverter = DateConverter()
         var entities : List<SavedMealEntity> = ArrayList<SavedMealEntity>()
+
 
         remoteDataSource
             .singleMeal(mealId)
@@ -359,11 +367,10 @@ class ListMealRepositoryImpl(
                         it.strInstructions,
                         it.strMealThumb,
                         it.strYoutube,
-                        currentDate,
+                        currDate,
                         "L",
                         0.0,
                         "user",
-
 
                         it.strIngredient1, it.strIngredient2, it.strIngredient3, it.strIngredient4, it.strIngredient5,
                         it.strIngredient6, it.strIngredient7, it.strIngredient8, it.strIngredient9, it.strIngredient10,
