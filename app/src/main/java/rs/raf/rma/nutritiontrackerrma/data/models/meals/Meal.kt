@@ -4,10 +4,10 @@ import android.hardware.Camera.Area
 import rs.raf.rma.nutritiontrackerrma.data.models.categories.Category
 
 class Meal(    val idMeal: Int,
-               val strMeal: String?,
-               val strCategory: String?,
-               val strArea: String?,
-               val strInstructions: String?,
+               val strMeal: String,
+               val strCategory: String,
+               val strArea: String,
+               val strInstructions: String,
                val strMealThumb : String?,
                val strTags: String?,
                val strYoutube: String?,
