@@ -88,7 +88,16 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             else if (binding.ingRb.isChecked)
                 mealsViewModel.fetchAllMealsByIngridient(text)
 
-            binding.linearLay.visibility = View.GONE
+
+            binding.areaRb.visibility = View.GONE
+            binding.catRb.visibility = View.GONE
+            binding.ingRb.visibility = View.GONE
+
+            binding.sortDescendingBtn.visibility = View.GONE
+            binding.sortAscendingBtn.visibility = View.GONE
+
+            binding.apiRb.visibility = View.VISIBLE
+            binding.dbRb.visibility = View.VISIBLE
 
         }
 
@@ -102,8 +111,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             binding.listRv.adapter = adapter3
 
             meal?.let {
-                mealsViewModel.fetchAllMealsByArea(it.strArea)
+                it.strArea?.let { it1 -> mealsViewModel.fetchAllMealsByArea(it1) }
             }
+            binding.linearLay.visibility = View.GONE
 
         }
 
@@ -135,11 +145,35 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                     val filter = it.toString()
                     filterViewModel.getItemByName(filter)
                 }
+
                 binding.linearLay.visibility = View.VISIBLE
 
+                binding.sortDescendingBtn.visibility = View.VISIBLE
+                binding.sortAscendingBtn.visibility = View.GONE
+
+                binding.areaRb.visibility = View.VISIBLE
+                binding.catRb.visibility = View.VISIBLE
+                binding.ingRb.visibility = View.VISIBLE
+
+                binding.apiRb.visibility = View.GONE
+                binding.dbRb.visibility = View.GONE
+
             }else if(binding.listRv.adapter == adapter3){
+
                 binding.listRv.adapter = adapter2
                 binding.searchBar.isEnabled = true
+
+                binding.linearLay.visibility = View.VISIBLE
+
+                binding.areaRb.visibility = View.GONE
+                binding.catRb.visibility = View.GONE
+                binding.ingRb.visibility = View.GONE
+
+                binding.sortDescendingBtn.visibility = View.GONE
+                binding.sortAscendingBtn.visibility = View.GONE
+
+                binding.apiRb.visibility = View.VISIBLE
+                binding.dbRb.visibility = View.VISIBLE
             }
 
         }
@@ -148,6 +182,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         var cat = false
         var ing = false
         var asc = true
+
+
+        binding.apiRb.visibility = View.GONE
+        binding.dbRb.visibility = View.GONE
 
         binding.sortAscendingBtn.visibility = View.GONE
 
