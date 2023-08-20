@@ -1,15 +1,10 @@
-package rs.raf.rma.nutritiontrackerrma.data.datasources.local.models
+package rs.raf.rma.nutritiontrackerrma.data.models.meals
 
 import androidx.room.ColumnInfo
-import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import rs.raf.rma.nutritiontrackerrma.data.datasources.local.database.convreters.DateConverter
 import java.util.*
 
-@Entity(tableName = "savedMeals")
-class SavedMealEntity(
-    @PrimaryKey(autoGenerate = false)
+class SavedMeal (
     val idMeal: Int,
     val strMeal: String?,
     val strCategory: String?,
@@ -17,7 +12,7 @@ class SavedMealEntity(
     val strInstructions: String?,
     val strMealThumb: String?,
     val strYoutube: String?,
-    @ColumnInfo(name = "date")var date: Date,
+    var date: Date,
     val whichMeal: String?, //B, L, D
     val calories: Double,
     val user: String,
@@ -63,4 +58,4 @@ class SavedMealEntity(
     val strMeasure18: String?,
     val strMeasure19: String?,
     val strMeasure20: String?
-            )
+)

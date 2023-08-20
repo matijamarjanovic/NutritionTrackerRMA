@@ -22,10 +22,7 @@ import rs.raf.rma.nutritiontrackerrma.databinding.FragmentHomepageBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.CategoryContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.FilterContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
-import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.CategoryAdapter
-import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.FilterAdapter
-import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.MealsAdapter
-import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.SingleMealAdapter
+import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.*
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.CategoryState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.FilterState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
@@ -46,6 +43,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private lateinit var adapter : FilterAdapter
     private lateinit var adapter2 : MealsAdapter
     private lateinit var adapter3: SingleMealAdapter
+    private lateinit var adapter4: AddMealAdapter
 
     private var meal : Meal? = null
 
@@ -89,15 +87,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 mealsViewModel.fetchAllMealsByIngridient(text)
 
 
-            binding.areaRb.visibility = View.GONE
-            binding.catRb.visibility = View.GONE
-            binding.ingRb.visibility = View.GONE
+            binding.linearLay.visibility = View.GONE
 
             binding.sortDescendingBtn.visibility = View.GONE
             binding.sortAscendingBtn.visibility = View.GONE
-
-            binding.apiRb.visibility = View.VISIBLE
-            binding.dbRb.visibility = View.VISIBLE
 
         }
 
@@ -118,12 +111,32 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
 
         adapter3 = SingleMealAdapter { text ->
-            showDialogue(text)
+            if(text == "add"){
+                binding.listRv.adapter = adapter4
+            }else if(text == "edit"){
+                showDialogue("You can only edit meals that are already saved. Please navigate to Saved Meals menu.")
+            }else if(text == "delete"){
+                showDialogue("You can only delete meals that are already saved. Please navigate to Saved Meals menu.")
+            }else
+                showDialogue(text)
+        }
+
+        adapter4 = AddMealAdapter { meal, text, date ->
+
+            if (text == "cancel"){
+                binding.listRv.adapter = adapter3
+            }else if(text.contains("nothingSelected")){
+                showDialogue("Nothing is selected in the drop down menu.")
+            }else{
+                mealsViewModel.addMeal(meal, text, date)
+                showDialogue("Meal successfully saved.")
+            }
         }
         binding.listRv.adapter = adapter
     }
 
     private fun initListeners() {
+
         binding.searchBar.doAfterTextChanged { it1 ->
             val filter = it1.toString()
             filterViewModel.getItemByName(filter)
@@ -146,34 +159,23 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                     filterViewModel.getItemByName(filter)
                 }
 
-                binding.linearLay.visibility = View.VISIBLE
-
                 binding.sortDescendingBtn.visibility = View.VISIBLE
                 binding.sortAscendingBtn.visibility = View.GONE
 
-                binding.areaRb.visibility = View.VISIBLE
-                binding.catRb.visibility = View.VISIBLE
-                binding.ingRb.visibility = View.VISIBLE
+                binding.linearLay.visibility = View.VISIBLE
 
-                binding.apiRb.visibility = View.GONE
-                binding.dbRb.visibility = View.GONE
+
 
             }else if(binding.listRv.adapter == adapter3){
 
                 binding.listRv.adapter = adapter2
                 binding.searchBar.isEnabled = true
 
-                binding.linearLay.visibility = View.VISIBLE
-
-                binding.areaRb.visibility = View.GONE
-                binding.catRb.visibility = View.GONE
-                binding.ingRb.visibility = View.GONE
+                binding.linearLay.visibility = View.GONE
 
                 binding.sortDescendingBtn.visibility = View.GONE
                 binding.sortAscendingBtn.visibility = View.GONE
 
-                binding.apiRb.visibility = View.VISIBLE
-                binding.dbRb.visibility = View.VISIBLE
             }
 
         }
@@ -184,8 +186,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         var asc = true
 
 
-        binding.apiRb.visibility = View.GONE
-        binding.dbRb.visibility = View.GONE
 
         binding.sortAscendingBtn.visibility = View.GONE
 
@@ -354,6 +354,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 showLoadingState(false)
                 meal = state.meals
                 adapter3.submitList(state.mealss)
+                adapter4.submitList(state.mealss)
+
             }
             is MealPageState.Error -> {
                 showLoadingState(false)
@@ -384,9 +386,12 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private fun showDialogue(text: String) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_layout, null)
-        val dialogEditText: EditText = dialogView.findViewById(R.id.dialogEditText)
+        val dialogEditText: TextView = dialogView.findViewById(R.id.dialogEditText)
 
-        dialogEditText.setText(text)
+        dialogEditText.text = text
+        dialogEditText.isFocusable = false
+        dialogEditText.isClickable = false
+        dialogEditText.isLongClickable = false
 
         val dialogBuilder = AlertDialog.Builder(context)
             .setView(dialogView)

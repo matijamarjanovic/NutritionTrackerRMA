@@ -14,8 +14,8 @@
         />
     <item
         android:id="@+id/mealList"
-        android:icon="@drawable/add"
-        android:title="@string/add"
+        android:icon="@drawable/list"
+        android:title="@string/savedMeals"
         />
     <item
         android:id="@+id/stats"

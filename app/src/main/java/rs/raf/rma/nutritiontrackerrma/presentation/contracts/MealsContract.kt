@@ -1,10 +1,13 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.contracts
 
 import androidx.lifecycle.LiveData
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.AddListMealState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.SavedMealsState
+import java.util.Date
 
 interface MealsContract {
 
@@ -12,6 +15,7 @@ interface MealsContract {
 
         val mealsState: LiveData<MealsState>
         val mealsState2: LiveData<MealPageState>
+        val savedMealState: LiveData<SavedMealsState>
 
         val addDone: LiveData<AddListMealState>
 
@@ -21,7 +25,13 @@ interface MealsContract {
         fun getSingleMeal(mealId : String)
         fun getAllMeals()
         fun getMealByName(name: String)
-        fun addMeal(listMeal: ListMeal)
+        fun getAllSavedMeals()
+        fun getSavedMealByName(name: String)
+        fun addMeal(meal: Meal, whichMeal : String, date : Date)
+        fun updateMeal(meal: Meal, whichMeal : String, date : Date)
+
+        fun deleteMeal(id : String)
+
     }
 
 }

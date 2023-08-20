@@ -18,10 +18,13 @@ import rs.raf.rma.nutritiontrackerrma.R
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentListMealBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
+import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.AddMealAdapter
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.MealsAdapter
+import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.SavedMealsAdapter
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.SingleMealAdapter
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.SavedMealsState
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.MealsViewModel
 
 import timber.log.Timber
@@ -36,8 +39,10 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var adapter: MealsAdapter
+    private lateinit var adapter: SavedMealsAdapter
     private lateinit var adapter2: SingleMealAdapter
+    private lateinit var adapter3: AddMealAdapter
+    private lateinit var adapter4: AddMealAdapter
 
     private lateinit var meal : Meal
 
@@ -70,7 +75,7 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
         binding.backButton.visibility = View.GONE
 
         binding.listRv.layoutManager = LinearLayoutManager(context)
-        adapter = MealsAdapter{text ->
+        adapter = SavedMealsAdapter{text ->
 
             mealsViewModel.getSingleMeal(text)
             mealsViewModel.fetchAllMealsByArea(meal.strArea)
@@ -82,8 +87,29 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
 
         }
         adapter2 = SingleMealAdapter { text ->
-            showDialogue(text)
+
+            if(text == "add"){
+                showDialogue("Meal is already saved in the database.")
+            }else if(text == "edit"){
+               binding.listRv.adapter = adapter3
+            }else if(text == "delete"){
+                mealsViewModel.deleteMeal(meal.idMeal.toString())
+                showDialogue("Meal successfully deleted from the database.")
+                binding.listRv.adapter = adapter
+            }else
+                showDialogue(text)
         }
+        adapter3 = AddMealAdapter{ meal, text, date ->
+
+            if (text == "cancel"){
+                binding.listRv.adapter = adapter2
+            }else if(text.contains("nothingSelected")){
+                showDialogue("Nothing is selected in the drop down menu.")
+            }else{
+                mealsViewModel.updateMeal(meal, text, date)
+            }
+        }
+
         binding.listRv.adapter = adapter
 
     }
@@ -91,21 +117,19 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
     private fun initListeners() {
         binding.searchBar.doAfterTextChanged {
             val filter = it.toString()
-            mealsViewModel.getMealByName(filter)
+            mealsViewModel.getSavedMealByName(filter)
         }
 
         binding.backButton.setOnClickListener{
-
                 binding.listRv.adapter = adapter
                 binding.backButton.visibility = View.GONE
-
         }
     }
 
     private fun initObservers() {
 
 
-        mealsViewModel.mealsState.observe(viewLifecycleOwner, Observer {
+        mealsViewModel.savedMealState.observe(viewLifecycleOwner, Observer {
             Timber.e(it.toString())
             renderState(it)
         })
@@ -115,25 +139,24 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
             renderState2(it)
         })
 
-        mealsViewModel.getAllMeals()
-        mealsViewModel.fetchAllMealsByArea("British")
+        mealsViewModel.getAllSavedMeals()
     }
 
-    private fun renderState(state: MealsState) {
+    private fun renderState(state: SavedMealsState) {
         when (state) {
-            is MealsState.Success -> {
+            is SavedMealsState.Success -> {
                 showLoadingState(false)
                 adapter.submitList(state.meals)
             }
-            is MealsState.Error -> {
+            is SavedMealsState.Error -> {
                 showLoadingState(false)
                 Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
             }
-            is MealsState.DataFetched -> {
+            is SavedMealsState.DataFetched -> {
                 showLoadingState(false)
                 Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
             }
-            is MealsState.Loading -> {
+            is SavedMealsState.Loading -> {
                 showLoadingState(true)
             }
         }
@@ -146,6 +169,7 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 showLoadingState(false)
                 meal = state.meals
                 adapter2.submitList(state.mealss)
+                adapter3.submitList(state.mealss)
             }
             is MealPageState.Error -> {
                 showLoadingState(false)
@@ -174,10 +198,13 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
 
     private fun showDialogue(text: String) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_layout, null)
-        val dialogEditText: EditText = dialogView.findViewById(R.id.dialogEditText)
+        val dialogEditText: TextView = dialogView.findViewById(R.id.dialogEditText)
 
         // Set the title and text in the dialog
-        dialogEditText.setText(text)
+        dialogEditText.text = text
+        dialogEditText.isFocusable = false
+        dialogEditText.isClickable = false
+        dialogEditText.isLongClickable = false
 
         val dialogBuilder = AlertDialog.Builder(context)
             .setView(dialogView)

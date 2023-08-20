@@ -15,9 +15,12 @@ import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.AddListMealState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.SavedMealsState
 
 import timber.log.Timber
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 class MealsViewModel(
     private val listMealRepository : ListMealRepository,
@@ -27,6 +30,7 @@ class MealsViewModel(
     //    override val moviesState: MutableLiveData<MoviesState> = MutableLiveData()
     override val mealsState: MutableLiveData<MealsState> = MutableLiveData()
     override val mealsState2: MutableLiveData<MealPageState> = MutableLiveData()
+    override val savedMealState : MutableLiveData<SavedMealsState> = MutableLiveData()
 
     override val addDone: MutableLiveData<AddListMealState> = MutableLiveData()
 
@@ -57,6 +61,7 @@ class MealsViewModel(
                     Timber.e(it)
                 }
             )
+
         subscriptions.add(subscription)
     }
 
@@ -171,9 +176,88 @@ class MealsViewModel(
         publishSubject.onNext(name)
     }
 
-    override fun addMeal(meal: ListMeal) {
+    override fun getAllSavedMeals() {
         val subscription = listMealRepository
-            .insert(meal.idMeal.toString())
+            .getAllSavedMeals()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    savedMealState.value = SavedMealsState.Success(it)
+                },
+                {
+                    savedMealState.value = SavedMealsState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun getSavedMealByName(name: String) {
+
+        val subscription = publishSubject
+            .debounce(200, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
+            .switchMap {
+                listMealRepository
+                    .getAllSavedByName(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError {
+                        Timber.e("Error in publish subject")
+                        Timber.e(it)
+                    }
+            }
+            .subscribe(
+                {
+                    savedMealState.value = SavedMealsState.Success(it)
+                },
+                {
+                    savedMealState.value = SavedMealsState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+
+        subscriptions.add(subscription)
+    }
+
+    override fun addMeal(meal: Meal, whichMeal :String, date: Date){
+        val subscription = listMealRepository
+            .insert(meal, whichMeal, date)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    addDone.value = AddListMealState.Success
+                },
+                {
+                    addDone.value = AddListMealState.Error("Error happened while adding movie")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun updateMeal(meal: Meal, whichMeal: String, date: Date) {
+        val subscription = listMealRepository
+            .update(meal, whichMeal, date)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    addDone.value = AddListMealState.Success
+                },
+                {
+                    addDone.value = AddListMealState.Error("Error happened while adding movie")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun deleteMeal(id: String) {
+        val subscription = listMealRepository
+            .delete(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

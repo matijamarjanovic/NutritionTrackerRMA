@@ -10,7 +10,7 @@ import rs.raf.rma.nutritiontrackerrma.databinding.SingleMealItemBinding
 
 class SingleMealViewHolder(private val itemBinding: SingleMealItemBinding, private val context: Context) : RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(meal: Meal, onButtonClick: (String) -> Unit,) {
+    fun bind(meal: Meal, onButtonClick: (String) -> Unit) {
 
         val ingredients = ArrayList<String>().apply {
             meal.strIngredient1?.let { add(it) }
@@ -45,7 +45,17 @@ class SingleMealViewHolder(private val itemBinding: SingleMealItemBinding, priva
 
         for (s : String in ingredients){
             if(s != "")
-                itemBinding.ingredientsTextView.text = itemBinding.ingredientsTextView.text.toString() + ", " + s
+                itemBinding.ingredientsTextView.text = s  + ", " + itemBinding.ingredientsTextView.text.toString()
+        }
+
+        itemBinding.addBtn.setOnClickListener{
+            onButtonClick("add")
+        }
+        itemBinding.editBtn.setOnClickListener{
+            onButtonClick("edit")
+        }
+        itemBinding.deleteBtn.setOnClickListener{
+            onButtonClick("delete")
         }
 
         itemBinding.root.setOnClickListener{

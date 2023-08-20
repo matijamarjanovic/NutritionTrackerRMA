@@ -21,6 +21,11 @@ abstract class SavedMealDao {
     @Query("DELETE FROM savedMeals")
     abstract fun deleteAll()
 
+    @Query("DELETE FROM savedMeals WHERE idMeal = :id")
+    abstract fun delete(id: String): Completable
+    @Update
+    abstract fun update(entity: SavedMealEntity): Completable
+
     @Transaction
     open fun deleteAndInsertAll(entities: List<SavedMealEntity>) {
         deleteAll()

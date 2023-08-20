@@ -3,6 +3,7 @@
     <string name="homepage">Home Page</string>
     <string name="filter">Filter</string>
     <string name="meals">Meals</string>
+    <string name="savedMeals">Saved Meals</string>
     <string name="filterByKcal">Filter By Kcal</string>
     <string name="reset">Reset</string>
     <string name="api">API</string>
@@ -15,11 +16,19 @@
     <string name="desc">Sort Des</string>
     <string name="showRec">Show Recipe</string>
     <string name="add">Add</string>
+    <string name="save">Save</string>
     <string name="mealName">Meal name</string>
     <string name="instructions">Instructions</string>
     <string name="link">Video URL</string>
     <string name="tags">Tags</string>
     <string name="thumb">Thumbnail URL</string>
     <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="selDate">Select Date</string>
+    <string-array name="spinnerMeals">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
 </resources>

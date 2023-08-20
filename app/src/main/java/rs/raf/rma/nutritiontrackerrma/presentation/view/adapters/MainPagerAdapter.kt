@@ -27,7 +27,7 @@ class MainPagerAdapter(
         return when(position) {
             FRAGMENT_1 -> HomepageFragment()
             FRAGMENT_2 -> FilterFragment()
-            FRAGMENT_3 -> AddMealFragment()
+            FRAGMENT_3 -> ListMealFragment()
             FRAGMENT_4 -> MealPageFragment()
             else -> ListMealFragment()
         }
@@ -41,7 +41,7 @@ class MainPagerAdapter(
         return when(position) {
             FRAGMENT_1 -> context.getString(R.string.homepage)
             FRAGMENT_2 -> context.getString(R.string.filter)
-            FRAGMENT_3 -> context.getString(R.string.add)
+            FRAGMENT_3 -> context.getString(R.string.savedMeals)
             else -> context.getString(R.string.filter)
         }
     }

@@ -35,7 +35,7 @@
             android:layout_weight="1" />
 
         <!-- Little box for text (EditText) containing a number from 0 to 10,000 -->
-        <EditText
+        <TextView
             android:id="@+id/calorieTe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
