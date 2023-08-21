@@ -16,14 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.rma.nutritiontrackerrma.R
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.SavedMeal
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentListMealBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
-import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.AddMealAdapter
-import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.MealsAdapter
-import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.SavedMealsAdapter
-import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.SingleMealAdapter
+import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.*
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.SavedMealPageState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.SavedMealsState
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.MealsViewModel
 
@@ -40,11 +39,10 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
     private val binding get() = _binding!!
 
     private lateinit var adapter: SavedMealsAdapter
-    private lateinit var adapter2: SingleMealAdapter
-    private lateinit var adapter3: AddMealAdapter
-    private lateinit var adapter4: AddMealAdapter
+    private lateinit var adapter2: SingleSavedMealAdapter
+    private lateinit var adapter3: UpdateMealAdapter
 
-    private lateinit var meal : Meal
+    private lateinit var meal : SavedMeal
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,8 +75,7 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
         binding.listRv.layoutManager = LinearLayoutManager(context)
         adapter = SavedMealsAdapter{text ->
 
-            mealsViewModel.getSingleMeal(text)
-            mealsViewModel.fetchAllMealsByArea(meal.strArea)
+            mealsViewModel.getSavedMealByName(text)
 
             binding.searchBar.visibility = View.GONE
             binding.backButton.visibility = View.VISIBLE
@@ -86,11 +83,9 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
             binding.listRv.adapter = adapter2
 
         }
-        adapter2 = SingleMealAdapter { text ->
+        adapter2 = SingleSavedMealAdapter { text ->
 
-            if(text == "add"){
-                showDialogue("Meal is already saved in the database.")
-            }else if(text == "edit"){
+             if(text == "edit"){
                binding.listRv.adapter = adapter3
             }else if(text == "delete"){
                 mealsViewModel.deleteMeal(meal.idMeal.toString())
@@ -99,7 +94,7 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
             }else
                 showDialogue(text)
         }
-        adapter3 = AddMealAdapter{ meal, text, date ->
+        adapter3 = UpdateMealAdapter(){ meal, text, date ->
 
             if (text == "cancel"){
                 binding.listRv.adapter = adapter2
@@ -134,7 +129,7 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
             renderState(it)
         })
 
-        mealsViewModel.mealsState2.observe(viewLifecycleOwner, Observer {
+        mealsViewModel.savedMealState2.observe(viewLifecycleOwner, Observer {
             Timber.e(it.toString())
             renderState2(it)
         })
@@ -162,24 +157,24 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
         }
     }
 
-    private fun renderState2(state: MealPageState) {
+    private fun renderState2(state: SavedMealPageState) {
 
         when (state) {
-            is MealPageState.Success -> {
+            is SavedMealPageState.Success -> {
                 showLoadingState(false)
                 meal = state.meals
                 adapter2.submitList(state.mealss)
                 adapter3.submitList(state.mealss)
             }
-            is MealPageState.Error -> {
+            is SavedMealPageState.Error -> {
                 showLoadingState(false)
                 Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
             }
-            is MealPageState.DataFetched -> {
+            is SavedMealPageState.DataFetched -> {
                 showLoadingState(false)
                 //Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
             }
-            is MealPageState.Loading -> {
+            is SavedMealPageState.Loading -> {
                 showLoadingState(true)
             }
         }
