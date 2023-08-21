@@ -51,12 +51,6 @@ class SingleMealViewHolder(private val itemBinding: SingleMealItemBinding, priva
         itemBinding.addBtn.setOnClickListener{
             onButtonClick("add")
         }
-        itemBinding.editBtn.setOnClickListener{
-            onButtonClick("edit")
-        }
-        itemBinding.deleteBtn.setOnClickListener{
-            onButtonClick("delete")
-        }
 
         itemBinding.root.setOnClickListener{
         }

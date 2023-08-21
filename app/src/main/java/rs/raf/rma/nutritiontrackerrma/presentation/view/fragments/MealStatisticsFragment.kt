@@ -26,6 +26,7 @@ import rs.raf.rma.nutritiontrackerrma.data.models.categories.Category
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentHomepageBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.CategoryContract
+import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealStatisticsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.CategoryAdapter
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.MealsAdapter
@@ -35,11 +36,13 @@ import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.CategoryViewModel
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.MealsViewModel
+import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.StatisticsViewModel
 import timber.log.Timber
 
 class MealStatisticsFragment() : Fragment(R.layout.fragment_meal_statistics) {
 
     private lateinit var barChart: BarChart
+    private val statisticViewModel: MealStatisticsContract.ViewModel by sharedViewModel<StatisticsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

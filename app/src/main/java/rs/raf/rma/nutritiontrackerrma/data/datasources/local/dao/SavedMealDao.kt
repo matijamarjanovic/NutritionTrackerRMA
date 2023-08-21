@@ -3,6 +3,7 @@ package rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao
 import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.ListMealEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.SavedMealEntity
 
@@ -35,4 +36,6 @@ abstract class SavedMealDao {
     @Query("SELECT * FROM savedMeals WHERE strMeal LIKE :name || '%'")
     abstract fun getByName(name: String): Observable<List<SavedMealEntity>>
 
+    @Query("SELECT COUNT(*) FROM savedMeals WHERE date = :date")
+    abstract fun getMealsInDay(date: String): Int
 }

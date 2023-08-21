@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private lateinit var sharedPreferencesManager: SharedPreferencesManager
     private lateinit var binding: ActivityLoginBinding
-
+    private lateinit var a:LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
