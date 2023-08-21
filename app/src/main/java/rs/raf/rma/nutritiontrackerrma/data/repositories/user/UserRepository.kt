@@ -12,8 +12,7 @@ import rs.raf.rma.nutritiontrackerrma.data.models.user.User
 
 interface UserRepository {
 
-    fun insert(user: UserEntity): Completable
-
-    fun getUser(username : String,password : String) : Observable<List<User>>
+    fun insert(user: User): Completable
+    fun getUser(username : String,password : String) : User
 
 }

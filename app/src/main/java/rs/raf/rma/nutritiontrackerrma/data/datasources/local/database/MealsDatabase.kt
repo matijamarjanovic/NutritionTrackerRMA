@@ -15,7 +15,7 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.SavedMealEnt
 
 @Database(
     entities = [CategoryEntity::class, ListMealEntity::class, FilterEntity::class, SavedMealEntity::class],
-    version = 11,
+    version = 9,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)

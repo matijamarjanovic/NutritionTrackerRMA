@@ -18,7 +18,7 @@ abstract class UserDao {
     abstract fun getAll(): Observable<List<CategoryEntity>>
 
     @Query("SELECT * FROM users WHERE username = :username AND password = :password")
-    abstract fun getUserByUsernameAndPassword(username: String, password: String): Observable<List<User>>
+    abstract fun getUserByUsernameAndPassword(username: String, password: String): User
 
     @Insert( onConflict = OnConflictStrategy.REPLACE )
     abstract fun insert(entities: UserEntity): Completable

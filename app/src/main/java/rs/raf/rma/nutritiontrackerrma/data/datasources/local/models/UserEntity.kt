@@ -8,6 +8,5 @@ import rs.raf.rma.nutritiontrackerrma.data.models.meals.singleMeals.SingleMealRe
 data class UserEntity(
     @PrimaryKey
     var username: String,
-    var password: String,
-    var mealsList: ArrayList<String>
-    )
+    var password: String
+)

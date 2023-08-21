@@ -28,7 +28,7 @@ class MainPagerAdapter(
             FRAGMENT_1 -> HomepageFragment()
             FRAGMENT_2 -> FilterFragment()
             FRAGMENT_3 -> ListMealFragment()
-            FRAGMENT_4 -> MealPageFragment()
+            FRAGMENT_4 -> MealStatisticsFragment()
             else -> ListMealFragment()
         }
     }

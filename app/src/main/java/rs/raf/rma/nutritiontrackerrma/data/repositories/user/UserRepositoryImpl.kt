@@ -27,20 +27,15 @@ import timber.log.Timber
 class UserRepositoryImpl(
     private val localDataSource: UserDao,
 ) : UserRepository {
-    override fun insert(user: UserEntity): Completable {
-        return localDataSource.insert(user)
-        Resource.Success(Unit)
+    override fun insert(user: User): Completable {
+        val userEntity=UserEntity(user.username,user.password)
+        return localDataSource.insert(userEntity)
     }
 
 
-
-    override fun getUser(username: String, password: String): Observable<List<User>> {
+    override fun getUser(username: String, password: String):User {
             return localDataSource
                 .getUserByUsernameAndPassword(username,password)
-                .map {
-                    it.map {
-                        User(it.username, it.password,it.mealList)
-                    }
-                }
+
     }
 }
