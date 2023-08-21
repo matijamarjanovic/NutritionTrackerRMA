@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.SavedMeal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.databinding.LayoutItemMealBinding
+import rs.raf.rma.nutritiontrackerrma.databinding.SavedMealItemBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.diff.MealsDiffCallback
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.diff.SavedMealsDiffCallback
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.viewholder.MealsViewHolder
@@ -16,7 +17,7 @@ class SavedMealsAdapter(private val onButtonClick: (String) -> Unit) : ListAdapt
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedMealsViewHolder {
-        val itemBinding = LayoutItemMealBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = SavedMealItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SavedMealsViewHolder(itemBinding, parent.context)
     }
 

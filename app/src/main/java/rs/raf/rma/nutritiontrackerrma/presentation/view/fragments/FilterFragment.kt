@@ -113,10 +113,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         adapter3 = SingleMealAdapter { text ->
             if(text == "add"){
                 binding.listRv.adapter = adapter4
-            }else if(text == "edit"){
-                showDialogue("You can only edit meals that are already saved. Please navigate to Saved Meals menu.")
-            }else if(text == "delete"){
-                showDialogue("You can only delete meals that are already saved. Please navigate to Saved Meals menu.")
             }else
                 showDialogue(text)
         }

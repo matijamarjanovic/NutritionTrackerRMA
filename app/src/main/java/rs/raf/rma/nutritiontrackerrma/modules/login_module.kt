@@ -19,6 +19,6 @@ val loginModule = module {
 
     single <UserRepository> { UserRepositoryImpl( localDataSource = get()) }
 
-    single { get<MealsDatabase>().getUsersDao() }
+    single { get<MealsDatabase>().getUserDao() }
 
 }

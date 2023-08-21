@@ -3,10 +3,7 @@ package rs.raf.rma.nutritiontrackerrma.data.datasources.local.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.CategoryDao
-import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.FilterDao
-import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.ListMealDao
-import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.SavedMealDao
+import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.*
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.database.convreters.DateConverter
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.CategoryEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.FilterEntity
@@ -24,5 +21,7 @@ abstract class MealsDatabase : RoomDatabase() {
     abstract fun getListMealDao() : ListMealDao
     abstract fun getFilterDao() : FilterDao
     abstract fun getSavedMealDao(): SavedMealDao
+
+    abstract fun getUserDao(): UserDao
 
 }

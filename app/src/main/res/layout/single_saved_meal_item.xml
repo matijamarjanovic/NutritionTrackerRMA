@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/videoLinkTextView"
+            app:layout_constraintTop_toBottomOf="@id/whichMealTv"
             android:text="@string/showRec"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
@@ -77,19 +77,26 @@
             android:layout_marginEnd="4dp">
 
             <Button
-                android:id="@+id/addBtn"
+                android:id="@+id/editBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@string/save"
+                android:text="@string/edit"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                />
+            <Button
+                android:id="@+id/deleteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/delete"
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 />
         </LinearLayout>
-
-
-
 
 
         <!-- Ingredients -->
@@ -99,6 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textSize="18sp"
+            android:text="ingredients"
             android:textColor="@android:color/black"
             app:layout_constraintTop_toBottomOf="@id/areaTextView"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,9 +120,34 @@
             android:layout_height="wrap_content"
             android:autoLink="web"
             android:textSize="16sp"
+            android:text="link"
             app:layout_constraintTop_toBottomOf="@id/ingredientsTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/border_bottom" />
+
+        <TextView
+            android:id="@+id/dateTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:textSize="16sp"
+            android:text="date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/videoLinkTextView"
+            android:background="@drawable/border_bottom" />
+
+        <TextView
+            android:id="@+id/whichMealTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:textSize="16sp"
+            android:text="whichmeal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateTv"
             android:background="@drawable/border_bottom" />
 
         <ProgressBar
