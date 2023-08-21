@@ -1,11 +1,18 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.viewholder
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
+import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
+import android.widget.TextView
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import rs.raf.rma.nutritiontrackerrma.R
@@ -15,6 +22,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class UpdateMealViewHolder (private val itemBinding: UpdateMealItemBinding, private val context: Context) : RecyclerView.ViewHolder(itemBinding.root) {
+
+    private val REQUEST_IMAGE_CAPTURE = 1
 
     fun bind(meal: SavedMeal, onButtonClick: (SavedMeal, String, Date) -> Unit) {
 
@@ -48,6 +57,7 @@ class UpdateMealViewHolder (private val itemBinding: UpdateMealItemBinding, priv
         itemBinding.selectDateBtn.text = dateString
         var selectedDate = dateFormat.parse(itemBinding.selectDateBtn.text.toString())
 
+
         itemBinding.addBtn.setOnClickListener{
             selectedDate = dateFormat.parse(itemBinding.selectDateBtn.text.toString())
             onButtonClick(meal, spinnerSelected, selectedDate)
@@ -64,6 +74,21 @@ class UpdateMealViewHolder (private val itemBinding: UpdateMealItemBinding, priv
         itemBinding.selectDateBtn.setOnClickListener{
             showDatePickerDialog(itemBinding, context)
             selectedDate = dateFormat.parse(itemBinding.selectDateBtn.text.toString())
+        }
+
+        itemBinding.mealImageView.setOnClickListener {
+ /*           val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (takePictureIntent.resolveActivity(context.packageManager) != null) {
+                startActivityForResult(
+                    context as Activity,
+                    takePictureIntent,
+                    REQUEST_IMAGE_CAPTURE,
+                    null
+                )
+            }
+*/
+            showDialogue("CAMERA")
+
         }
 
         Glide
@@ -92,4 +117,24 @@ class UpdateMealViewHolder (private val itemBinding: UpdateMealItemBinding, priv
         datePickerDialog.show()
     }
 
+    private fun showDialogue(text: String) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_layout, null)
+        val dialogEditText: TextView = dialogView.findViewById(R.id.dialogEditText)
+
+        // Set the title and text in the dialog
+        dialogEditText.text = text
+        dialogEditText.isFocusable = false
+        dialogEditText.isClickable = false
+        dialogEditText.isLongClickable = false
+
+        val dialogBuilder = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setPositiveButton("OK") { dialog, _ ->
+                // Handle the OK button click if needed
+                dialog.dismiss()
+            }
+
+        val dialog = dialogBuilder.create()
+        dialog.show()
+    }
 }

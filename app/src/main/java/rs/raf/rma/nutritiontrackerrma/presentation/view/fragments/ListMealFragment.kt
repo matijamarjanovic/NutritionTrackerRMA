@@ -97,12 +97,14 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 showDialogue(text)
 
         }
-        adapter3 = UpdateMealAdapter{ meal, text, date ->
+        adapter3 = UpdateMealAdapter { meal, text, date ->
 
-            if (text == "cancel"){
+            if (text == "cancel") {
                 binding.listRv.adapter = adapter2
-            }else if(text.contains("nothingSelected")){
+            } else if (text.contains("nothingSelected")) {
                 showDialogue("Nothing is selected in the drop down menu.")
+            }else if(text=="ph"){
+
             }else{
                 mealsViewModel.updateMeal(meal, text, date)
                 showDialogue("Meal successfully updated.")
