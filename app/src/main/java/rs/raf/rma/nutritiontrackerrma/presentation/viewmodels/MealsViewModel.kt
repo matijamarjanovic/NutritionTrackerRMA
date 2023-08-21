@@ -1,5 +1,6 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -9,13 +10,11 @@ import io.reactivex.subjects.PublishSubject
 import rs.raf.rma.nutritiontrackerrma.data.models.ListMealResource
 import rs.raf.rma.nutritiontrackerrma.data.models.Resource
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.SavedMeal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.data.repositories.meal.ListMealRepository
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.AddListMealState
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.SavedMealsState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.*
 
 import timber.log.Timber
 import java.util.*
@@ -24,13 +23,14 @@ import kotlin.collections.ArrayList
 
 class MealsViewModel(
     private val listMealRepository : ListMealRepository,
+
 ) : ViewModel(), MealsContract.ViewModel {
 
     private val subscriptions = CompositeDisposable()
-    //    override val moviesState: MutableLiveData<MoviesState> = MutableLiveData()
     override val mealsState: MutableLiveData<MealsState> = MutableLiveData()
     override val mealsState2: MutableLiveData<MealPageState> = MutableLiveData()
     override val savedMealState : MutableLiveData<SavedMealsState> = MutableLiveData()
+    override val savedMealState2: MutableLiveData<SavedMealPageState> = MutableLiveData()
 
     override val addDone: MutableLiveData<AddListMealState> = MutableLiveData()
 
@@ -238,7 +238,7 @@ class MealsViewModel(
         subscriptions.add(subscription)
     }
 
-    override fun updateMeal(meal: Meal, whichMeal: String, date: Date) {
+    override fun updateMeal(meal: SavedMeal, whichMeal: String, date: Date) {
         val subscription = listMealRepository
             .update(meal, whichMeal, date)
             .subscribeOn(Schedulers.io())

@@ -2,6 +2,7 @@ package rs.raf.rma.nutritiontrackerrma.presentation.contracts
 
 import androidx.lifecycle.LiveData
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.SavedMeal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.*
 import java.util.Date
@@ -26,7 +27,7 @@ interface MealsContract {
         fun getAllSavedMeals()
         fun getSavedMealByName(name: String)
         fun addMeal(meal: Meal, whichMeal : String, date : Date)
-        fun updateMeal(meal: Meal, whichMeal : String, date : Date)
+        fun updateMeal(meal: SavedMeal, whichMeal : String, date : Date)
 
         fun deleteMeal(id : String)
 

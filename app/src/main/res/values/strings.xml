@@ -31,4 +31,5 @@
         <item>Lunch</item>
         <item>Dinner</item>
     </string-array>
+    <string name="update">Update</string>
 </resources>

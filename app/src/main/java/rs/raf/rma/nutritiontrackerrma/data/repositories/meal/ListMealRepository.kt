@@ -19,7 +19,7 @@ interface ListMealRepository {
     fun getAllSavedMeals(): Observable<List<SavedMeal>>
     fun getAllSavedByName(name: String): Observable<List<SavedMeal>>
     fun insert(meal: Meal, whichMeal :String, date: Date): Completable
-    fun update(meal: Meal, whichMeal :String, date: Date): Completable
+    fun update(meal: SavedMeal, whichMeal :String, date: Date): Completable
     fun delete(id :String): Completable
     fun getSingleMeal(mealId : String) : Observable<Meal>
     fun getCalories(list:String):Int

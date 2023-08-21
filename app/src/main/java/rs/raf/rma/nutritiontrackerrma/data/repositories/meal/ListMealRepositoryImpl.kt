@@ -443,7 +443,7 @@ class ListMealRepositoryImpl(
 
     }
 
-    override fun update(meal: Meal, whichMeal: String, date: Date): Completable {
+    override fun update(meal: SavedMeal, whichMeal: String, date: Date): Completable {
 
         val savedMeal = SavedMealEntity(
             meal.idMeal,
@@ -455,7 +455,7 @@ class ListMealRepositoryImpl(
             meal.strYoutube,
             date,
             whichMeal,
-            0.0,
+            meal.calories,
             "user",
 
             meal.strIngredient1, meal.strIngredient2, meal.strIngredient3, meal.strIngredient4, meal.strIngredient5,
