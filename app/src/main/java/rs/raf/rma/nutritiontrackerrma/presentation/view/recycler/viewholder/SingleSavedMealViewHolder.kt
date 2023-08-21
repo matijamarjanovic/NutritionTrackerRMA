@@ -6,6 +6,9 @@ import com.bumptech.glide.Glide
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.SavedMeal
 import rs.raf.rma.nutritiontrackerrma.databinding.SingleSavedMealItemBinding
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SingleSavedMealViewHolder (private val itemBinding: SingleSavedMealItemBinding, private val context: Context) : RecyclerView.ViewHolder(itemBinding.root) {
 
@@ -34,9 +37,13 @@ class SingleSavedMealViewHolder (private val itemBinding: SingleSavedMealItemBin
             meal.strIngredient20?.let { add(it) }
         }
 
+        var dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
         itemBinding.mealNameTextView.text = meal.strMeal
         itemBinding.videoLinkTextView.text = meal.strYoutube
         itemBinding.areaTextView.text = meal.strArea
+        itemBinding.whichMealTv.text = meal.whichMeal
+        itemBinding.dateTv.text = dateFormat.format(meal.date)
 
         itemBinding.btn.setOnClickListener {
             meal.strInstructions?.let { it1 -> onButtonClick(it1) }

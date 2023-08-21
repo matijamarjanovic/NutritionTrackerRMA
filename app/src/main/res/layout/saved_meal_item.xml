@@ -16,11 +16,13 @@
         <ImageView
             android:id="@+id/imageview"
             android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -54,37 +56,24 @@
                     android:layout_marginLeft="15dp"
                     android:text="date"
                     android:textSize="10sp"/>
-
             </LinearLayout>
-
         </LinearLayout>
 
-
-
-        <!-- Spacer to push the numberEditText to the far right -->
+        <!-- Spacer to push the calorieTe to the far right -->
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/calorieTe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/calorieTe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="15sp"/>
-
-        </LinearLayout>
-
-
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="15dp"
+            android:text="0"
+            android:textSize="15sp" />
 
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>

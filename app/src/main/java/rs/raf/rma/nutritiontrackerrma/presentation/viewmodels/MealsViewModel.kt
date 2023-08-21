@@ -183,7 +183,30 @@ class MealsViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
+                    var list :  ArrayList<SavedMeal> = ArrayList(it)
+
                     savedMealState.value = SavedMealsState.Success(it)
+                    savedMealState2.value = SavedMealPageState.Success(it[0], it)
+                },
+                {
+                    savedMealState.value = SavedMealsState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun getSingleSavedMeal(mealName: String) {
+        val subscription = listMealRepository
+            .getSingleSavedMeal(mealName)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    var list :  ArrayList<SavedMeal> = ArrayList(it)
+
+                    savedMealState.value = SavedMealsState.Success(it)
+                    savedMealState2.value = SavedMealPageState.Success(it[0], it)
                 },
                 {
                     savedMealState.value = SavedMealsState.Error("Error happened while fetching data from db")
@@ -210,7 +233,10 @@ class MealsViewModel(
             }
             .subscribe(
                 {
+                    var list :  ArrayList<SavedMeal> = ArrayList(it)
+
                     savedMealState.value = SavedMealsState.Success(it)
+                    savedMealState2.value = SavedMealPageState.Success(it[0], it)
                 },
                 {
                     savedMealState.value = SavedMealsState.Error("Error happened while fetching data from db")

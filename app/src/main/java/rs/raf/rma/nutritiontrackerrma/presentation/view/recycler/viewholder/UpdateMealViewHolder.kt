@@ -9,9 +9,7 @@ import android.widget.DatePicker
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import rs.raf.rma.nutritiontrackerrma.R
-import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.SavedMeal
-import rs.raf.rma.nutritiontrackerrma.databinding.AddMealItemBinding
 import rs.raf.rma.nutritiontrackerrma.databinding.UpdateMealItemBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,12 +44,12 @@ class UpdateMealViewHolder (private val itemBinding: UpdateMealItemBinding, priv
         itemBinding.mealNameTextView.text = meal.strMeal
 
         var dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val currDate = Date()
-        val currDateString = dateFormat.format(currDate)
-        itemBinding.selectDateBtn.text = currDateString
+        val dateString = dateFormat.format(meal.date)
+        itemBinding.selectDateBtn.text = dateString
         var selectedDate = dateFormat.parse(itemBinding.selectDateBtn.text.toString())
 
         itemBinding.addBtn.setOnClickListener{
+            selectedDate = dateFormat.parse(itemBinding.selectDateBtn.text.toString())
             onButtonClick(meal, spinnerSelected, selectedDate)
         }
 

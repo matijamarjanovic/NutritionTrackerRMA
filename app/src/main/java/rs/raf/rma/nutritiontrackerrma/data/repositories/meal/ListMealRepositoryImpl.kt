@@ -226,6 +226,40 @@ class ListMealRepositoryImpl(
             }
     }
 
+    override fun getSingleSavedMeal(mealName: String): Observable<List<SavedMeal>> {
+        return localDataSourceSaved
+            .getByName(mealName)
+            .map { response ->
+                var savedMeals = response.map {
+                    SavedMeal(
+                        it.idMeal,
+                        it.strMeal,
+                        it.strCategory,
+                        it.strArea,
+                        it.strInstructions,
+                        it.strMealThumb,
+                        it.strYoutube,
+                        it.date,
+                        it.whichMeal,
+                        it.calories,
+                        it.user,
+
+                        it.strIngredient1, it.strIngredient2, it.strIngredient3, it.strIngredient4, it.strIngredient5,
+                        it.strIngredient6, it.strIngredient7, it.strIngredient8, it.strIngredient9, it.strIngredient10,
+                        it.strIngredient11, it.strIngredient12, it.strIngredient13, it.strIngredient14, it.strIngredient15,
+                        it.strIngredient16, it.strIngredient17, it.strIngredient18, it.strIngredient19, it.strIngredient20,
+
+                        it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
+                        it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
+                        it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
+                        it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                    )
+                    }
+                savedMeals
+                }
+
+    }
+
     override fun getAllMeals(): Observable<List<ListMeal>> {
         return localDataSource
             .getAll()

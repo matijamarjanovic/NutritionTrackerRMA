@@ -51,6 +51,7 @@ class AddMealViewHolder (private val itemBinding: AddMealItemBinding, private va
         var selectedDate = dateFormat.parse(itemBinding.selectDateBtn.text.toString())
 
         itemBinding.addBtn.setOnClickListener{
+            selectedDate = dateFormat.parse(itemBinding.selectDateBtn.text.toString())
             onButtonClick(meal, spinnerSelected, selectedDate)
         }
 

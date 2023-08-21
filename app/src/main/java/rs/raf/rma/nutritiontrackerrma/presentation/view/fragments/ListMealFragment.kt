@@ -75,15 +75,15 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
         binding.listRv.layoutManager = LinearLayoutManager(context)
         adapter = SavedMealsAdapter{text ->
 
-            mealsViewModel.getSavedMealByName(text)
+            mealsViewModel.getSingleSavedMeal(text)
 
             binding.searchBar.visibility = View.GONE
             binding.backButton.visibility = View.VISIBLE
 
             binding.listRv.adapter = adapter2
-
         }
         adapter2 = SingleSavedMealAdapter { text ->
+
 
              if(text == "edit"){
                binding.listRv.adapter = adapter3
@@ -91,10 +91,13 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 mealsViewModel.deleteMeal(meal.idMeal.toString())
                 showDialogue("Meal successfully deleted from the database.")
                 binding.listRv.adapter = adapter
+                binding.backButton.visibility = View.GONE
+                mealsViewModel.getAllSavedMeals()
             }else
                 showDialogue(text)
+
         }
-        adapter3 = UpdateMealAdapter(){ meal, text, date ->
+        adapter3 = UpdateMealAdapter{ meal, text, date ->
 
             if (text == "cancel"){
                 binding.listRv.adapter = adapter2
@@ -102,7 +105,14 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 showDialogue("Nothing is selected in the drop down menu.")
             }else{
                 mealsViewModel.updateMeal(meal, text, date)
+                showDialogue("Meal successfully updated.")
+                binding.listRv.adapter = adapter
+                binding.backButton.visibility = View.GONE
+                binding.searchBar.visibility = View.VISIBLE
+
+                mealsViewModel.getAllSavedMeals()
             }
+
         }
 
         binding.listRv.adapter = adapter
@@ -116,13 +126,20 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
         }
 
         binding.backButton.setOnClickListener{
+            if (binding.listRv.adapter == adapter2){
                 binding.listRv.adapter = adapter
                 binding.backButton.visibility = View.GONE
+                binding.searchBar.visibility = View.VISIBLE
+
+                mealsViewModel.getAllSavedMeals()
+
+            }else if(binding.listRv.adapter == adapter3){
+                binding.listRv.adapter = adapter2
+            }
         }
     }
 
     private fun initObservers() {
-
 
         mealsViewModel.savedMealState.observe(viewLifecycleOwner, Observer {
             Timber.e(it.toString())
@@ -165,6 +182,7 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 meal = state.meals
                 adapter2.submitList(state.mealss)
                 adapter3.submitList(state.mealss)
+
             }
             is SavedMealPageState.Error -> {
                 showLoadingState(false)

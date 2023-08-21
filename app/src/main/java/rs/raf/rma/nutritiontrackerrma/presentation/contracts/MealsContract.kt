@@ -28,6 +28,7 @@ interface MealsContract {
         fun getSavedMealByName(name: String)
         fun addMeal(meal: Meal, whichMeal : String, date : Date)
         fun updateMeal(meal: SavedMeal, whichMeal : String, date : Date)
+        fun getSingleSavedMeal(mealName: String)
 
         fun deleteMeal(id : String)
 
