@@ -45,12 +45,12 @@
         android:id="@+id/listRv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:clipToPadding="false"
         android:paddingTop="16dp"
-        android:clipToPadding="false"/>
+        app:layout_constraintBottom_toTopOf="@+id/pageBackBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchLayout" />
 
     <ProgressBar
         android:id="@+id/loadingPb"
@@ -61,5 +61,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"/>
+    <Button
+        android:id="@+id/pageBackBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pageForwardBtn"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/pageForwardBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Forward"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pageBackBtn"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

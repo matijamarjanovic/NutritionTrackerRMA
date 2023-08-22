@@ -15,6 +15,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.rma.nutritiontrackerrma.R
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentMealStatisticsBinding
@@ -89,6 +90,8 @@ class MealStatisticsFragment() : Fragment(R.layout.fragment_meal_statistics) {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
 
+        val dayNames = generateDayNamesList()
+        xAxis.valueFormatter = IndexAxisValueFormatter(dayNames)
         //println("AS"+day)
 
         val generateDate =generateDateList()
@@ -155,5 +158,25 @@ class MealStatisticsFragment() : Fragment(R.layout.fragment_meal_statistics) {
         dateList.reverse()
 
         return dateList
+    }
+    fun generateDayNamesList(): List<String> {
+        val dayNames = arrayOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
+        val calendar = Calendar.getInstance()
+
+        val dayNameList = ArrayList<String>()
+
+        // Add the current day's name
+        dayNameList.add(dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1])
+
+        // Add the previous 6 days' names
+        for (i in 1 until 7) {
+            calendar.add(Calendar.DAY_OF_YEAR, -1)
+            dayNameList.add(dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1])
+        }
+
+        // Reverse the list so that it starts with the oldest day name
+        dayNameList.reverse()
+
+        return dayNameList
     }
 }

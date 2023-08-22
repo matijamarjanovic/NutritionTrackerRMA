@@ -16,6 +16,9 @@ abstract class CategoryDao {
     @Query("SELECT * FROM categories")
     abstract fun getAll(): Observable<List<CategoryEntity>>
 
+    @Query("SELECT * FROM categories LIMIT :pageSize OFFSET :pageNumber * :pageSize")
+    abstract fun getCategoriesByPage(pageNumber: Int, pageSize: Int): Observable<List<CategoryEntity>>
+
     @Query("SELECT * FROM categories WHERE name LIKE :name || '%'")
     abstract fun getByName(name: String): Observable<List<CategoryEntity>>
 

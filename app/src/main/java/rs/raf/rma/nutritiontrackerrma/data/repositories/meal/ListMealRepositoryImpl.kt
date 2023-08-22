@@ -41,40 +41,7 @@ class ListMealRepositoryImpl(
             val resultList = mutableListOf<SimpleMeal>()
 
             val entities = meals.map { meal ->
-                var upit=""
-                    remoteDataSource
-                        .singleMeal(meal.idMeal.toString())
-                        .map { response->
-                                    val singleMeal=response.meals
-                                    val pom=singleMeal.map {
-                                        Meal(
-                                            it.idMeal,
-                                            it.strMeal,
-                                            it.strCategory,
-                                            it.strArea,
-                                            it.strInstructions,
-                                            it.strMealThumb,
-                                            it.strTags,
-                                            it.strYoutube,
-
-                                            it.strIngredient1, it.strIngredient2, it.strIngredient3, it.strIngredient4, it.strIngredient5,
-                                            it.strIngredient6, it.strIngredient7, it.strIngredient8, it.strIngredient9, it.strIngredient10,
-                                            it.strIngredient11, it.strIngredient12, it.strIngredient13, it.strIngredient14, it.strIngredient15,
-                                            it.strIngredient16, it.strIngredient17, it.strIngredient18, it.strIngredient19, it.strIngredient20,
-
-                                            it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
-                                            it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
-                                            it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
-                                            it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
-                                        )
-                                    }
-                                    upit =""+pom[0].strMeasure1+" "+pom[0].strIngredient1+" and "+pom[0].strMeasure2+" "+pom[0].strIngredient2+" and "+pom[0].strMeasure3+" "+pom[0].strIngredient3+" and "+pom[0].strMeasure4+" "+pom[0].strIngredient4+" and "+
-                                    pom[0].strMeasure5+" "+pom[0].strIngredient5+" and "+pom[0].strMeasure6+" "+pom[0].strIngredient6+" and "+pom[0].strMeasure7+" "+pom[0].strIngredient7+" and "+pom[0].strMeasure8+" "+pom[0].strIngredient8+" and "+
-                                    pom[0].strMeasure9+" "+pom[0].strIngredient9+" and "+pom[0].strMeasure10+" "+pom[0].strIngredient10+" and "+pom[0].strMeasure11+" "+pom[0].strIngredient11+" and "+pom[0].strMeasure12+" "+pom[0].strIngredient12+" and "+
-                                    pom[0].strMeasure13+" "+pom[0].strIngredient13+" and "+pom[0].strMeasure14+" "+pom[0].strIngredient14+" and "+pom[0].strMeasure15+" "+pom[0].strIngredient15+" and "+pom[0].strMeasure16+" "+pom[0].strIngredient16+" and "+
-                                    pom[0].strMeasure17+" "+pom[0].strIngredient17+" and "+pom[0].strMeasure18+" "+pom[0].strIngredient18+" and "+pom[0].strMeasure19+" "+pom[0].strIngredient19+" and "+pom[0].strMeasure20+" "+pom[0].strIngredient20
-                        }
-
+                
                 getCalories("1lb brisket and fries")
                     .subscribe({ totalCalories ->
                         println("11111111Total Calories: $totalCalories")

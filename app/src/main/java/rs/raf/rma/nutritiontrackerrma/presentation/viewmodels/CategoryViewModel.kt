@@ -93,6 +93,23 @@ class CategoryViewModel(
         subscriptions.add(subscription)
     }
 
+    override fun getAllCategoriesByPage(pageNumber: Int, itemNumber: Int) {
+        val subscription = categoryRepository
+            .getAllByPage(pageNumber,itemNumber)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    categoryState.value = CategoryState.Success(it)
+                },
+                {
+                    categoryState.value = CategoryState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
     override fun onCleared() {
         super.onCleared()
         subscriptions.dispose()

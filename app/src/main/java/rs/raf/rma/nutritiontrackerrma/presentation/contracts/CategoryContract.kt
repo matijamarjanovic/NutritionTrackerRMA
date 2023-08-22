@@ -10,6 +10,7 @@ interface CategoryContract {
         val categoryState : LiveData<CategoryState>
         fun fetchAllCategories()
         fun getAllCategories()
+        fun getAllCategoriesByPage(pageNumber:Int,itemNumber:Int)
         fun getCategoryByName(name: String)
 
     }

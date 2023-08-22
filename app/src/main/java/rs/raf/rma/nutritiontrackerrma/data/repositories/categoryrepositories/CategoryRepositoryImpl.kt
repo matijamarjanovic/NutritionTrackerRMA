@@ -68,6 +68,15 @@ class CategoryRepositoryImpl (
             }
     }
 
+    override fun getAllByPage(pageNumber: Int, pageSize: Int): Observable<List<Category>> {
+        return localDataSource
+            .getCategoriesByPage(pageNumber,pageSize)
+            .map {
+                it.map {
+                    Category((it.id).toInt(),it.name, it.thumb, it.desc)
+                }
+            }    }
+
     override fun getAllByName(name: String): Observable<List<Category>> {
         return localDataSource
             .getByName(name)

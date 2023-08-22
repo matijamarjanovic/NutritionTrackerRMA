@@ -54,6 +54,9 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
 
     private var meal : Meal? = null
 
+    private var curentPage=0
+    private var itemsPerPage=8
+    private var max=1;
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,11 +90,11 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
             if (text.length < 30) {
                 binding.listRv.adapter = adapter2
                 binding.backButton.visibility = View.VISIBLE
+                binding.pageBackBtn.visibility = View.GONE
+                binding.pageForwardBtn.visibility = View.GONE
 
                 mealsViewModel.getAllMeals()
                 mealsViewModel.fetchAllMealsByCategory(text)
-
-                test(meals)
 
             } else
                 showDialogue(text)
@@ -101,6 +104,8 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
         adapter2 = MealsAdapter{text ->
 
             mealsViewModel.getSingleMeal(text)
+            binding.pageBackBtn.visibility = View.GONE
+            binding.pageForwardBtn.visibility = View.GONE
 
             binding.searchBar.isEnabled = false
             binding.backButton.visibility = View.VISIBLE
@@ -115,6 +120,8 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
         }
 
         adapter3 = SingleMealAdapter { text ->
+            binding.pageBackBtn.visibility = View.GONE
+            binding.pageForwardBtn.visibility = View.GONE
             if(text == "add"){
                 binding.listRv.adapter = adapter4
             }else
@@ -122,7 +129,8 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
         }
 
         adapter4 = AddMealAdapter { meal, text, date ->
-
+            binding.pageBackBtn.visibility = View.GONE
+            binding.pageForwardBtn.visibility = View.GONE
             if (text == "cancel"){
                 binding.listRv.adapter = adapter3
             }else if(text.contains("nothingSelected")){
@@ -138,7 +146,7 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
 
     private fun initListeners() {
         
-            binding.searchBar.doAfterTextChanged { it1 ->
+        binding.searchBar.doAfterTextChanged { it1 ->
                 val filter = it1.toString()
                 categoryViewModel.getCategoryByName(filter)
                 
@@ -151,10 +159,12 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
             }
 
         binding.backButton.setOnClickListener{
+
             if (binding.listRv.adapter == adapter2){
                 binding.listRv.adapter = adapter
                 binding.backButton.visibility = View.GONE
-
+                binding.pageBackBtn.visibility = View.VISIBLE
+                binding.pageForwardBtn.visibility = View.VISIBLE
                 binding.searchBar.doAfterTextChanged {
                     val filter = it.toString()
                     categoryViewModel.getCategoryByName(filter)
@@ -168,6 +178,22 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
                 binding.listRv.adapter = adapter3
             }
 
+        }
+
+        binding.pageBackBtn.setOnClickListener{
+            if(curentPage!=0){
+                 curentPage=curentPage-1
+                 categoryViewModel.getAllCategoriesByPage(curentPage,itemsPerPage)
+                 //categoryViewModel.fetchAllCategories()
+            }
+        }
+
+        binding.pageForwardBtn.setOnClickListener{
+            if(curentPage<max){
+                curentPage=curentPage+1
+                categoryViewModel.getAllCategoriesByPage(curentPage,itemsPerPage)
+                //categoryViewModel.fetchAllCategories()
+            }
         }
 
     }
@@ -188,7 +214,7 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
             renderState3(it)
         })
 
-        categoryViewModel.getAllCategories()
+        categoryViewModel.getAllCategoriesByPage(curentPage,itemsPerPage)
         categoryViewModel.fetchAllCategories()
     }
 
@@ -233,12 +259,6 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
             }
         }
     }
-    fun test(meals:ArrayList<ListMeal>){
-        for(i in meals){
-            println("1asda"+i.idMeal)
-        }
-    }
-
     private fun renderState3(state: MealPageState) {
 
         when (state) {
