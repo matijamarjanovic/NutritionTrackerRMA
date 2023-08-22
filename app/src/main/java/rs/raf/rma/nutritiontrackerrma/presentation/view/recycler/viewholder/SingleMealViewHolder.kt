@@ -38,6 +38,7 @@ class SingleMealViewHolder(private val itemBinding: SingleMealItemBinding, priva
         itemBinding.mealNameTextView.text = meal.strMeal
         itemBinding.videoLinkTextView.text = meal.strYoutube
         itemBinding.areaTextView.text = meal.strArea
+        itemBinding.kcalTextView.text = meal.calories.toString()
 
         itemBinding.btn.setOnClickListener{
             onButtonClick(meal.strInstructions)

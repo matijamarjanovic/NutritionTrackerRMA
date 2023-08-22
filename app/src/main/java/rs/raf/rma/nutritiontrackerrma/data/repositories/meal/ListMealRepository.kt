@@ -11,6 +11,8 @@ import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import java.util.Date
 
 interface ListMealRepository {
+
+
     fun fetchAllByArea(area: String): Observable<Resource<Unit>>
     fun fetchAllByCategory(category: String): Observable<Resource<Unit>>
     fun fetchAllByIngredient(ingredient: String): Observable<Resource<Unit>>
@@ -23,6 +25,7 @@ interface ListMealRepository {
     fun delete(id :String): Completable
     fun getSingleMeal(mealId : String) : Observable<Meal>
     fun getSingleSavedMeal(mealId : String) : Observable<List<SavedMeal>>
-    fun getCalories(list:String):Observable<Double>
-
+    fun getCalories(mealList : Meal) : Observable<Double>
+    fun getMealsIn7Days(day:String):Int
+    //fun insert(listMeal: ListMeal): Completable
 }

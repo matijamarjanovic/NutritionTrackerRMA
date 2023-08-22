@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Filter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -17,16 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.rma.nutritiontrackerrma.R
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentFilterBinding
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentHomepageBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.CategoryContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.FilterContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.*
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.CategoryState
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.FilterState
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.*
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.CategoryViewModel
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.FilterViewModel
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.MealsViewModel
@@ -46,6 +45,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private lateinit var adapter4: AddMealAdapter
 
     private var meal : Meal? = null
+    private var meal2 : Meal? = null
+
+    var mealsWCal : ArrayList<Meal> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -299,6 +301,13 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             renderState3(it)
         })
 
+
+        mealsViewModel.caloriesState.observe(viewLifecycleOwner, Observer {
+            Timber.e(it.toString())
+            renderState4(it)
+        })
+
+
         binding.areaRb.isChecked = true
 
     }
@@ -323,11 +332,14 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
     }
 
+
+
     private fun renderState2(state: MealsState) {
         when (state) {
             is MealsState.Success -> {
                 showLoadingState(false)
                 adapter2.submitList(state.meals)
+
             }
             is MealsState.Error -> {
                 showLoadingState(false)
@@ -343,14 +355,24 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
     }
 
+
+
     private fun renderState3(state: MealPageState) {
 
         when (state) {
             is MealPageState.Success -> {
                 showLoadingState(false)
                 meal = state.meals
-                adapter3.submitList(state.mealss)
-                adapter4.submitList(state.mealss)
+
+                if (!mealsWCal.isEmpty())
+                    mealsWCal.clear()
+
+                for (m in state.mealss){
+                    mealsViewModel.addKcalToMeal(m)
+                }
+
+/*                adapter3.submitList(state.mealss)
+                adapter4.submitList(state.mealss)*/
 
             }
             is MealPageState.Error -> {
@@ -367,11 +389,33 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
     }
 
+
+    private fun renderState4(state: CaloriesState) {
+
+        when (state) {
+            is CaloriesState.Success -> {
+                showLoadingState(false)
+                mealsWCal.add(state.meal)
+                adapter3.submitList(mealsWCal)
+                adapter4.submitList(mealsWCal)
+            }
+            is CaloriesState.Error -> {
+                showLoadingState(false)
+                Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+            }
+            is CaloriesState.DataFetched -> {
+                showLoadingState(false)
+                //Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
+            }
+            is CaloriesState.Loading -> {
+                showLoadingState(true)
+            }
+        }
+    }
+
     private fun showLoadingState(loading: Boolean) {
            binding.searchBar.isVisible = !loading
            binding.listRv.isVisible = !loading
-
-
            binding.loadingPb.isVisible = loading
     }
 

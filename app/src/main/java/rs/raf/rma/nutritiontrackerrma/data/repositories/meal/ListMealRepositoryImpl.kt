@@ -41,13 +41,41 @@ class ListMealRepositoryImpl(
             val resultList = mutableListOf<SimpleMeal>()
 
             val entities = meals.map { meal ->
-                
-                getCalories("1lb brisket and fries")
-                    .subscribe({ totalCalories ->
-                        println("11111111Total Calories: $totalCalories")
-                    }, { error ->
-                        println("Error: $error")
-                    })
+                var upit=""
+                    remoteDataSource
+                        .singleMeal(meal.idMeal.toString())
+                        .map { response->
+                                    val singleMeal=response.meals
+                                    val pom=singleMeal.map {
+                                        Meal(
+                                            it.idMeal,
+                                            it.strMeal,
+                                            it.strCategory,
+                                            it.strArea,
+                                            it.strInstructions,
+                                            it.strMealThumb,
+                                            it.strTags,
+                                            it.strYoutube,
+                                            0.0,
+
+                                            it.strIngredient1, it.strIngredient2, it.strIngredient3, it.strIngredient4, it.strIngredient5,
+                                            it.strIngredient6, it.strIngredient7, it.strIngredient8, it.strIngredient9, it.strIngredient10,
+                                            it.strIngredient11, it.strIngredient12, it.strIngredient13, it.strIngredient14, it.strIngredient15,
+                                            it.strIngredient16, it.strIngredient17, it.strIngredient18, it.strIngredient19, it.strIngredient20,
+
+                                            it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
+                                            it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
+                                            it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
+                                            it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                                        )
+                                    }
+                                    upit =""+pom[0].strMeasure1+" "+pom[0].strIngredient1+" and "+pom[0].strMeasure2+" "+pom[0].strIngredient2+" and "+pom[0].strMeasure3+" "+pom[0].strIngredient3+" and "+pom[0].strMeasure4+" "+pom[0].strIngredient4+" and "+
+                                    pom[0].strMeasure5+" "+pom[0].strIngredient5+" and "+pom[0].strMeasure6+" "+pom[0].strIngredient6+" and "+pom[0].strMeasure7+" "+pom[0].strIngredient7+" and "+pom[0].strMeasure8+" "+pom[0].strIngredient8+" and "+
+                                    pom[0].strMeasure9+" "+pom[0].strIngredient9+" and "+pom[0].strMeasure10+" "+pom[0].strIngredient10+" and "+pom[0].strMeasure11+" "+pom[0].strIngredient11+" and "+pom[0].strMeasure12+" "+pom[0].strIngredient12+" and "+
+                                    pom[0].strMeasure13+" "+pom[0].strIngredient13+" and "+pom[0].strMeasure14+" "+pom[0].strIngredient14+" and "+pom[0].strMeasure15+" "+pom[0].strIngredient15+" and "+pom[0].strMeasure16+" "+pom[0].strIngredient16+" and "+
+                                    pom[0].strMeasure17+" "+pom[0].strIngredient17+" and "+pom[0].strMeasure18+" "+pom[0].strIngredient18+" and "+pom[0].strMeasure19+" "+pom[0].strIngredient19+" and "+pom[0].strMeasure20+" "+pom[0].strIngredient20
+                        }
+
                 //resultList.add(simpleMeal)
                 ListMealEntity(
                     meal.idMeal,
@@ -63,9 +91,23 @@ class ListMealRepositoryImpl(
         }
     }
 
-    override fun getCalories(list: String): Observable<Double> {
+    override fun getCalories(meal: Meal): Observable<Double> {
 
-        return remoteDataSourceCalories.getCalories(list)
+        val upit =
+            meal.strIngredient1 + " " + meal.strMeasure1 + " and " + meal.strIngredient2 + " " + meal.strMeasure2 + " " +
+                    meal.strIngredient3 + " " + meal.strMeasure3 + " and " + meal.strIngredient4 + " " + meal.strMeasure4 + " " +
+                    meal.strIngredient5 + " " + meal.strMeasure5 + " and " + meal.strIngredient6 + " " + meal.strMeasure6 + " " +
+                    meal.strIngredient7 + " " + meal.strMeasure7 + " and " + meal.strIngredient8 + " " + meal.strMeasure8 + " " +
+                    meal.strIngredient9 + " " + meal.strMeasure9 + " and " + meal.strIngredient10 + " " + meal.strMeasure10 + " " +
+                    meal.strIngredient11 + " " + meal.strMeasure11 + " and " + meal.strIngredient12 + " " + meal.strMeasure12 + " " +
+                    meal.strIngredient13 + " " + meal.strMeasure13 + " and " + meal.strIngredient14 + " " + meal.strMeasure14 + " " +
+                    meal.strIngredient15 + " " + meal.strMeasure15 + " and " + meal.strIngredient16 + " " + meal.strMeasure16 + " " +
+                    meal.strIngredient17 + " " + meal.strMeasure17 + " and " + meal.strIngredient18 + " " + meal.strMeasure18 + " " +
+                    meal.strIngredient19 + " " + meal.strMeasure19 + " and " + meal.strIngredient20 + " " + meal.strMeasure20
+        var result = upit.substringBefore("and     ")
+        result = result.trim()
+
+        return remoteDataSourceCalories.getCalories(result)
             .map { list ->
                 list.map { it.calories }.sum()
             }
@@ -134,6 +176,7 @@ class ListMealRepositoryImpl(
                         it.strMealThumb,
                         it.strTags,
                         it.strYoutube,
+                        0.0,
 
                         it.strIngredient1, it.strIngredient2, it.strIngredient3, it.strIngredient4, it.strIngredient5,
                         it.strIngredient6, it.strIngredient7, it.strIngredient8, it.strIngredient9, it.strIngredient10,
@@ -183,6 +226,11 @@ class ListMealRepositoryImpl(
                 savedMeals
                 }
 
+    }
+
+
+    override fun getMealsIn7Days(day: String): Int {
+        TODO("Not yet implemented")
     }
 
     override fun getAllMeals(): Observable<List<ListMeal>> {

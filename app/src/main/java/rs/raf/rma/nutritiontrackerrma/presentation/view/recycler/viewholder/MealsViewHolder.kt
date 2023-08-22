@@ -11,7 +11,10 @@ class MealsViewHolder(private val itemBinding: LayoutItemMealBinding, private va
 
     fun bind(meal: ListMeal, onButtonClick: (String) -> Unit,) {
         itemBinding.titleTv.text = meal.strMeal
-        itemBinding.calorieTe.text = meal.calories.toString()
+
+        val formattedValue = String.format("%.2f", meal.calories)
+
+        itemBinding.calorieTe.text = formattedValue
 
         itemBinding.root.setOnClickListener{
             onButtonClick(meal.idMeal.toString())

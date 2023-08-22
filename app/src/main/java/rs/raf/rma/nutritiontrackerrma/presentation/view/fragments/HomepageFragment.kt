@@ -282,44 +282,6 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
         }
     }
 
-    private fun mapToMutable(meals: List<SavedMeal>): MutableList<Meal>? {
-       var list : ArrayList<Meal> = ArrayList()
-
-       list = meals.map {
-           it.strArea?.let { it1 ->
-               it.strCategory?.let { it2 ->
-                   it.strInstructions?.let { it3 ->
-                       it.strMeal?.let { it4 ->
-                           Meal(
-                               it.idMeal,
-                               it4,
-                               it2,
-                               it1,
-                               it3,
-                               it.strMealThumb,
-                               "",
-                               it.strYoutube,
-
-                               it.strIngredient1, it.strIngredient2, it.strIngredient3, it.strIngredient4, it.strIngredient5,
-                               it.strIngredient6, it.strIngredient7, it.strIngredient8, it.strIngredient9, it.strIngredient10,
-                               it.strIngredient11, it.strIngredient12, it.strIngredient13, it.strIngredient14, it.strIngredient15,
-                               it.strIngredient16, it.strIngredient17, it.strIngredient18, it.strIngredient19, it.strIngredient20,
-
-                               it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
-                               it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
-                               it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
-                               it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
-                           )
-                       }
-                   }
-               }
-           }
-       } as ArrayList<Meal>
-
-        return list.toMutableList()
-
-    }
-
     private fun showLoadingState(loading: Boolean) {
            binding.searchBar.isVisible = !loading
            binding.listRv.isVisible = !loading

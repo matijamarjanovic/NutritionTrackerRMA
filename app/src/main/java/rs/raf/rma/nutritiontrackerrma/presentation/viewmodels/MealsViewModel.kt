@@ -29,12 +29,11 @@ class MealsViewModel(
     private val subscriptions = CompositeDisposable()
     override val mealsState: MutableLiveData<MealsState> = MutableLiveData()
     override val mealsState2: MutableLiveData<MealPageState> = MutableLiveData()
+    override val caloriesState: MutableLiveData<CaloriesState> = MutableLiveData()
     override val savedMealState : MutableLiveData<SavedMealsState> = MutableLiveData()
     override val savedMealState2: MutableLiveData<SavedMealPageState> = MutableLiveData()
 
     override val addDone: MutableLiveData<AddListMealState> = MutableLiveData()
-
-
 
     private val publishSubject: PublishSubject<String> = PublishSubject.create()
 
@@ -64,6 +63,30 @@ class MealsViewModel(
 
         subscriptions.add(subscription)
     }
+
+/*    override fun fetchAllMeals() {
+
+
+        val subscription = listMealRepository
+            .fetchAllByCategory(area)
+            .startWith(Resource.Loading()) //Kada se pokrene fetch hocemo da postavimo stanje na Loading
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    when(it) {
+                        is Resource.Loading -> mealsState.value = MealsState.Loading
+                        is Resource.Success -> mealsState.value = MealsState.DataFetched
+                        is Resource.Error -> mealsState.value = MealsState.Error("Error happened while fetching data from the server")
+                    }
+                },
+                {
+                    mealsState.value = MealsState.Error("Error happened while fetching data from the server")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }*/
 
     override fun fetchAllMealsByArea(area:String) {
         val subscription = listMealRepository
@@ -151,6 +174,10 @@ class MealsViewModel(
             )
         subscriptions.add(subscription)
     }
+
+
+
+
 
     override fun getAllMeals() {
         val subscription = listMealRepository
@@ -295,6 +322,27 @@ class MealsViewModel(
                 }
             )
         subscriptions.add(subscription)
+    }
+
+
+    override fun addKcalToMeal(meal : Meal) {
+
+            val subscription = listMealRepository
+                .getCalories(meal)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        meal.calories = it
+                        caloriesState.value = CaloriesState.Success(meal)
+                    },
+                    {
+                        caloriesState.value = CaloriesState.Error("Error happened while fetching data from db")
+                        Timber.e(it)
+                    }
+                )
+            subscriptions.add(subscription)
+
     }
 
     override fun onCleared() {
