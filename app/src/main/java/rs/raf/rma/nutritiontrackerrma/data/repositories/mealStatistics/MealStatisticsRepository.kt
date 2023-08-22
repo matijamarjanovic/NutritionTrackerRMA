@@ -12,4 +12,6 @@ import java.util.Date
 
 interface MealStatisticsRepository {
     fun getMealsIn7Days(days: List<String>):Observable<List<Int>>
+    fun getMealsIn7DaysByCalories(days: List<String>):Observable<List<Int>>
+
 }

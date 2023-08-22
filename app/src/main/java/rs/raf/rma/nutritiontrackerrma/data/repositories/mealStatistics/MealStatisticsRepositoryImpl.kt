@@ -39,6 +39,17 @@ class MealStatisticsRepositoryImpl(
             results.map { it as Int }
         }
     }
+
+    override fun getMealsIn7DaysByCalories(days: List<String>): Observable<List<Int>> {
+        val observables = days.map { day ->
+            localDataSource.getCaloriesInDay(day)
+                .doOnNext { count ->
+                    println("Meal count for $day: $count")
+                }
+        }
+        return Observable.combineLatest(observables) { results ->
+            results.map { it as Int }
+        }    }
 }
 
 

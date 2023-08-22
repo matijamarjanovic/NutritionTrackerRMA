@@ -22,10 +22,11 @@ class MealStatisticsViewModel(
 
     override val graphState: MutableLiveData<GraphState> = MutableLiveData()
 
+
     private val subscriptions = CompositeDisposable()
     private val publishSubject: PublishSubject<String> = PublishSubject.create()
 
-    override fun getMealsIn7Days(days: List<String>) {
+    override fun getMealsIn7DaysByNumbers(days: List<String>) {
         val subscription = mealStatisticsRepository
             .getMealsIn7Days(days)
             .subscribeOn(Schedulers.io())
@@ -41,7 +42,21 @@ class MealStatisticsViewModel(
             )
         subscriptions.add(subscription)
     }
-
+    override fun getMealsIn7DaysByCalories(days: List<String>) {
+        val subscription = mealStatisticsRepository
+            .getMealsIn7DaysByCalories(days)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    graphState.value = GraphState.Success(it)
+                },
+                {
+                    graphState.value = GraphState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)    }
     override fun onCleared() {
         super.onCleared()
         subscriptions.dispose()

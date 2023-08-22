@@ -37,4 +37,6 @@ abstract class SavedMealDao {
 
     @Query("SELECT COUNT(*) FROM savedMeals WHERE strftime('%Y-%m-%d', date / 1000, 'unixepoch', 'localtime') = :date")
     abstract fun getMealsInDay(date: String): Observable<Int>
+    @Query("SELECT COUNT(*) FROM savedMeals WHERE strftime('%Y-%m-%d', date / 1000, 'unixepoch', 'localtime') = :date")
+    abstract fun getCaloriesInDay(date: String): Observable<Int>
 }

@@ -59,11 +59,6 @@ class MealStatisticsFragment() : Fragment(R.layout.fragment_meal_statistics) {
         initListeners()
     }
 
-
-    private fun fetchDataFromLocalDatabase(): List<Int> {
-
-        return listOf(5, 10, 8, 15, 20, 12, 18)
-    }
     private fun initObservers() {
         statisticViewModel.graphState.observe(viewLifecycleOwner,{
             Timber.e(it.toString())
@@ -71,8 +66,39 @@ class MealStatisticsFragment() : Fragment(R.layout.fragment_meal_statistics) {
         })
 
     }
+    var isButtonClicked = false
     private fun initListeners() {
+        binding.myButton.setOnClickListener {
+            barChart = binding.barChart // Assuming you have a BarChart view in your XML layout
 
+            // Customize the appearance of the chart (optional)
+            barChart.setDrawBarShadow(false)
+            barChart.setDrawValueAboveBar(true)
+
+            barChart.setPinchZoom(false)
+            barChart.isDragEnabled = false
+            barChart.setDoubleTapToZoomEnabled(false)
+            // Configure the X-axis (optional)
+            val xAxis = barChart.xAxis
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+            val dayNames = generateDayNamesList()
+            xAxis.valueFormatter = IndexAxisValueFormatter(dayNames)
+            val generateDate =generateDateList()
+
+            if (isButtonClicked) {
+                val a= statisticViewModel
+                    .getMealsIn7DaysByNumbers(generateDate)
+                binding.myButton.text = "change to calories"
+            } else {
+                val a= statisticViewModel
+                    .getMealsIn7DaysByCalories(generateDate)
+                binding.myButton.text = "change to days"
+            }
+
+            // Toggle the flag
+            isButtonClicked = !isButtonClicked
+        }
     }
     private fun initGraph() {
         barChart = binding.barChart // Assuming you have a BarChart view in your XML layout
@@ -97,7 +123,7 @@ class MealStatisticsFragment() : Fragment(R.layout.fragment_meal_statistics) {
         val generateDate =generateDateList()
 
        val a= statisticViewModel
-            .getMealsIn7Days(generateDate)
+            .getMealsIn7DaysByNumbers(generateDate)
 
     }
     private fun renderState(state: GraphState ) {
