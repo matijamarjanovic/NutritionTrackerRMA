@@ -8,14 +8,17 @@ import rs.raf.rma.nutritiontrackerrma.data.models.user.User
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.AddListMealState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.FilterState
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.user.AddUserState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.user.UserState
 
 interface UserContract {
 
     interface ViewModel {
+
+        val userState: LiveData<UserState>
+        val addDone: LiveData<AddUserState>
         fun addUser(user: User)
-
-        fun getUser(username : String,password : String) :User
-
+        fun getUser(username : String,password : String)
     }
 
 }

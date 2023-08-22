@@ -13,11 +13,12 @@ import rs.raf.rma.nutritiontrackerrma.data.models.user.User
 @Dao
 abstract class UserDao {
 
-    @Query("SELECT * FROM users WHERE username = :username AND password = :password")
-    abstract fun getUserByUsernameAndPassword(username: String, password: String): User
+    @Query("SELECT * FROM users WHERE username LIKE :name || '%'")
+    abstract fun getByName(name: String): Observable<List<UserEntity>>
 
     @Insert( onConflict = OnConflictStrategy.REPLACE )
     abstract fun insert(user: UserEntity): Completable
 
-
+    @Query("SELECT * FROM users WHERE username = :username AND password = :password")
+    abstract fun getUserByUsernameAndPassword(username: String, password: String): Observable<UserEntity>
 }

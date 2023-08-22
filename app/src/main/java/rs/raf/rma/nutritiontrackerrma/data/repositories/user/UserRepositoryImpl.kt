@@ -2,6 +2,7 @@ package rs.raf.rma.nutritiontrackerrma.data.repositories.user
 
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -32,10 +33,25 @@ class UserRepositoryImpl(
         return localDataSource.insert(userEntity)
     }
 
-
-    override fun getUser(username: String, password: String):User {
-            return localDataSource
-                .getUserByUsernameAndPassword(username,password)
-
+    override fun getUser(username: String, password: String): Observable<User> {
+        return localDataSource
+            .getUserByUsernameAndPassword(username,password)
+            .map { response->
+                User(response.username,response.password)
+            }
     }
+
+
+    override fun getAllByName(name: String): Observable<List<User>> {
+        return localDataSource
+            .getByName(name)
+            .map {
+                it.map {
+                    User(it.username, it.password)
+                }
+            }
+    }
+
+
+
 }

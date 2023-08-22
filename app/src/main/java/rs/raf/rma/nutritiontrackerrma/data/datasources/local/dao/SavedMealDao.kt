@@ -32,10 +32,9 @@ abstract class SavedMealDao {
         deleteAll()
         insertAll(entities).blockingAwait()
     }
-
     @Query("SELECT * FROM savedMeals WHERE strMeal LIKE :name || '%'")
     abstract fun getByName(name: String): Observable<List<SavedMealEntity>>
 
-    @Query("SELECT COUNT(*) FROM savedMeals WHERE date = :date")
-    abstract fun getMealsInDay(date: String): Int
+    @Query("SELECT COUNT(*) FROM savedMeals WHERE strftime('%Y-%m-%d', date / 1000, 'unixepoch', 'localtime') = :date")
+    abstract fun getMealsInDay(date: String): Observable<Int>
 }

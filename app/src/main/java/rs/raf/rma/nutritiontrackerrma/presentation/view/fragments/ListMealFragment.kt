@@ -57,12 +57,10 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
         super.onViewCreated(view, savedInstanceState)
         init()
     }
-
     private fun init() {
         initUi()
         initObservers()
     }
-
     private fun initUi() {
         initRecycler()
         initListeners()

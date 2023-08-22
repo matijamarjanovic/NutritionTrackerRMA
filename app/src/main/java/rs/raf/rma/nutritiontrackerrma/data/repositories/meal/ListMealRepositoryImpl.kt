@@ -142,7 +142,7 @@ class ListMealRepositoryImpl(
     }
 
     override fun getMealsIn7Days(day: String): Int {
-        TODO("Not yet implemented")
+        return 3;
     }
 
 
@@ -275,6 +275,7 @@ class ListMealRepositoryImpl(
             .getAll()
             .map {
                 it.map {
+                    println("datum "+it.date)
                     SavedMeal(
                             it.idMeal,
                             it.strMeal,

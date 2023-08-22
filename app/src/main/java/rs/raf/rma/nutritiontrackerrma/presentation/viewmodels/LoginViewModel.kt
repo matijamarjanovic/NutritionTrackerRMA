@@ -1,41 +1,87 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.UserEntity
-import rs.raf.rma.nutritiontrackerrma.data.models.ListMealResource
-import rs.raf.rma.nutritiontrackerrma.data.models.Resource
-import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
-import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.data.models.user.User
-import rs.raf.rma.nutritiontrackerrma.data.repositories.meal.ListMealRepository
 import rs.raf.rma.nutritiontrackerrma.data.repositories.user.UserRepository
-import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.UserContract
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.AddListMealState
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealPageState
-import rs.raf.rma.nutritiontrackerrma.presentation.view.states.MealsState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.user.AddUserState
+import rs.raf.rma.nutritiontrackerrma.presentation.view.states.user.UserState
 
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class LoginViewModel(
-    private val userRepository:UserRepository
+    private val userRepository:UserRepository,
+
 ) : ViewModel(), UserContract.ViewModel {
 
+    private val subscriptions = CompositeDisposable()
+    private val publishSubject: PublishSubject<String> = PublishSubject.create()
+    override val userState: MutableLiveData<UserState> = MutableLiveData()
+    override val addDone: MutableLiveData<AddUserState> = MutableLiveData()
+    init {
+        val subscription = publishSubject
+            .debounce(200, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
+            .switchMap {
+                userRepository
+                    .getAllByName(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError {
+                        Timber.e("Error in publish subject")
+                        Timber.e(it)
+                    }
+            }
+            .subscribe(
+                {
+                    userState.value = UserState.Success(it)
+                },
+                {
+                    userState.value = UserState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+
+        subscriptions.add(subscription)
+    }
+
     override fun addUser(user: User) {
-         userRepository.insert(user)
+        val subscription = userRepository
+            .insert(user)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    addDone.value = AddUserState.Success
+                },
+                {
+                    addDone.value = AddUserState.Error("Error happened while adding movie")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
     }
-
-    override fun getUser(username: String, password: String): User {
-        return userRepository.getUser(username,password)
+    override fun getUser(username: String, password: String) {
+        val subscription = userRepository
+            .getUser(username,password)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    addDone.value = AddUserState.Success
+                },
+                {
+                    addDone.value = AddUserState.Error("Error happened while adding movie")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
     }
-
 
 }
