@@ -21,6 +21,7 @@ import rs.raf.rma.nutritiontrackerrma.R
 import rs.raf.rma.nutritiontrackerrma.data.models.categories.Category
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.SavedMeal
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentHomepageBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.CategoryContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
@@ -84,13 +85,14 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
         adapter = CategoryAdapter { text ->
 
             if (text.length < 30) {
-
                 binding.listRv.adapter = adapter2
                 binding.backButton.visibility = View.VISIBLE
 
                 mealsViewModel.getAllMeals()
                 mealsViewModel.fetchAllMealsByCategory(text)
-                
+
+                test(meals)
+
             } else
                 showDialogue(text)
 
@@ -210,9 +212,11 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
         }
     }
 
+    var meals: ArrayList<ListMeal> =ArrayList()
     private fun renderState2(state: MealsState) {
         when (state) {
             is MealsState.Success -> {
+                meals= ArrayList(state.meals)
                 showLoadingState(false)
                 adapter2.submitList(state.meals)
             }
@@ -227,6 +231,11 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
             is MealsState.Loading -> {
                 showLoadingState(true)
             }
+        }
+    }
+    fun test(meals:ArrayList<ListMeal>){
+        for(i in meals){
+            println("1asda"+i.idMeal)
         }
     }
 

@@ -152,7 +152,6 @@ class MealsViewModel(
         subscriptions.add(subscription)
     }
 
-
     override fun getAllMeals() {
         val subscription = listMealRepository
             .getAllMeals()

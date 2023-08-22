@@ -46,31 +46,4 @@ class MealStatisticsViewModel(
         super.onCleared()
         subscriptions.dispose()
     }
-//    init {
-//        val subscription = publishSubject
-//            .debounce(200, TimeUnit.MILLISECONDS)
-//            .distinctUntilChanged()
-//            .switchMap {
-//                mealStatisticsRepository
-//                    .getMealsIn7Days(it)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .doOnError {
-//                        Timber.e("Error in publish subject")
-//                        Timber.e(it)
-//                    }
-//            }
-//            .subscribe(
-//                {
-//                    graphState.value = GraphState.Success(it)
-//                },
-//                {
-//                    graphState.value = GraphState.Error("Error happened while fetching data from db")
-//                    Timber.e(it)
-//                }
-//            )
-
-//        subscriptions.add(subscription)
-//    }
-
 }

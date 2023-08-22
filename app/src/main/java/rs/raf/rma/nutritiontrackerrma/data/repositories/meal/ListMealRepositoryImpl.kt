@@ -6,6 +6,7 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.ListMealDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.SavedMealDao
@@ -34,95 +35,53 @@ class ListMealRepositoryImpl(
     @SuppressLint("CheckResult")
     override fun fetchAllByArea(area:String): Observable<Resource<Unit>> {
         val observable1 = remoteDataSource.getAllMealsByArea(area)
-        val observable2 = remoteDataSourceCalories.getCalories("1lb brisket and fries")
-        return Observable.zip(
-            observable1,observable2
-        ){ response1, response2 ->
-            val meals1 = response1.meals
+
+        return observable1.flatMap { response ->
+            val meals = response.meals
             val resultList = mutableListOf<SimpleMeal>()
 
-            val entities = meals1.map { meal ->
-                remoteDataSource.singleMeal(meal.idMeal.toString())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe { response ->
-                        val meals = response.meals
-                        if (meals.isNotEmpty()) {
-                            val mealItem = meals[0]
-                            val simpleMeal = SimpleMeal(
-                                mealItem.idMeal,
-                                mealItem.strMeal ?: "",
-                                mealItem.strIngredient1 ?: "",
-                                mealItem.strIngredient2 ?: "",
-                                mealItem.strIngredient3 ?: "",
-                                mealItem.strIngredient4 ?: "",
-                                mealItem.strIngredient5 ?: "",
-                                mealItem.strIngredient6 ?: "",
-                                mealItem.strIngredient7 ?: "",
-                                mealItem.strIngredient8 ?: "",
-                                mealItem.strIngredient9 ?: "",
-                                mealItem.strIngredient10 ?: "",
-                                mealItem.strIngredient11 ?: "",
-                                mealItem.strIngredient12 ?: "",
-                                mealItem.strIngredient13 ?: "",
-                                mealItem.strIngredient14 ?: "",
-                                mealItem.strIngredient15 ?: "",
-                                mealItem.strIngredient16 ?: "",
-                                mealItem.strIngredient17 ?: "",
-                                mealItem.strIngredient18 ?: "",
-                                mealItem.strIngredient19 ?: "",
-                                mealItem.strIngredient20 ?: "",
+            val entities = meals.map { meal ->
+                var upit=""
+                    remoteDataSource
+                        .singleMeal(meal.idMeal.toString())
+                        .map { response->
+                                    val singleMeal=response.meals
+                                    val pom=singleMeal.map {
+                                        Meal(
+                                            it.idMeal,
+                                            it.strMeal,
+                                            it.strCategory,
+                                            it.strArea,
+                                            it.strInstructions,
+                                            it.strMealThumb,
+                                            it.strTags,
+                                            it.strYoutube,
 
-                                mealItem.strMeasure1 ?: "",
-                                mealItem.strMeasure2 ?: "",
-                                mealItem.strMeasure3 ?: "",
-                                mealItem.strMeasure4 ?: "",
-                                mealItem.strMeasure5 ?: "",
-                                mealItem.strMeasure6 ?: "",
-                                mealItem.strMeasure7 ?: "",
-                                mealItem.strMeasure8 ?: "",
-                                mealItem.strMeasure9 ?: "",
-                                mealItem.strMeasure10 ?: "",
-                                mealItem.strMeasure11 ?: "",
-                                mealItem.strMeasure12 ?: "",
-                                mealItem.strMeasure13 ?: "",
-                                mealItem.strMeasure14 ?: "",
-                                mealItem.strMeasure15 ?: "",
-                                mealItem.strMeasure16 ?: "",
-                                mealItem.strMeasure17 ?: "",
-                                mealItem.strMeasure18 ?: "",
-                                mealItem.strMeasure19 ?: "",
-                                mealItem.strMeasure20 ?: ""
-                            )
-                            val upit =
-                                simpleMeal.strIngredient1 + " " + mealItem.strMeasure1 + " and " + simpleMeal.strIngredient2 + " " + mealItem.strMeasure2 + " " +
-                                        simpleMeal.strIngredient3 + " " + mealItem.strMeasure3 + " and " + simpleMeal.strIngredient4 + " " + mealItem.strMeasure4 + " " +
-                                        simpleMeal.strIngredient5 + " " + mealItem.strMeasure5 + " and " + simpleMeal.strIngredient6 + " " + mealItem.strMeasure6 + " " +
-                                        simpleMeal.strIngredient7 + " " + mealItem.strMeasure7 + " and " + simpleMeal.strIngredient8 + " " + mealItem.strMeasure8 + " " +
-                                        simpleMeal.strIngredient9 + " " + mealItem.strMeasure9 + " and " + simpleMeal.strIngredient10 + " " + mealItem.strMeasure10 + " " +
-                                        simpleMeal.strIngredient11 + " " + mealItem.strMeasure11 + " and " + simpleMeal.strIngredient12 + " " + mealItem.strMeasure12 + " " +
-                                        simpleMeal.strIngredient13 + " " + mealItem.strMeasure13 + " and " + simpleMeal.strIngredient14 + " " + mealItem.strMeasure14 + " " +
-                                        simpleMeal.strIngredient15 + " " + mealItem.strMeasure15 + " and " + simpleMeal.strIngredient16 + " " + mealItem.strMeasure16 + " " +
-                                        simpleMeal.strIngredient17 + " " + mealItem.strMeasure17 + " and " + simpleMeal.strIngredient18 + " " + mealItem.strMeasure18 + " " +
-                                        simpleMeal.strIngredient19 + " " + mealItem.strMeasure19 + " and " + simpleMeal.strIngredient20 + " " + mealItem.strMeasure20
-                            var result = upit.substringBefore("and     ")
-                            result = result.trim()
+                                            it.strIngredient1, it.strIngredient2, it.strIngredient3, it.strIngredient4, it.strIngredient5,
+                                            it.strIngredient6, it.strIngredient7, it.strIngredient8, it.strIngredient9, it.strIngredient10,
+                                            it.strIngredient11, it.strIngredient12, it.strIngredient13, it.strIngredient14, it.strIngredient15,
+                                            it.strIngredient16, it.strIngredient17, it.strIngredient18, it.strIngredient19, it.strIngredient20,
 
-                            //println("222 UPIT:= "+result)
-                            //println("111"+simpleMeal.idMeal+simpleMeal.strMeal+"ING : "+simpleMeal.strIngredient1)
-                            resultList.add(simpleMeal)
-
-                            remoteDataSourceCalories.getCalories(result).map {
-                                it.map { response ->
-                                    Calorie(
-                                        name = response.name,
-                                        calories = response.calories,
-                                    )
-                                    println("sadsdasdad" + response.name + response.calories)
-                                }
-                            }
+                                            it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
+                                            it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
+                                            it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
+                                            it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                                        )
+                                    }
+                                    upit =""+pom[0].strMeasure1+" "+pom[0].strIngredient1+" and "+pom[0].strMeasure2+" "+pom[0].strIngredient2+" and "+pom[0].strMeasure3+" "+pom[0].strIngredient3+" and "+pom[0].strMeasure4+" "+pom[0].strIngredient4+" and "+
+                                    pom[0].strMeasure5+" "+pom[0].strIngredient5+" and "+pom[0].strMeasure6+" "+pom[0].strIngredient6+" and "+pom[0].strMeasure7+" "+pom[0].strIngredient7+" and "+pom[0].strMeasure8+" "+pom[0].strIngredient8+" and "+
+                                    pom[0].strMeasure9+" "+pom[0].strIngredient9+" and "+pom[0].strMeasure10+" "+pom[0].strIngredient10+" and "+pom[0].strMeasure11+" "+pom[0].strIngredient11+" and "+pom[0].strMeasure12+" "+pom[0].strIngredient12+" and "+
+                                    pom[0].strMeasure13+" "+pom[0].strIngredient13+" and "+pom[0].strMeasure14+" "+pom[0].strIngredient14+" and "+pom[0].strMeasure15+" "+pom[0].strIngredient15+" and "+pom[0].strMeasure16+" "+pom[0].strIngredient16+" and "+
+                                    pom[0].strMeasure17+" "+pom[0].strIngredient17+" and "+pom[0].strMeasure18+" "+pom[0].strIngredient18+" and "+pom[0].strMeasure19+" "+pom[0].strIngredient19+" and "+pom[0].strMeasure20+" "+pom[0].strIngredient20
                         }
-                    }
 
+                getCalories("1lb brisket and fries")
+                    .subscribe({ totalCalories ->
+                        println("11111111Total Calories: $totalCalories")
+                    }, { error ->
+                        println("Error: $error")
+                    })
+                //resultList.add(simpleMeal)
                 ListMealEntity(
                     meal.idMeal,
                     meal.strMeal,
@@ -132,19 +91,18 @@ class ListMealRepositoryImpl(
             }
 
             localDataSource.deleteAndInsertAll(entities)
-            Resource.Success(Unit)
+            Observable.just(Resource.Success(Unit))
+
         }
     }
 
-    override fun getCalories(list: String): Int {
+    override fun getCalories(list: String): Observable<Double> {
 
-        return 0
+        return remoteDataSourceCalories.getCalories(list)
+            .map { list ->
+                list.map { it.calories }.sum()
+            }
     }
-
-    override fun getMealsIn7Days(day: String): Int {
-        return 3;
-    }
-
 
     override fun fetchAllByCategory(category: String): Observable<Resource<Unit>> {
 

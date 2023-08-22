@@ -9,6 +9,5 @@ import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMealRespon
 interface CaloriesService {
     @GET("nutrition")
     fun getCalories(@Query("query") query: String?): Observable<List<CaloriesResponse>>
-    @GET("filter.php")
-    fun getAllMealsByArea(@Query("a") category: String): Observable<ListMealResponse>
+
 }
