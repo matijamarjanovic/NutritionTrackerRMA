@@ -15,4 +15,7 @@ interface MealsService {
     fun getAllMealsByIngredient(@Query("i") ingredient: String): Observable<ListMealResponse>
     @GET("lookup.php?i=")
     fun singleMeal(@Query("i") id: String): Observable<SingleMealResponse>
+    @GET("lookup.php?i=")
+    fun singleMealnonObs(@Query("i") id: String): SingleMealResponse
+
 }

@@ -17,17 +17,20 @@ import androidx.lifecycle.whenResumed
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.rma.nutritiontrackerrma.R
+import rs.raf.rma.nutritiontrackerrma.data.models.ingredients.Ingredient
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentFilterBinding
 import rs.raf.rma.nutritiontrackerrma.databinding.FragmentHomepageBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.CategoryContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.FilterContract
+import rs.raf.rma.nutritiontrackerrma.presentation.contracts.IngredientsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.view.recycler.adapter.*
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.*
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.CategoryViewModel
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.FilterViewModel
+import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.IngredientsViewModel
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.MealsViewModel
 import timber.log.Timber
 
@@ -35,6 +38,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private val filterViewModel : FilterContract.ViewModel by sharedViewModel<FilterViewModel>()
     private val mealsViewModel : MealsContract.ViewModel by sharedViewModel<MealsViewModel> ()
+    private val ingredientsViewModel : IngredientsContract.ViewModel by sharedViewModel<IngredientsViewModel>()
 
     private var _binding : FragmentFilterBinding? = null
     private val binding get() = _binding!!
@@ -48,6 +52,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private var meal2 : Meal? = null
 
     var mealsWCal : ArrayList<Meal> = ArrayList()
+
+    var allIngredients : ArrayList<Ingredient> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -307,6 +313,11 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             renderState4(it)
         })
 
+        mealsViewModel.mealsState3.observe(viewLifecycleOwner, Observer {
+            Timber.e(it.toString())
+            renderStateGetAllSingleMeals(it)
+        })
+
 
         binding.areaRb.isChecked = true
 
@@ -338,7 +349,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         when (state) {
             is MealsState.Success -> {
                 showLoadingState(false)
+
                 adapter2.submitList(state.meals)
+                //mealsViewModel.getAllSingleMeals(state.meals as ArrayList<ListMeal>)
 
             }
             is MealsState.Error -> {
@@ -355,24 +368,19 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
     }
 
-
-
     private fun renderState3(state: MealPageState) {
 
         when (state) {
             is MealPageState.Success -> {
                 showLoadingState(false)
-                meal = state.meals
+                meal = state.mealss[0]
 
-                if (!mealsWCal.isEmpty())
-                    mealsWCal.clear()
+                mealsViewModel.addKcalToMeal(state.mealss as ArrayList<Meal>)
 
-                for (m in state.mealss){
-                    mealsViewModel.addKcalToMeal(m)
-                }
-
-/*                adapter3.submitList(state.mealss)
-                adapter4.submitList(state.mealss)*/
+/*
+                adapter3.submitList(state.mealss)
+                adapter4.submitList(state.mealss)
+*/
 
             }
             is MealPageState.Error -> {
@@ -395,9 +403,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         when (state) {
             is CaloriesState.Success -> {
                 showLoadingState(false)
-                mealsWCal.add(state.meal)
-                adapter3.submitList(mealsWCal)
-                adapter4.submitList(mealsWCal)
+
+                adapter3.submitList(state.meal)
+                adapter4.submitList(state.meal)
             }
             is CaloriesState.Error -> {
                 showLoadingState(false)
@@ -408,6 +416,33 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 //Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
             }
             is CaloriesState.Loading -> {
+                showLoadingState(true)
+            }
+        }
+    }
+
+    private fun renderStateGetAllSingleMeals(state: MealPageState) {
+
+        when (state) {
+            is MealPageState.Success -> {
+                showLoadingState(false)
+
+                val list = state.mealss.map { it.strMealThumb?.let { it1 ->
+                    ListMeal(it.idMeal, it.strMeal,
+                        it1, it.calories)
+                } }
+                adapter2.submitList(list)
+
+            }
+            is MealPageState.Error -> {
+                showLoadingState(false)
+                Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+            }
+            is MealPageState.DataFetched -> {
+                showLoadingState(false)
+                //Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
+            }
+            is MealPageState.Loading -> {
                 showLoadingState(true)
             }
         }

@@ -264,7 +264,7 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
         when (state) {
             is MealPageState.Success -> {
                 showLoadingState(false)
-                meal = state.meals
+                meal = state.mealss[0]
                 adapter3.submitList(state.mealss)
                 adapter4.submitList(state.mealss)
             }

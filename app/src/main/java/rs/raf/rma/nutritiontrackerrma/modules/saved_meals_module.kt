@@ -13,7 +13,12 @@ val savedMealsModule = module {
 
     viewModel { MealsViewModel(listMealRepository = get()) }
 
-    single<ListMealRepository> { ListMealRepositoryImpl(localDataSource = get(), remoteDataSource = get(),remoteDataSourceCalories =get(), localDataSourceSaved = get()) }
+    single<ListMealRepository> { ListMealRepositoryImpl(
+        localDataSource = get(),
+        localDataSourceSaved = get(),
+        remoteDataSource = get(),
+        remoteDataSourceCalories =get()
+    ) }
 
     single { get<MealsDatabase>().getSavedMealDao()  }
 

@@ -10,4 +10,6 @@ interface CaloriesService {
     @GET("nutrition")
     fun getCalories(@Query("query") query: String?): Observable<List<CaloriesResponse>>
 
+    @GET("nutrition")
+    fun getCaloriesnonObs(@Query("query") query: String?): List<CaloriesResponse>
 }

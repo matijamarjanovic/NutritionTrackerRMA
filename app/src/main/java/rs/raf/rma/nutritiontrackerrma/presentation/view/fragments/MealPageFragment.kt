@@ -129,7 +129,7 @@ class MealPageFragment : Fragment(R.layout.fragment_meal_page) {
         when (state) {
             is MealPageState.Success -> {
                 showLoadingState(false)
-                initUi(state.meals)
+                initUi(state.mealss[0])
             }
             is MealPageState.Error -> {
                 showLoadingState(false)

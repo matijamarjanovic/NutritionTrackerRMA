@@ -31,4 +31,7 @@ abstract class ListMealDao {
     @Query("DELETE FROM savedMeals WHERE idMeal = :id")
     abstract fun delete(id: String): Completable
 
+    @Update
+    abstract fun update(listMeal : ListMealEntity): Completable
+
 }
