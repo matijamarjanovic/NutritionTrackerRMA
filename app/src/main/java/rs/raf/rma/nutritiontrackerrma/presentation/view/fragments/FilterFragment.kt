@@ -123,6 +123,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 binding.listRv.adapter = adapter4
             }else
                 showDialogue(text)
+
         }
 
         adapter4 = AddMealAdapter { meal, text, date ->
