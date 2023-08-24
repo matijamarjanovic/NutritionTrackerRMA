@@ -33,9 +33,14 @@ class UserRepositoryImpl(
         return localDataSource.insert(userEntity)
     }
 
-    override fun getUser(username: String, password: String): Observable<User> {
+    override fun checkUser(username: String): Observable<Int> {
+        return localDataSource.countUsersWithUsername(username)
+    }
+
+
+    override fun getUser(username: String): Observable<User> {
         return localDataSource
-            .getUserByUsernameAndPassword(username,password)
+            .getUserByUsernameAndPassword(username)
             .map { response->
                 User(response.username,response.password)
             }

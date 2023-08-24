@@ -67,21 +67,19 @@ class LoginViewModel(
             )
         subscriptions.add(subscription)
     }
-    override fun getUser(username: String, password: String) {
-        val subscription = userRepository
-            .getUser(username,password)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    addDone.value = AddUserState.Success
-                },
-                {
-                    addDone.value = AddUserState.Error("Error happened while adding movie")
-                    Timber.e(it)
-                }
-            )
-        subscriptions.add(subscription)
+
+    override fun checkUser(username: String): Int {
+        return userRepository.checkUser(username)
+            .observeOn(Schedulers.io())
+            .blockingFirst()
+    }
+
+    override fun getUser(username: String):User {
+        return userRepository.getUser(username)
+            .map { response ->
+                User(response.username, response.password)
+            }
+            .blockingFirst()
     }
 
 }

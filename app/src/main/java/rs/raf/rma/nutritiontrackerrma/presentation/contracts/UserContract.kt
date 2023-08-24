@@ -18,7 +18,8 @@ interface UserContract {
         val userState: LiveData<UserState>
         val addDone: LiveData<AddUserState>
         fun addUser(user: User)
-        fun getUser(username : String,password : String)
+        fun checkUser(username:String):Int
+        fun getUser(username : String):User
     }
 
 }

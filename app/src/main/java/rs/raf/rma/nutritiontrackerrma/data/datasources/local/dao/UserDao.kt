@@ -19,6 +19,9 @@ abstract class UserDao {
     @Insert( onConflict = OnConflictStrategy.REPLACE )
     abstract fun insert(user: UserEntity): Completable
 
-    @Query("SELECT * FROM users WHERE username = :username AND password = :password")
-    abstract fun getUserByUsernameAndPassword(username: String, password: String): Observable<UserEntity>
+    @Query("SELECT * FROM users WHERE username = :username ")
+    abstract fun getUserByUsernameAndPassword(username: String): Observable<UserEntity>
+
+    @Query("SELECT COUNT(*) FROM users WHERE username = :username")
+    abstract fun countUsersWithUsername(username: String): Observable<Int>
 }

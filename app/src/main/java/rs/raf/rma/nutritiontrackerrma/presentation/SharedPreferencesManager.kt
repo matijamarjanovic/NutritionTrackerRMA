@@ -11,6 +11,7 @@ class SharedPreferencesManager(context: Context) {
     companion object {
         private const val PREF_NAME = "MyAppPreferences"
         private const val KEY_IS_LOGGED_IN = "isLoggedIn"
+        private const val KEY_USERNAME = "username" // New key for username
     }
 
     fun isLoggedIn(): Boolean {
@@ -20,6 +21,17 @@ class SharedPreferencesManager(context: Context) {
     fun setLoggedIn(isLoggedIn: Boolean) {
         editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn)
         editor.apply()
+    }
+
+    // Method to save the username
+    fun saveUsername(username: String) {
+        editor.putString(KEY_USERNAME, username)
+        editor.apply()
+    }
+
+    // Method to retrieve the saved username
+    fun getUsername(): String? {
+        return sharedPreferences.getString(KEY_USERNAME, null)
     }
 
     fun clearLoggedIn() {

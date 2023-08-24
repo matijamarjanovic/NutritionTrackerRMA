@@ -57,27 +57,41 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
         loginButton.setOnClickListener {
 
+
+
             val username = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            if (isValidCredentials(username, password)) {
-                // Save the login status in SharedPreferences if "Remember Me" is checked
-                if (CheckBox.isChecked) {
-                    sharedPreferencesManager.setLoggedIn(true)
+            val checkFlag=viewModel.checkUser(username)
+
+            if(checkFlag == 1){
+
+                val user=viewModel.getUser(username)
+                if (isValidCredentials(user,username, password)) {
+                    sharedPreferencesManager.saveUsername(username)
+                    if (CheckBox.isChecked) {
+                        sharedPreferencesManager.setLoggedIn(true)
+                    }
+                    redirectToMainActivity()
+                } else {
+
                 }
 
-                // Redirect to the MainActivity
-                redirectToMainActivity()
-            } else {
-                // Handle invalid credentials
+            }else{
+
             }
+
+            //skipuje proveru
+            redirectToMainActivity()
         }
     }
 
-    private fun isValidCredentials(username: String, password: String): Boolean {
-        // Implement your logic to validate the credentials here
-        // Return true if the credentials are valid, false otherwise
-        return true
+    private fun isValidCredentials(user:User,username: String, password: String): Boolean {
+        if(user.username==username && user.password==password){
+            return true
+        }else{
+            return false
+        }
     }
 
     private fun redirectToMainActivity() {
