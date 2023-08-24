@@ -34,9 +34,9 @@ class NutTrackApplication : Application() {
 
             coreModule,
             loginModule,
+            filterModule,
             categoryModule,
             mealsModule,
-            filterModule,
             savedMealsModule,
             mealStaisticsModule,
             ingredientsModule

@@ -18,7 +18,7 @@ val loginModule = module {
     viewModel { LoginViewModel (userRepository = get()) }
 
     single <UserRepository> { UserRepositoryImpl( localDataSource = get()) }
-
+    single { get<MealsDatabase>().getIngredientsDao() }
     single { get<MealsDatabase>().getUsersDao() }
 
 }

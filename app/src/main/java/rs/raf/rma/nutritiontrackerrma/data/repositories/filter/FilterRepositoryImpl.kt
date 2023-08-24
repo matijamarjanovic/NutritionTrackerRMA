@@ -1,6 +1,13 @@
 package rs.raf.rma.nutritiontrackerrma.data.repositories.filter
 
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.FilterDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.IngredientsDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.CategoryEntity
@@ -12,6 +19,7 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.FilterService
 import rs.raf.rma.nutritiontrackerrma.data.models.Resource
 import rs.raf.rma.nutritiontrackerrma.data.models.categories.Category
 import rs.raf.rma.nutritiontrackerrma.data.models.filter.Filter
+import rs.raf.rma.nutritiontrackerrma.data.models.ingredients.Ingredient
 import timber.log.Timber
 
 
@@ -78,6 +86,78 @@ class FilterRepositoryImpl(
                 // Return a success resource
                 Resource.Success(Unit)
             }
+    }
+    // Declare disposable at the class level
+    private var disposable: Disposable? = null
+
+    override fun insertIngredientsIntoDatabase() {
+
+        remoteDataSource.getAllIngredients()
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({response->
+                val items=response.meals
+
+                val entities = items.map {
+                    FilterEntity(
+                        0,
+                        it.name
+                    )
+                }
+                localDataSource.deleteAndInsertAll(entities)
+
+                fetchDataFromNewAPIService()
+            })
+    }
+    private fun fetchDataFromNewAPIService() {
+        localDataSource.getAllAscending()
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({ data ->
+                // Handle the data from the local data source
+                var startIndex = 0 // Start from the beginning of the list
+
+                while (startIndex < data.size) {
+                    val endIndex = startIndex + 20
+                    val sublist = data.subList(startIndex, endIndex.coerceAtMost(data.size))
+
+                    var formattedString = sublist.joinToString(", ") { entity ->
+                        "100g ${entity.name}"
+                    }
+
+                    val responseObservable = remoteDataSourceCalories.getCalories(formattedString)
+
+                    responseObservable
+                        .subscribe({ caloriesResponseList ->
+                            val entities =caloriesResponseList.map{
+                                IngredientEntity(
+                                    0,
+                                    it.name,
+                                    100,
+                                    it.calories
+                                )
+                            }
+                            for (caloriesResponse in caloriesResponseList) {
+                                println("Calories Response: $caloriesResponse")
+                            }
+                            localDataSourceIng.insertAll(entities)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(Schedulers.io())
+                                .subscribe()
+                        }, { error ->
+                            // Handle any errors from the response observable
+                            println("Error: $error")
+                        })
+
+                    println(formattedString)
+
+
+                    startIndex = endIndex // Move to the next batch
+                }
+            }, { error ->
+                // Handle any errors
+            })
+
     }
 
     override fun getAllAreas(): Observable<List<Filter>> {
@@ -207,7 +287,7 @@ class FilterRepositoryImpl(
                                 }
 
                                 val ingredientToAdd = IngredientEntity(
-                                    localIng.id.toString(),
+                                    localIng.id,
                                     localIng.name,
                                     100,
                                     calorie

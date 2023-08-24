@@ -11,6 +11,8 @@ import rs.raf.rma.nutritiontrackerrma.data.models.filter.FilterResponseIng
 
 
 interface FilterRepository {
+
+    fun insertIngredientsIntoDatabase()
     fun fetchAllAreas(): Observable<Resource<Unit>>
     fun fetchAllCategories(): Observable<Resource<Unit>>
     fun fetchAllIngredients(): Observable<Resource<Unit>>

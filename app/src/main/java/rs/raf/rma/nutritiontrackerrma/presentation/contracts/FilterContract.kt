@@ -15,11 +15,10 @@ interface FilterContract {
         fun fetchAllCategories()
         fun fetchAllAreas()
         fun fetchAllIngredients()
-
+        fun insertIngredientsIntoDatabase()
         fun getAllCategories()
         fun getAllAreas()
         fun getAllIngredients()
-
         fun getAllCategoriesAscending()
         fun getAllAreasAscending()
         fun getAllIngredientsAscending()

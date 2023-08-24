@@ -20,12 +20,16 @@ import rs.raf.rma.nutritiontrackerrma.presentation.contracts.UserContract
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.LoginViewModel
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.MealsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import rs.raf.rma.nutritiontrackerrma.presentation.contracts.FilterContract
+import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.FilterViewModel
 
 
 class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModel()
+    private val filterViewModel :FilterViewModel by viewModel()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +45,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
         viewModel.addUser(user1)
         viewModel.addUser(user2)
-
+        filterViewModel.insertIngredientsIntoDatabase()
 
 
         if (sharedPreferencesManager.isLoggedIn()) {

@@ -28,6 +28,13 @@ abstract class IngredientsDao {
         deleteAll()
         insertAll(entities).blockingAwait()
     }
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract fun insertAll2(entities: List<IngredientEntity>): Completable
+    @Transaction
+    open fun insertAll1(entities: List<IngredientEntity>) {
+//        deleteAll()
+        insertAll(entities).blockingAwait()
+    }
 
 
 

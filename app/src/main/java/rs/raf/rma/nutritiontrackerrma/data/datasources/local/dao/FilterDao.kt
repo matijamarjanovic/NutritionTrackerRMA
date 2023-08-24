@@ -13,6 +13,8 @@ abstract class FilterDao {
     abstract fun insertCategory(categoryEntity: FilterEntity) : Completable
     @Insert( onConflict = OnConflictStrategy.REPLACE )
     abstract fun insertAll(entities: List<FilterEntity>): Completable
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insert(entitie: FilterEntity) : Completable
 
     @Query("SELECT * FROM itemFilters")
     abstract fun getAll(): Observable<List<FilterEntity>>

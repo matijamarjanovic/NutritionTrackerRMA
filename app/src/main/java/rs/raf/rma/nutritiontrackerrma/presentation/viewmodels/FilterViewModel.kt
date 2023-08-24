@@ -133,6 +133,10 @@ class FilterViewModel(
         subscriptions.add(subscription)
     }
 
+    override fun insertIngredientsIntoDatabase() {
+        filterRepository.insertIngredientsIntoDatabase()
+    }
+
     override fun getAllCategories() {
 
         val subscription = filterRepository

@@ -24,7 +24,7 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.UserEntity
         FilterEntity::class, SavedMealEntity::class,
         UserEntity::class,IngredientEntity::class,
         ListSingleMealEntity::class],
-    version = 14,
+    version = 15,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)

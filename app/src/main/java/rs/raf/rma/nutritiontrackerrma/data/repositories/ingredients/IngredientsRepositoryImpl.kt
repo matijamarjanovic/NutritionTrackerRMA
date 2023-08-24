@@ -32,7 +32,7 @@ class IngredientsRepositoryImpl(
 
                 val entities = items.map {
                     IngredientEntity (
-                        it.idIngredient,
+                        it.idIngredient.toInt(),
                         it.strIngredient,
                         100,
                         0.0
