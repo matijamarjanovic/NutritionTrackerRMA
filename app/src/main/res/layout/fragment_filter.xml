@@ -40,6 +40,7 @@
             android:paddingEnd="16dp"/>
     </LinearLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRv"
         android:layout_width="0dp"
@@ -48,14 +49,14 @@
         android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLay"
-        />
-
+        app:layout_constraintTop_toBottomOf="@+id/kcalFilterLay"
+        app:layout_constraintVertical_bias="1.0" />
 
     <LinearLayout
         android:id="@+id/linearLay"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,6 +69,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="16dp"
+            android:layout_weight="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputEt">
@@ -99,7 +101,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+            app:layout_constraintTop_toBottomOf="@+id/searchLayout">
 
             <Button
                 android:id="@+id/sortAscendingBtn"
@@ -118,7 +120,39 @@
         </FrameLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/kcalFilterLay"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLay">
 
+        <EditText
+            android:id="@+id/fromEt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:inputType="number"
+            android:hint="@string/fromKcal" />
+
+        <EditText
+            android:id="@+id/toEt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_weight="10"
+            android:hint="@string/toKcal" />
+
+        <Button
+            android:id="@+id/filterKcalBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="@string/filter"/>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/loadingPb"

@@ -96,6 +96,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
 
             binding.linearLay.visibility = View.GONE
+            binding.kcalFilterLay.visibility = View.VISIBLE
 
             binding.sortDescendingBtn.visibility = View.GONE
             binding.sortAscendingBtn.visibility = View.GONE
@@ -108,6 +109,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
             binding.searchBar.isEnabled = false
             binding.backButton.visibility = View.VISIBLE
+            binding.kcalFilterLay.visibility = View.GONE
 
             binding.listRv.adapter = adapter3
 
@@ -168,6 +170,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 binding.sortAscendingBtn.visibility = View.GONE
 
                 binding.linearLay.visibility = View.VISIBLE
+                binding.kcalFilterLay.visibility = View.GONE
 
 
 
@@ -175,6 +178,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
                 binding.listRv.adapter = adapter2
                 binding.searchBar.isEnabled = true
+                binding.kcalFilterLay.visibility = View.VISIBLE
 
                 binding.linearLay.visibility = View.GONE
 
@@ -231,6 +235,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 filterViewModel.getAllIngredientsDescending()
                 filterViewModel.fetchAllIngredients()
             }
+
+        }
+
+        binding.filterKcalBtn.setOnClickListener{
 
         }
 
@@ -325,6 +333,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
         binding.areaRb.isChecked = true
         binding.searchBar.clearFocus()
+
+        binding.kcalFilterLay.visibility = View.GONE
     }
 
     private fun renderState(state: FilterState) {

@@ -54,4 +54,6 @@
     <string name="next">Next</string>
     <string name="prev">Previous</string>
     <string name="sendEmail">Send in Email</string>
+    <string name="fromKcal">From Kcal...</string>
+    <string name="toKcal">To Kcal...</string>
 </resources>
