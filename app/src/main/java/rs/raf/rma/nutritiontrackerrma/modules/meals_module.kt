@@ -17,11 +17,15 @@ val mealsModule = module {
     single<ListMealRepository> { ListMealRepositoryImpl(
         localDataSource = get(),
         localDataSourceSaved = get(),
+        localDataSourceListSingleMeal =get(),
         remoteDataSource = get(),
-        remoteDataSourceCalories =get()
+        remoteDataSourceCalories =get(),
+
     ) }
 
     single { get<MealsDatabase>().getListMealDao()  }
+    single { get<MealsDatabase>().getListSingleMealDao()  }
+
 
     single<MealsService> {  create(retrofit = get(qualifier = named("mealsRetrofit"))) }
     single<CaloriesService> {  create(retrofit = get(qualifier = named("caloriesRetrofit"))) }

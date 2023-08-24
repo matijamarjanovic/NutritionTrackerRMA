@@ -4,11 +4,15 @@ import android.annotation.SuppressLint
 
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.ListMealDao
+import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.ListSingleMealDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.SavedMealDao
 
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.ListMealEntity
+import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.ListSingleMealEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.SavedMealEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.CaloriesService
 import rs.raf.rma.nutritiontrackerrma.data.datasources.remote.MealsService
@@ -18,6 +22,7 @@ import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.SavedMeal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.SimpleMeal
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
+import rs.raf.rma.nutritiontrackerrma.data.models.meals.listSingleMeals.ListSingleMeal
 
 import java.util.*
 import kotlin.collections.ArrayList
@@ -25,6 +30,7 @@ import kotlin.collections.ArrayList
 class ListMealRepositoryImpl(
     private val localDataSource: ListMealDao,
     private val localDataSourceSaved: SavedMealDao,
+    private val localDataSourceListSingleMeal: ListSingleMealDao,
     private val remoteDataSource: MealsService,
     private val remoteDataSourceCalories: CaloriesService
 ) : ListMealRepository {
@@ -271,17 +277,136 @@ class ListMealRepositoryImpl(
     }
 
 
-    override fun getMealsIn7Days(day: String): Int {
-        TODO("Not yet implemented")
-    }
-
     override fun getAllMeals(): Observable<List<ListMeal>> {
         return localDataSource
             .getAll()
-            .map {
-                it.map {
-                    ListMeal(it.idMeal, it.strMeal,it.strMealThumb,it.calories)
-                }
+            .flatMap { localMeals ->
+                Observable.fromIterable(localMeals)
+                    .flatMap { localMeal ->
+                        remoteDataSource
+                            .singleMeal(localMeal.idMeal.toString())
+                            .map { remoteMealResponse ->
+                                val remoteMeal = remoteMealResponse.meals[0]
+                                val updatedCalories = 0.1 // Implement your calorie calculation logic
+                                val mealToAdd= ListSingleMealEntity(
+                                    remoteMeal.idMeal,
+                                    remoteMeal.strMeal,
+                                    remoteMeal.strCategory,
+                                    remoteMeal.strArea,
+                                    remoteMeal.strInstructions,
+                                    remoteMeal.strMealThumb,
+                                    remoteMeal.strTags,
+                                    remoteMeal.strYoutube,
+
+                                    updatedCalories,
+
+                                    remoteMeal.strIngredient1,
+                                    remoteMeal.strIngredient2,
+                                    remoteMeal.strIngredient3,
+                                    remoteMeal.strIngredient4,
+                                    remoteMeal.strIngredient5,
+                                    remoteMeal.strIngredient6,
+                                    remoteMeal.strIngredient7,
+                                    remoteMeal.strIngredient8,
+                                    remoteMeal.strIngredient9,
+                                    remoteMeal.strIngredient10,
+                                    remoteMeal.strIngredient11,
+                                    remoteMeal.strIngredient12,
+                                    remoteMeal.strIngredient13,
+                                    remoteMeal.strIngredient14,
+                                    remoteMeal.strIngredient15,
+                                    remoteMeal.strIngredient16,
+                                    remoteMeal.strIngredient17,
+                                    remoteMeal.strIngredient18,
+                                    remoteMeal.strIngredient19,
+                                    remoteMeal.strIngredient20,
+
+                                    remoteMeal.strMeasure1,
+                                    remoteMeal.strMeasure2,
+                                    remoteMeal.strMeasure3,
+                                    remoteMeal.strMeasure4,
+                                    remoteMeal.strMeasure5,
+                                    remoteMeal.strMeasure6,
+                                    remoteMeal.strMeasure7,
+                                    remoteMeal.strMeasure8,
+                                    remoteMeal.strMeasure9,
+                                    remoteMeal.strMeasure10,
+                                    remoteMeal.strMeasure11,
+                                    remoteMeal.strMeasure12,
+                                    remoteMeal.strMeasure13,
+                                    remoteMeal.strMeasure14,
+                                    remoteMeal.strMeasure15,
+                                    remoteMeal.strMeasure16,
+                                    remoteMeal.strMeasure17,
+                                    remoteMeal.strMeasure18,
+                                    remoteMeal.strMeasure19,
+                                    remoteMeal.strMeasure20,
+                                )
+                                localDataSourceListSingleMeal
+                                    .insert(mealToAdd)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(){
+
+                                    }
+                                //localDataSourceMealWithAllData.insert(mealToAdd)
+                                ListMeal(
+                                    localMeal.idMeal,
+                                    localMeal.strMeal,
+                                    localMeal.strMealThumb,
+                                    updatedCalories,
+//                                    remoteMeal.strCategory,
+//                                    remoteMeal.strArea,
+//                                    remoteMeal.strInstructions,
+//                                    remoteMeal.strTags,
+//                                    remoteMeal.strYoutube,
+//
+//                                    remoteMeal.strIngredient1,
+//                                    remoteMeal.strIngredient2,
+//                                    remoteMeal.strIngredient3,
+//                                    remoteMeal.strIngredient4,
+//                                    remoteMeal.strIngredient5,
+//                                    remoteMeal.strIngredient6,
+//                                    remoteMeal.strIngredient7,
+//                                    remoteMeal.strIngredient8,
+//                                    remoteMeal.strIngredient9,
+//                                    remoteMeal.strIngredient10,
+//                                    remoteMeal.strIngredient11,
+//                                    remoteMeal.strIngredient12,
+//                                    remoteMeal.strIngredient13,
+//                                    remoteMeal.strIngredient14,
+//                                    remoteMeal.strIngredient15,
+//                                    remoteMeal.strIngredient16,
+//                                    remoteMeal.strIngredient17,
+//                                    remoteMeal.strIngredient18,
+//                                    remoteMeal.strIngredient19,
+//                                    remoteMeal.strIngredient20,
+//
+//                                    remoteMeal.strMeasure1,
+//                                    remoteMeal.strMeasure2,
+//                                    remoteMeal.strMeasure3,
+//                                    remoteMeal.strMeasure4,
+//                                    remoteMeal.strMeasure5,
+//                                    remoteMeal.strMeasure6,
+//                                    remoteMeal.strMeasure7,
+//                                    remoteMeal.strMeasure8,
+//                                    remoteMeal.strMeasure9,
+//                                    remoteMeal.strMeasure10,
+//                                    remoteMeal.strMeasure11,
+//                                    remoteMeal.strMeasure12,
+//                                    remoteMeal.strMeasure13,
+//                                    remoteMeal.strMeasure14,
+//                                    remoteMeal.strMeasure15,
+//                                    remoteMeal.strMeasure16,
+//                                    remoteMeal.strMeasure17,
+//                                    remoteMeal.strMeasure18,
+//                                    remoteMeal.strMeasure19,
+//                                    remoteMeal.strMeasure20,
+                                )
+                            }
+                    }
+                    .toList()
+                    .toObservable()
             }
     }
 
@@ -423,6 +548,11 @@ class ListMealRepositoryImpl(
     override fun delete(id: String): Completable {
         return localDataSourceSaved.delete(id)
     }
+
+    override fun getMealsIn7Days(day: String): Int {
+        TODO("Not yet implemented")
+    }
+
 }
 
 

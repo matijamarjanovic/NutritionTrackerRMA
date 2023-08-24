@@ -16,6 +16,7 @@ val savedMealsModule = module {
     single<ListMealRepository> { ListMealRepositoryImpl(
         localDataSource = get(),
         localDataSourceSaved = get(),
+        localDataSourceListSingleMeal = get(),
         remoteDataSource = get(),
         remoteDataSourceCalories =get()
     ) }
