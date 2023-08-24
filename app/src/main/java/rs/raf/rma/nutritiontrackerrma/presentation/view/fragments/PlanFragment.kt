@@ -144,117 +144,17 @@ class PlanFragment : Fragment(R.layout.fragment_plan) {
     }
 
     private fun initListeners() {
-        binding.nextBtn.setOnClickListener{
-            if (binding.radioMon.isChecked)
-                binding.radioTue.isChecked = true
-            else if (binding.radioTue.isChecked)
-                binding.radioWed.isChecked = true
-            else if (binding.radioWed.isChecked)
-                binding.radioThu.isChecked = true
-            else if (binding.radioThu.isChecked)
-                binding.radioFri.isChecked = true
-            else if (binding.radioFri.isChecked)
-                binding.radioSat.isChecked = true
-            else if (binding.radioSat.isChecked)
-                binding.radioSun.isChecked = true
-        }
 
-        binding.prevBtn.setOnClickListener{
-            if (binding.radioSun.isChecked)
-                binding.radioSat.isChecked = true
-            else if (binding.radioSat.isChecked)
-                binding.radioFri.isChecked = true
-            else if (binding.radioFri.isChecked)
-                binding.radioThu.isChecked = true
-            else if (binding.radioThu.isChecked)
-                binding.radioWed.isChecked = true
-            else if (binding.radioWed.isChecked)
-                binding.radioTue.isChecked = true
-            else if (binding.radioThu.isChecked)
-                binding.radioMon.isChecked = true
-        }
-
-        binding.daysRg.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId){
-                R.id.radioMon ->{
-                    binding.monLay.visibility = View.VISIBLE
-                    binding.tueLay.visibility = View.GONE
-                    binding.wedLay.visibility = View.GONE
-                    binding.thurLay.visibility = View.GONE
-                    binding.friLay.visibility = View.GONE
-                    binding.satLay.visibility = View.GONE
-                    binding.sunLay.visibility = View.GONE
-
-                }
-                R.id.radioTue ->{
-                    binding.monLay.visibility = View.GONE
-                    binding.tueLay.visibility = View.VISIBLE
-                    binding.wedLay.visibility = View.GONE
-                    binding.thurLay.visibility = View.GONE
-                    binding.friLay.visibility = View.GONE
-                    binding.satLay.visibility = View.GONE
-                    binding.sunLay.visibility = View.GONE
-                }
-                R.id.radioWed ->{
-                    binding.monLay.visibility = View.GONE
-                    binding.tueLay.visibility = View.GONE
-                    binding.wedLay.visibility = View.VISIBLE
-                    binding.thurLay.visibility = View.GONE
-                    binding.friLay.visibility = View.GONE
-                    binding.satLay.visibility = View.GONE
-                    binding.sunLay.visibility = View.GONE
-                }
-                R.id.radioThu ->{
-                    binding.monLay.visibility = View.GONE
-                    binding.tueLay.visibility = View.GONE
-                    binding.wedLay.visibility = View.GONE
-                    binding.thurLay.visibility = View.VISIBLE
-                    binding.friLay.visibility = View.GONE
-                    binding.satLay.visibility = View.GONE
-                    binding.sunLay.visibility = View.GONE
-                }
-                R.id.radioFri ->{
-                    binding.monLay.visibility = View.GONE
-                    binding.tueLay.visibility = View.GONE
-                    binding.wedLay.visibility = View.GONE
-                    binding.thurLay.visibility = View.GONE
-                    binding.friLay.visibility = View.VISIBLE
-                    binding.satLay.visibility = View.GONE
-                    binding.sunLay.visibility = View.GONE
-                }
-                R.id.radioSat ->{
-                    binding.monLay.visibility = View.GONE
-                    binding.tueLay.visibility = View.GONE
-                    binding.wedLay.visibility = View.GONE
-                    binding.thurLay.visibility = View.GONE
-                    binding.friLay.visibility = View.GONE
-                    binding.satLay.visibility = View.VISIBLE
-                    binding.sunLay.visibility = View.GONE
-                }
-                R.id.radioSun ->{
-                    binding.monLay.visibility = View.GONE
-                    binding.tueLay.visibility = View.GONE
-                    binding.wedLay.visibility = View.GONE
-                    binding.thurLay.visibility = View.GONE
-                    binding.friLay.visibility = View.GONE
-                    binding.satLay.visibility = View.GONE
-                    binding.sunLay.visibility = View.VISIBLE
-                }
-            }
-        }
 
         binding.sourceRg.setOnCheckedChangeListener { group, checkedId ->
 
 
             when(checkedId){
                 R.id.radioApi -> {
-                    binding.daysRg.check(R.id.radioMon)
-
                     mealsViewModel.getAllMeals()
 
                 }
                 R.id.radioDb -> {
-                    binding.daysRg.check(R.id.radioMon)
 
                     val sharedPreferencesManager=SharedPreferencesManager.getInstance()
                     val username=sharedPreferencesManager.getUsername()?:""
@@ -332,24 +232,18 @@ class PlanFragment : Fragment(R.layout.fragment_plan) {
             renderStateSaved(it)
         })
 
-        binding.radioMon.isChecked = true
         binding.radioApi.isChecked = true
-
-        binding.tueLay.visibility = View.GONE
-        binding.wedLay.visibility = View.GONE
-        binding.thurLay.visibility = View.GONE
-        binding.friLay.visibility = View.GONE
-        binding.satLay.visibility = View.GONE
-        binding.sunLay.visibility = View.GONE
+        binding.emailEt.clearFocus()
+        binding.scrollView.smoothScrollTo(0,0)
 
         mealsViewModel.getAllMeals()
 
         adapter = context?.let { ArrayAdapter(it, R.layout.spinner_tv, mealList) }!!
         adapter?.let { setAdapters(it) }
 
+
     }
     private fun showLoadingState(loading: Boolean) {
-        binding.btnsLay.isVisible = !loading
         binding.monLay.isVisible = !loading
         binding.tueLay.isVisible = !loading
         binding.wedLay.isVisible = !loading
