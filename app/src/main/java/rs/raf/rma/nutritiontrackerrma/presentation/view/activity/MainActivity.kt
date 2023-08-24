@@ -49,10 +49,10 @@ class MainActivity : AppCompatActivity() {
                     binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_4
                     true
                 }
-/*                R.id.plan -> {
-                    binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_2
+               R.id.plan -> {
+                    binding.viewPager.currentItem = MainPagerAdapter.FRAGMENT_5
                     true
-                }*/
+                }
                 // Add more cases for additional menu items
                 else -> false
             }

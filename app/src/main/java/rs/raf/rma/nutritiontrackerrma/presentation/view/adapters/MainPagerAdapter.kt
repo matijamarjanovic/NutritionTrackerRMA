@@ -14,12 +14,12 @@ class MainPagerAdapter(
 ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
-        private const val ITEM_COUNT = 4
+        private const val ITEM_COUNT = 5
         const val FRAGMENT_1 = 0
         const val FRAGMENT_2 = 1
         const val FRAGMENT_3 = 2
         const val FRAGMENT_4 = 3
-//        const val FRAGMENT_5 = 4
+        const val FRAGMENT_5 = 4
 
     }
 
@@ -29,7 +29,7 @@ class MainPagerAdapter(
             FRAGMENT_2 -> FilterFragment()
             FRAGMENT_3 -> ListMealFragment()
             FRAGMENT_4 -> MealStatisticsFragment()
-            else -> ListMealFragment()
+            else -> PlanFragment()
         }
     }
 

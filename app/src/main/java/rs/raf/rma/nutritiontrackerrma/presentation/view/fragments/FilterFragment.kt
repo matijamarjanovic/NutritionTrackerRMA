@@ -376,12 +376,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 meal = state.mealss[0]
 
                 mealsViewModel.addKcalToMeal(state.mealss as ArrayList<Meal>)
-
 /*
                 adapter3.submitList(state.mealss)
                 adapter4.submitList(state.mealss)
 */
-
             }
             is MealPageState.Error -> {
                 showLoadingState(false)

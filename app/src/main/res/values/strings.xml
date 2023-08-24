@@ -41,4 +41,16 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
+    <string name="breakf">Breakfast</string>
+    <string name="lun">Lunch</string>
+    <string name="din">Dinner</string>
+    <string name="mondayShort">M</string>
+    <string name="tuesdayShort">T</string>
+    <string name="wednesdayShort">W</string>
+    <string name="thursdayShort">T</string>
+    <string name="fridayShort">F</string>
+    <string name="saturdayShort">S</string>
+    <string name="sundayShort">S</string>
+    <string name="next">Next</string>
+    <string name="prev">Previous</string>
 </resources>
