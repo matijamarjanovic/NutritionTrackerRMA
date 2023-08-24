@@ -181,6 +181,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 binding.sortDescendingBtn.visibility = View.GONE
                 binding.sortAscendingBtn.visibility = View.GONE
 
+            } else if(binding.listRv.adapter == adapter4){
+                binding.listRv.adapter = adapter3
+
             }
 
         }
@@ -321,7 +324,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
 
         binding.areaRb.isChecked = true
-
+        binding.searchBar.clearFocus()
     }
 
     private fun renderState(state: FilterState) {

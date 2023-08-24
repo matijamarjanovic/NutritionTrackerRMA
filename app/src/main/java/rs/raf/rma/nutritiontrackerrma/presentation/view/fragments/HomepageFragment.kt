@@ -182,7 +182,7 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
 
         binding.pageBackBtn.setOnClickListener{
             if(curentPage!=0){
-                 curentPage=curentPage-1
+                curentPage -= 1
                  categoryViewModel.getAllCategoriesByPage(curentPage,itemsPerPage)
                  //categoryViewModel.fetchAllCategories()
             }
@@ -190,7 +190,7 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
 
         binding.pageForwardBtn.setOnClickListener{
             if(curentPage<max){
-                curentPage=curentPage+1
+                curentPage += 1
                 categoryViewModel.getAllCategoriesByPage(curentPage,itemsPerPage)
                 //categoryViewModel.fetchAllCategories()
             }
@@ -216,6 +216,7 @@ class HomepageFragment() : Fragment(R.layout.fragment_homepage) {
 
         categoryViewModel.getAllCategoriesByPage(curentPage,itemsPerPage)
         categoryViewModel.fetchAllCategories()
+        binding.searchBar.clearFocus()
     }
 
     private fun renderState(state: CategoryState) {

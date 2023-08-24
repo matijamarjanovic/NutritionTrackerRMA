@@ -534,7 +534,7 @@ class ListMealRepositoryImpl(
             date,
             whichMeal,
             meal.calories,
-            "user",
+            meal.user,
 
             meal.strIngredient1, meal.strIngredient2, meal.strIngredient3, meal.strIngredient4, meal.strIngredient5,
             meal.strIngredient6, meal.strIngredient7, meal.strIngredient8, meal.strIngredient9, meal.strIngredient10,

@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/whichMealTv"
+            app:layout_constraintTop_toBottomOf="@id/ingLay"
             android:text="@string/showRec"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
@@ -100,18 +100,624 @@
 
 
         <!-- Ingredients -->
-        <TextView
-            android:id="@+id/ingredientsTextView"
+        <LinearLayout
+            android:id="@+id/ingLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:text="ingredients"
-            android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@id/areaTextView"
+            android:orientation="vertical"
+            android:background="@drawable/border_bottom"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/whichMealTv"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/border_bottom" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:id="@+id/im1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient17"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure17"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal17"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient19"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure19"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal19"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/im20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/ingredient20"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/measure20"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+
+                <TextView
+                    android:id="@+id/kcal20"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_bottom" />
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <!-- Video Link -->
         <TextView
@@ -121,7 +727,7 @@
             android:autoLink="web"
             android:textSize="16sp"
             android:text="link"
-            app:layout_constraintTop_toBottomOf="@id/ingredientsTextView"
+            app:layout_constraintTop_toBottomOf="@id/areaTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/border_bottom" />

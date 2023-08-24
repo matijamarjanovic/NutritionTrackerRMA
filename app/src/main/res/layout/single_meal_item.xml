@@ -733,9 +733,6 @@
 
             </LinearLayout>
 
-
-
-
         <ProgressBar
             android:id="@+id/loadingPb"
             android:layout_width="wrap_content"

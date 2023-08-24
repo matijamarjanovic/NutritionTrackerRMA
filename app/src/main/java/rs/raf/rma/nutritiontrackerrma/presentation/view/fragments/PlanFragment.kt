@@ -152,10 +152,11 @@ class PlanFragment : Fragment(R.layout.fragment_plan) {
             when(checkedId){
                 R.id.radioApi -> {
                     mealsViewModel.getAllMeals()
+                    binding.scrollView.smoothScrollTo(0,0)
 
                 }
                 R.id.radioDb -> {
-
+                    binding.scrollView.smoothScrollTo(0,0)
                     val sharedPreferencesManager=SharedPreferencesManager.getInstance()
                     val username=sharedPreferencesManager.getUsername()?:""
                     mealsViewModel.getAllSavedMeals(username)

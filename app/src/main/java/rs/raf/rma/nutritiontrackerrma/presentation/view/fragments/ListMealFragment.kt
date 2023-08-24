@@ -39,6 +39,9 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val sharedPreferencesManager = SharedPreferencesManager.getInstance()
+    val username = sharedPreferencesManager.getUsername()?:""
+
     private lateinit var adapter: SavedMealsAdapter
     private lateinit var adapter2: SingleSavedMealAdapter
     private lateinit var adapter3: UpdateMealAdapter
@@ -92,8 +95,6 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 binding.listRv.adapter = adapter
                 binding.backButton.visibility = View.GONE
 
-                 val sharedPreferencesManager=SharedPreferencesManager.getInstance()
-                 val username=sharedPreferencesManager.getUsername()?:""
                  mealsViewModel.getAllSavedMeals(username)
             }else
                 showDialogue(text)
@@ -114,8 +115,6 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 binding.backButton.visibility = View.GONE
                 binding.searchBar.visibility = View.VISIBLE
 
-                val sharedPreferencesManager=SharedPreferencesManager.getInstance()
-                val username=sharedPreferencesManager.getUsername()?:""
                 mealsViewModel.getAllSavedMeals(username)
             }
 
@@ -137,14 +136,13 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 binding.backButton.visibility = View.GONE
                 binding.searchBar.visibility = View.VISIBLE
 
-                val sharedPreferencesManager=SharedPreferencesManager.getInstance()
-                val username=sharedPreferencesManager.getUsername()?:""
                 mealsViewModel.getAllSavedMeals(username)
 
             }else if(binding.listRv.adapter == adapter3){
                 binding.listRv.adapter = adapter2
             }
         }
+        binding.searchBar.isEnabled = false
     }
 
     private fun initObservers() {
@@ -159,8 +157,7 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
             renderState2(it)
         })
 
-        val sharedPreferencesManager=SharedPreferencesManager.getInstance()
-        val username=sharedPreferencesManager.getUsername()?:""
+
         mealsViewModel.getAllSavedMeals(username)
     }
 
