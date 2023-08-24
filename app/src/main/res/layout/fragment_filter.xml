@@ -133,24 +133,34 @@
             android:id="@+id/fromEt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
+            android:layout_weight="4"
             android:inputType="number"
+            android:layout_marginEnd="2dp"
             android:hint="@string/fromKcal" />
 
         <EditText
             android:id="@+id/toEt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_weight="10"
+            android:inputType="numberDecimal"
+            android:layout_weight="4"
+            android:layout_marginEnd="2dp"
             android:hint="@string/toKcal" />
 
         <Button
             android:id="@+id/filterKcalBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
+            android:layout_weight="3"
+            android:layout_marginEnd="2dp"
             android:text="@string/filter"/>
+        <Button
+            android:id="@+id/resetBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/reset"
+            android:layout_marginEnd="2dp"/>
 
     </LinearLayout>
 

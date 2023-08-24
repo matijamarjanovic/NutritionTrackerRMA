@@ -49,9 +49,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private lateinit var adapter4: AddMealAdapter
 
     private var meal : Meal? = null
-    private var meal2 : Meal? = null
-
-    var mealsWCal : ArrayList<Meal> = ArrayList()
+    private var mealList : ArrayList<ListMeal> = ArrayList()
 
     var allIngredients : ArrayList<Ingredient> = ArrayList()
 
@@ -70,8 +68,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun init() {
-        initUi()
         initObservers()
+        initUi()
     }
     private fun initUi() {
         initRecycler()
@@ -239,7 +237,13 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
 
         binding.filterKcalBtn.setOnClickListener{
+            mealsViewModel.getAllMeals()
+        }
 
+        binding.resetBtn.setOnClickListener{
+            binding.fromEt.setText("")
+            binding.toEt.setText("")
+            binding.filterKcalBtn.performClick()
         }
 
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -357,15 +361,38 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
     }
 
-
+    var from = 0.0
+    var to = 10000.0
 
     private fun renderState2(state: MealsState) {
         when (state) {
             is MealsState.Success -> {
                 showLoadingState(false)
+                mealList = ArrayList(state.meals)
 
-                adapter2.submitList(state.meals)
-                //mealsViewModel.getAllSingleMeals(state.meals as ArrayList<ListMeal>)
+                if (binding.fromEt.text.toString() != ""){
+                    from = binding.fromEt.text.toString().toDouble()
+                }else{
+                    from = 0.0
+                }
+                if (binding.toEt.text.toString() != ""){
+                    to = binding.fromEt.text.toString().toDouble()
+                }else{
+                    to = 10000.0
+                }
+                mealList.clear()
+                for (m in state.meals){
+                    if (m.calories in from..to)
+                        mealList.add(m)
+                }
+
+                if (mealList.isNotEmpty())
+                    adapter2.submitList(mealList)
+                else{
+                    showDialogue("No meals in the given range of calories.")
+                    adapter2.submitList(null)
+                }
+
 
             }
             is MealsState.Error -> {
