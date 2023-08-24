@@ -17,9 +17,10 @@ val filterModule = module {
 
     viewModel { FilterViewModel(filterRepository = get()) }
 
-    single <FilterRepository> { FilterRepositoryImpl(remoteDataSource = get(), localDataSource = get()) }
+    single <FilterRepository> { FilterRepositoryImpl(remoteDataSource = get(), remoteDataSourceCalories = get(), localDataSource = get(),localDataSourceIng =get()) }
 
     single { get<MealsDatabase>().getFilterDao() }
+    single { get<MealsDatabase>().getIngredientsDao() }
 
     single<FilterService> { create(retrofit = get(qualifier = named("mealsRetrofit")))}
 

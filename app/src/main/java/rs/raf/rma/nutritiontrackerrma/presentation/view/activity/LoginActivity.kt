@@ -71,7 +71,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                 }
 
             }else{
-                //sharedPreferencesManager.saveUsername("")
+                sharedPreferencesManager.saveUsername("")
             }
 
             //skipuje proveru
