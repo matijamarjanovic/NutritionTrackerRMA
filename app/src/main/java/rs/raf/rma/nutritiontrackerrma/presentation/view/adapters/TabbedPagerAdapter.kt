@@ -20,7 +20,7 @@ class TabbedPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> MealStatisticsFragment()
-            1 -> MealStatisticsFragment()
+            1 -> CalorieCalculatorFragment()
             2 -> MealStatisticsFragment()
             else -> throw IllegalArgumentException("Invalid position")
         }
