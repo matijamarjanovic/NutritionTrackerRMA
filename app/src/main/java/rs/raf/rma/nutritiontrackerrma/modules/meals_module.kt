@@ -20,7 +20,6 @@ val mealsModule = module {
         localDataSourceListSingleMeal =get(),
         remoteDataSource = get(),
         remoteDataSourceCalories =get(),
-
     ) }
 
     single { get<MealsDatabase>().getListMealDao()  }

@@ -1,5 +1,6 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.view.activity
 
+import SharedPreferencesManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -14,7 +15,6 @@ import rs.raf.rma.nutritiontrackerrma.data.models.user.User
 import rs.raf.rma.nutritiontrackerrma.data.repositories.user.UserRepository
 import rs.raf.rma.nutritiontrackerrma.data.repositories.user.UserRepositoryImpl
 import rs.raf.rma.nutritiontrackerrma.databinding.ActivityLoginBinding
-import rs.raf.rma.nutritiontrackerrma.presentation.SharedPreferencesManager
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.UserContract
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.LoginViewModel
@@ -24,7 +24,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
-    private lateinit var sharedPreferencesManager: SharedPreferencesManager
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModel()
 
@@ -32,9 +31,12 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferencesManager = SharedPreferencesManager(this)
+//        val appContext = applicationContext // applicationContext is available in most Android components
+////        val sharedPreferencesManager = SharedPreferencesManager(appContext)
+//        sharedPreferencesManager = SharedPreferencesManager(appContext)
         val loginButton: Button = findViewById(R.id.loginButton)
         val CheckBox: CheckBox = findViewById(R.id.rememberMeCheckbox)
+        val sharedPreferencesManager =SharedPreferencesManager.getInstance()
         //viewModel.addUser(User("asda","asda"))
         //viewModel.getUser("asda","AAAA")
         val user1 = User("matija", "sifra1")

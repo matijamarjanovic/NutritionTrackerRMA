@@ -32,8 +32,12 @@ class ListMealRepositoryImpl(
     private val localDataSourceSaved: SavedMealDao,
     private val localDataSourceListSingleMeal: ListSingleMealDao,
     private val remoteDataSource: MealsService,
-    private val remoteDataSourceCalories: CaloriesService
+    private val remoteDataSourceCalories: CaloriesService,
+
 ) : ListMealRepository {
+
+
+
     @SuppressLint("CheckResult", "SuspiciousIndentation")
     override fun fetchAllByArea(area:String): Observable<Resource<Unit>> {
     return remoteDataSource.getAllMealsByArea(area).map{response->
@@ -486,7 +490,8 @@ class ListMealRepositoryImpl(
     }
     @SuppressLint("CheckResult")
     override fun insert(meal: Meal, whichMeal:String, date: Date): Completable {
-
+        val sharedPreferencesManager = SharedPreferencesManager.getInstance()
+        val username=sharedPreferencesManager.getUsername()?:""
         val savedMeal = SavedMealEntity(
             meal.idMeal,
             meal.strMeal,
@@ -498,7 +503,7 @@ class ListMealRepositoryImpl(
             date,
             whichMeal,
             0.0,
-            "user",
+            username,
 
             meal.strIngredient1, meal.strIngredient2, meal.strIngredient3, meal.strIngredient4, meal.strIngredient5,
             meal.strIngredient6, meal.strIngredient7, meal.strIngredient8, meal.strIngredient9, meal.strIngredient10,

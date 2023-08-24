@@ -15,6 +15,9 @@ class NutTrackApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         init()
+        val sharedPreferencesManager = SharedPreferencesManager.getInstance()
+        sharedPreferencesManager.initialize(this)
+
     }
 
     private fun init() {
