@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.fragment.app.Fragment
 import rs.raf.rma.nutritiontrackerrma.R
 import rs.raf.rma.nutritiontrackerrma.databinding.ActivityMainBinding
 import rs.raf.rma.nutritiontrackerrma.presentation.view.adapters.MainPagerAdapter
+import rs.raf.rma.nutritiontrackerrma.presentation.view.fragments.FourthFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var currentFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,5 +61,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
 }
