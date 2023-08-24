@@ -256,7 +256,9 @@ class PlanFragment : Fragment(R.layout.fragment_plan) {
                 R.id.radioDb -> {
                     binding.daysRg.check(R.id.radioMon)
 
-                    mealsViewModel.getAllSavedMeals()
+                    val sharedPreferencesManager=SharedPreferencesManager.getInstance()
+                    val username=sharedPreferencesManager.getUsername()?:""
+                    mealsViewModel.getAllSavedMeals(username)
 
 
                 }

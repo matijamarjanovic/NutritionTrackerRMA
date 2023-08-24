@@ -28,9 +28,25 @@ import kotlin.collections.ArrayList
 class MealStatisticsRepositoryImpl(
     private val localDataSource: SavedMealDao,
 ) : MealStatisticsRepository {
-    override fun getMealsIn7Days(days: List<String>): Observable<List<Int>> {
+    override fun getMealsIn7Days(user:String,days: List<String>): Observable<List<Int>> {
         val observables = days.map { day ->
-            localDataSource.getMealsInDay(day)
+            localDataSource.getMealsInDay(user,day)
+                .doOnNext { count ->
+                    println("Meal count for $day: $count user:$user")
+                }
+        }
+        return Observable.combineLatest(observables) { results ->
+            results.map { it as Int }
+        }
+    }
+
+    override fun getMealsIn7DaysByCalories(user:String,days: List<String>): Observable<List<Int>> {
+        val observables = days.map { day ->
+            localDataSource.getCaloriesInDay(user, day)
+                .map { count ->
+                    // Convert the Double count to Int
+                    Math.round(count).toInt()
+                }
                 .doOnNext { count ->
                     println("Meal count for $day: $count")
                 }
@@ -39,17 +55,6 @@ class MealStatisticsRepositoryImpl(
             results.map { it as Int }
         }
     }
-
-    override fun getMealsIn7DaysByCalories(days: List<String>): Observable<List<Int>> {
-        val observables = days.map { day ->
-            localDataSource.getCaloriesInDay(day)
-                .doOnNext { count ->
-                    println("Meal count for $day: $count")
-                }
-        }
-        return Observable.combineLatest(observables) { results ->
-            results.map { it as Int }
-        }    }
 }
 
 

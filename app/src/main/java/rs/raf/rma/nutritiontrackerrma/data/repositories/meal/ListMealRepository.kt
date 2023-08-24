@@ -18,7 +18,7 @@ interface ListMealRepository {
     fun fetchAllByIngredient(ingredient: String): Observable<Resource<Unit>>
     fun getAllMeals(): Observable<List<ListMeal>>
     fun getAllByName(name: String): Observable<List<ListMeal>>
-    fun getAllSavedMeals(): Observable<List<SavedMeal>>
+    fun getAllSavedMeals(username:String): Observable<List<SavedMeal>>
     fun getAllSavedByName(name: String): Observable<List<SavedMeal>>
     fun insert(meal: Meal, whichMeal :String, date: Date): Completable
     fun update(meal: SavedMeal, whichMeal :String, date: Date): Completable

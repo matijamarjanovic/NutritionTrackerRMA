@@ -414,9 +414,9 @@ class ListMealRepositoryImpl(
             }
     }
 
-    override fun getAllSavedMeals(): Observable<List<SavedMeal>> {
+    override fun getAllSavedMeals(usernmae:String): Observable<List<SavedMeal>> {
         return localDataSourceSaved
-            .getAll()
+            .getAll(usernmae)
             .map {
                 it.map {
                     println("datum "+it.date)

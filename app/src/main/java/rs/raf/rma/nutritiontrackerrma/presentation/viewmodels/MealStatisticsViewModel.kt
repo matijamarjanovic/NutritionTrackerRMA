@@ -26,9 +26,9 @@ class MealStatisticsViewModel(
     private val subscriptions = CompositeDisposable()
     private val publishSubject: PublishSubject<String> = PublishSubject.create()
 
-    override fun getMealsIn7DaysByNumbers(days: List<String>) {
+    override fun getMealsIn7DaysByNumbers(user:String,days: List<String>) {
         val subscription = mealStatisticsRepository
-            .getMealsIn7Days(days)
+            .getMealsIn7Days(user,days)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -42,9 +42,9 @@ class MealStatisticsViewModel(
             )
         subscriptions.add(subscription)
     }
-    override fun getMealsIn7DaysByCalories(days: List<String>) {
+    override fun getMealsIn7DaysByCalories(user:String,days: List<String>) {
         val subscription = mealStatisticsRepository
-            .getMealsIn7DaysByCalories(days)
+            .getMealsIn7DaysByCalories(user,days)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

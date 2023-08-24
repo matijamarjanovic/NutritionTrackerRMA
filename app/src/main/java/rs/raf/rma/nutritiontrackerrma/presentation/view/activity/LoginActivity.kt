@@ -31,14 +31,11 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        val appContext = applicationContext // applicationContext is available in most Android components
-////        val sharedPreferencesManager = SharedPreferencesManager(appContext)
-//        sharedPreferencesManager = SharedPreferencesManager(appContext)
+
         val loginButton: Button = findViewById(R.id.loginButton)
         val CheckBox: CheckBox = findViewById(R.id.rememberMeCheckbox)
         val sharedPreferencesManager =SharedPreferencesManager.getInstance()
-        //viewModel.addUser(User("asda","asda"))
-        //viewModel.getUser("asda","AAAA")
+
         val user1 = User("matija", "sifra1")
         val user2 = User("milos", "sifra")
 
@@ -46,19 +43,13 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         viewModel.addUser(user2)
 
 
-        //viewModel.getUser("matija", "sifra1")
-//        if(viewModel.checkUserExists("milos","sifra1")==1){
-//            println("1SSSSSSSSSSSSS")
-//        }
 
-        // Check if the user is already logged in
         if (sharedPreferencesManager.isLoggedIn()) {
             redirectToMainActivity()
             return
         }
 
         loginButton.setOnClickListener {
-
 
 
             val username = binding.usernameEditText.text.toString()
@@ -80,7 +71,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                 }
 
             }else{
-
+                //sharedPreferencesManager.saveUsername("")
             }
 
             //skipuje proveru

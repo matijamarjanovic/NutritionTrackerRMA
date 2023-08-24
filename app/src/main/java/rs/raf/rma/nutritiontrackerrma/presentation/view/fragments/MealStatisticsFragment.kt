@@ -1,5 +1,6 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.view.fragments
 
+import SharedPreferencesManager
 import com.github.mikephil.charting.charts.BarChart
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -87,12 +88,16 @@ class MealStatisticsFragment() : Fragment(R.layout.fragment_meal_statistics) {
             val generateDate =generateDateList()
 
             if (isButtonClicked) {
+                val sharedPreferencesManager=SharedPreferencesManager.getInstance()
+                val username=sharedPreferencesManager.getUsername()?:""
                 val a= statisticViewModel
-                    .getMealsIn7DaysByNumbers(generateDate)
+                    .getMealsIn7DaysByNumbers(username,generateDate)
                 binding.myButton.text = "change to calories"
             } else {
+                val sharedPreferencesManager=SharedPreferencesManager.getInstance()
+                val username=sharedPreferencesManager.getUsername()?:""
                 val a= statisticViewModel
-                    .getMealsIn7DaysByCalories(generateDate)
+                    .getMealsIn7DaysByCalories(username,generateDate)
                 binding.myButton.text = "change to days"
             }
 
@@ -121,9 +126,11 @@ class MealStatisticsFragment() : Fragment(R.layout.fragment_meal_statistics) {
         //println("AS"+day)
 
         val generateDate =generateDateList()
-
-       val a= statisticViewModel
-            .getMealsIn7DaysByNumbers(generateDate)
+        val sharedPreferencesManager=SharedPreferencesManager.getInstance()
+        val username=sharedPreferencesManager.getUsername()?:""
+        println("11 "+username)
+        val a= statisticViewModel
+            .getMealsIn7DaysByNumbers(username,generateDate)
 
     }
     private fun renderState(state: GraphState ) {

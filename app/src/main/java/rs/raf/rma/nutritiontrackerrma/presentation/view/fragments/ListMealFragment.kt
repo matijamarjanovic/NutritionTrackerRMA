@@ -1,5 +1,6 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.view.fragments
 
+import SharedPreferencesManager
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -90,7 +91,10 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 showDialogue("Meal successfully deleted from the database.")
                 binding.listRv.adapter = adapter
                 binding.backButton.visibility = View.GONE
-                mealsViewModel.getAllSavedMeals()
+
+                 val sharedPreferencesManager=SharedPreferencesManager.getInstance()
+                 val username=sharedPreferencesManager.getUsername()?:""
+                 mealsViewModel.getAllSavedMeals(username)
             }else
                 showDialogue(text)
 
@@ -110,7 +114,9 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 binding.backButton.visibility = View.GONE
                 binding.searchBar.visibility = View.VISIBLE
 
-                mealsViewModel.getAllSavedMeals()
+                val sharedPreferencesManager=SharedPreferencesManager.getInstance()
+                val username=sharedPreferencesManager.getUsername()?:""
+                mealsViewModel.getAllSavedMeals(username)
             }
 
         }
@@ -131,7 +137,9 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
                 binding.backButton.visibility = View.GONE
                 binding.searchBar.visibility = View.VISIBLE
 
-                mealsViewModel.getAllSavedMeals()
+                val sharedPreferencesManager=SharedPreferencesManager.getInstance()
+                val username=sharedPreferencesManager.getUsername()?:""
+                mealsViewModel.getAllSavedMeals(username)
 
             }else if(binding.listRv.adapter == adapter3){
                 binding.listRv.adapter = adapter2
@@ -151,7 +159,9 @@ class ListMealFragment : Fragment(R.layout.fragment_list_meal) {
             renderState2(it)
         })
 
-        mealsViewModel.getAllSavedMeals()
+        val sharedPreferencesManager=SharedPreferencesManager.getInstance()
+        val username=sharedPreferencesManager.getUsername()?:""
+        mealsViewModel.getAllSavedMeals(username)
     }
 
     private fun renderState(state: SavedMealsState) {

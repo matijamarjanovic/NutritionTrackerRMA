@@ -205,9 +205,9 @@ class MealsViewModel(
         publishSubject.onNext(name)
     }
 
-    override fun getAllSavedMeals() {
+    override fun getAllSavedMeals(user:String) {
         val subscription = listMealRepository
-            .getAllSavedMeals()
+            .getAllSavedMeals(user)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

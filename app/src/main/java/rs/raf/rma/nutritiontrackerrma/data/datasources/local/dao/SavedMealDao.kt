@@ -16,8 +16,8 @@ abstract class SavedMealDao {
     @Insert( onConflict = OnConflictStrategy.REPLACE )
     abstract fun insertAll(entities: List<SavedMealEntity>): Completable
 
-    @Query("SELECT * FROM savedMeals")
-    abstract fun getAll(): Observable<List<SavedMealEntity>>
+    @Query("SELECT * FROM savedMeals WHERE user LIKE :user")
+    abstract fun getAll(user:String): Observable<List<SavedMealEntity>>
 
     @Query("DELETE FROM savedMeals")
     abstract fun deleteAll()
@@ -35,8 +35,9 @@ abstract class SavedMealDao {
     @Query("SELECT * FROM savedMeals WHERE strMeal LIKE :name || '%'")
     abstract fun getByName(name: String): Observable<List<SavedMealEntity>>
 
-    @Query("SELECT COUNT(*) FROM savedMeals WHERE strftime('%Y-%m-%d', date / 1000, 'unixepoch', 'localtime') = :date")
-    abstract fun getMealsInDay(date: String): Observable<Int>
-    @Query("SELECT COUNT(*) FROM savedMeals WHERE strftime('%Y-%m-%d', date / 1000, 'unixepoch', 'localtime') = :date")
-    abstract fun getCaloriesInDay(date: String): Observable<Int>
+    @Query("SELECT COUNT(*) FROM savedMeals WHERE strftime('%Y-%m-%d', date / 1000, 'unixepoch', 'localtime') = :date AND user = :user")
+    abstract fun getMealsInDay(user: String, date: String): Observable<Int>
+    @Query("SELECT COALESCE(SUM(calories), 0.0) FROM savedMeals WHERE strftime('%Y-%m-%d', date / 1000, 'unixepoch', 'localtime') = :date AND user = :user")
+    abstract fun getCaloriesInDay(user: String, date: String): Observable<Double>
+
 }

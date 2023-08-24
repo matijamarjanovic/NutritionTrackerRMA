@@ -15,8 +15,8 @@ interface MealStatisticsContract {
     interface ViewModel {
 
         val graphState :LiveData<GraphState>
-        fun getMealsIn7DaysByNumbers(days:List<String>)
-        fun getMealsIn7DaysByCalories(days:List<String>)
+        fun getMealsIn7DaysByNumbers(user:String,days:List<String>)
+        fun getMealsIn7DaysByCalories(user:String,days:List<String>)
 
     }
 }
