@@ -19,7 +19,7 @@ abstract class ListSingleMealDao {
     abstract fun getAll(): Observable<List<ListSingleMealEntity>>
 
     @Query("DELETE FROM listSingleMeals")
-    abstract fun deleteAll()
+    abstract fun deleteAll(): Completable
 
     @Transaction
     open fun deleteAndInsertAll(entities: List<ListSingleMealEntity>) {

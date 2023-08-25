@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "meals")
 data class ListMealEntity(
     @PrimaryKey
-    val idMeal: Int,
-    val strMeal: String,
-    val strMealThumb : String,
+    var idMeal: Int,
+    var strMeal: String,
+    var strMealThumb : String,
     var calories: Double,
 )

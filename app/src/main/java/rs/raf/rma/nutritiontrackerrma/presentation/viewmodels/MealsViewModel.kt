@@ -2,9 +2,7 @@ package rs.raf.rma.nutritiontrackerrma.presentation.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import rs.raf.rma.nutritiontrackerrma.data.models.Resource
 import rs.raf.rma.nutritiontrackerrma.data.models.meals.Meal
@@ -13,6 +11,10 @@ import rs.raf.rma.nutritiontrackerrma.data.models.meals.listMeals.ListMeal
 import rs.raf.rma.nutritiontrackerrma.data.repositories.meal.ListMealRepository
 import rs.raf.rma.nutritiontrackerrma.presentation.contracts.MealsContract
 import rs.raf.rma.nutritiontrackerrma.presentation.view.states.*
+
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 import timber.log.Timber
 import java.util.*
@@ -184,7 +186,8 @@ class MealsViewModel(
 
     override fun getAllMeals() {
         val subscription = listMealRepository
-            .getAllMeals()
+            .clearListSingleMeals()
+            .andThen(listMealRepository.getAllMeals())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -194,7 +197,6 @@ class MealsViewModel(
                 {
                     mealsState.value = MealsState.Error("Error happened while fetching data from db")
                     mealsState2.value = MealPageState.Error("Error happened while fetching data from db")
-
                     Timber.e(it)
                 }
             )

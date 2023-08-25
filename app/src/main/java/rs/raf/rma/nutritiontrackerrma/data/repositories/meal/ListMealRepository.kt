@@ -27,7 +27,7 @@ interface ListMealRepository {
     fun getAllSingleMeals(mealId : ArrayList<ListMeal>) : Observable<Meal>?
     fun getSingleSavedMeal(mealId : String) : Observable<List<SavedMeal>>
     fun getCalories(meal : ArrayList<Meal>) : Observable<Double>?
-
+    fun clearListSingleMeals(): Completable
     fun getMealsIn7Days(day:String):Int
     //fun insert(listMeal: ListMeal): Completable
 }
