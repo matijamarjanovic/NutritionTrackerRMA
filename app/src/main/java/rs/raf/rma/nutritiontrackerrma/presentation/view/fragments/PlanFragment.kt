@@ -113,7 +113,9 @@ class PlanFragment : Fragment(R.layout.fragment_plan) {
                 id: Long
             ) {
                 val selected = mealList[position]
-                kcalTv.text = kcalList[position].toString()
+
+                val formattedValue = String.format("%.2f", kcalList[position])
+                kcalTv.text = formattedValue
 
                 if ((kcalTv.text.toString() == "0" || kcalTv.text.toString() == "0.0") && position != 0){
                     showDialogue("Please choose another item in order to proceed. This item does not have a calorie value.")
