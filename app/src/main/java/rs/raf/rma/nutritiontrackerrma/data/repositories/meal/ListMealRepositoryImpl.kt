@@ -78,10 +78,25 @@ class ListMealRepositoryImpl(
 
 
                             val modifiedEntity = ListMealEntity(
-                                meal.idMeal,
+                                superMeal.idMeal,
                                 superMeal.strMeal,
-                                meal.strMealThumb,
-                                0.0 // Replace with the actual data from the second API call
+                                superMeal.strCategory,
+                                superMeal.strArea,
+                                superMeal.strInstructions,
+                                superMeal.strMealThumb,
+                                superMeal.strTags,
+                                superMeal.strYoutube,
+                                0.0,
+
+                                superMeal.strIngredient1, superMeal.strIngredient2, superMeal.strIngredient3, superMeal.strIngredient4, superMeal.strIngredient5,
+                                superMeal.strIngredient6, superMeal.strIngredient7, superMeal.strIngredient8, superMeal.strIngredient9, superMeal.strIngredient10,
+                                superMeal.strIngredient11, superMeal.strIngredient12, superMeal.strIngredient13, superMeal.strIngredient14, superMeal.strIngredient15,
+                                superMeal.strIngredient16, superMeal.strIngredient17, superMeal.strIngredient18, superMeal.strIngredient19, superMeal.strIngredient20,
+
+                                superMeal.strMeasure1, superMeal.strMeasure2, superMeal.strMeasure3, superMeal.strMeasure4, superMeal.strMeasure5,
+                                superMeal.strMeasure6, superMeal.strMeasure7, superMeal.strMeasure8, superMeal.strMeasure9, superMeal.strMeasure10,
+                                superMeal.strMeasure11, superMeal.strMeasure12, superMeal.strMeasure13, superMeal.strMeasure14, superMeal.strMeasure15,
+                                superMeal.strMeasure16, superMeal.strMeasure17, superMeal.strMeasure18, superMeal.strMeasure19, superMeal.strMeasure20
                             )
                             modifiedEntity
                         }
@@ -145,21 +160,78 @@ class ListMealRepositoryImpl(
 
         return remoteDataSource
             .getAllMealsByCategory(category)
-            .map { response ->
-                // Extract the categories array from the ApiResponse
+            .flatMap { response ->
+                // Extract the meals array from the ApiResponse
                 val meals = response.meals
 
-                // Save the categories to the local database
-                val entities = meals.map {
-                    ListMealEntity(
-                        it.idMeal,
-                        it.strMeal,
-                        it.strMealThumb,
-                        0.0
-                    )
-                }
-                localDataSource.deleteAndInsertAll(entities)
+                // Create an observable for each meal entity
+                val observables = meals.map { meal ->
+                    remoteDataSource.singleMeal(meal.idMeal.toString()) // Replace with your actual second API call
+                        .map { detailsResponse ->
+                            val meals = detailsResponse.meals
+                            val entities = meals.map {
+                                Meal(
+                                    it.idMeal,
+                                    it.strMeal,
+                                    it.strCategory,
+                                    it.strArea,
+                                    it.strInstructions,
+                                    it.strMealThumb,
+                                    it.strTags,
+                                    it.strYoutube,
+                                    0.0,
 
+                                    it.strIngredient1, it.strIngredient2, it.strIngredient3, it.strIngredient4, it.strIngredient5,
+                                    it.strIngredient6, it.strIngredient7, it.strIngredient8, it.strIngredient9, it.strIngredient10,
+                                    it.strIngredient11, it.strIngredient12, it.strIngredient13, it.strIngredient14, it.strIngredient15,
+                                    it.strIngredient16, it.strIngredient17, it.strIngredient18, it.strIngredient19, it.strIngredient20,
+
+                                    it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
+                                    it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
+                                    it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
+                                    it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                                )
+                            }
+                            val superMeal=entities[0]
+
+
+                            val modifiedEntity = ListMealEntity(
+                                superMeal.idMeal,
+                                superMeal.strMeal,
+                                superMeal.strCategory,
+                                superMeal.strArea,
+                                superMeal.strInstructions,
+                                superMeal.strMealThumb,
+                                superMeal.strTags,
+                                superMeal.strYoutube,
+                                0.0,
+
+                                superMeal.strIngredient1, superMeal.strIngredient2, superMeal.strIngredient3, superMeal.strIngredient4, superMeal.strIngredient5,
+                                superMeal.strIngredient6, superMeal.strIngredient7, superMeal.strIngredient8, superMeal.strIngredient9, superMeal.strIngredient10,
+                                superMeal.strIngredient11, superMeal.strIngredient12, superMeal.strIngredient13, superMeal.strIngredient14, superMeal.strIngredient15,
+                                superMeal.strIngredient16, superMeal.strIngredient17, superMeal.strIngredient18, superMeal.strIngredient19, superMeal.strIngredient20,
+
+                                superMeal.strMeasure1, superMeal.strMeasure2, superMeal.strMeasure3, superMeal.strMeasure4, superMeal.strMeasure5,
+                                superMeal.strMeasure6, superMeal.strMeasure7, superMeal.strMeasure8, superMeal.strMeasure9, superMeal.strMeasure10,
+                                superMeal.strMeasure11, superMeal.strMeasure12, superMeal.strMeasure13, superMeal.strMeasure14, superMeal.strMeasure15,
+                                superMeal.strMeasure16, superMeal.strMeasure17, superMeal.strMeasure18, superMeal.strMeasure19, superMeal.strMeasure20
+                            )
+                            modifiedEntity
+                        }
+                }
+
+                // Use Observable.zip to combine the results of all observables
+                Observable.zip(observables) { modifiedEntities ->
+                    // Convert the array of modified entities to a list
+                    val entityList = modifiedEntities.map { it as ListMealEntity }
+                    entityList
+                }
+            }
+            .doOnNext { modifiedEntities ->
+                // Save the modified entities to the local database
+                localDataSource.deleteAndInsertAll(modifiedEntities.toList())
+            }
+            .map {
                 // Return a success resource
                 Resource.Success(Unit)
             }
@@ -168,25 +240,82 @@ class ListMealRepositoryImpl(
     override fun fetchAllByIngredient(ingredient: String): Observable<Resource<Unit>> {
         return remoteDataSource
             .getAllMealsByIngredient(ingredient)
-            .map { response ->
-                // Extract the categories array from the ApiResponse
+            .flatMap { response ->
+                // Extract the meals array from the ApiResponse
                 val meals = response.meals
 
-                // Save the categories to the local database
-                val entities = meals.map {
-                    ListMealEntity(
-                        it.idMeal,
-                        it.strMeal,
-                        it.strMealThumb,
-                        0.0
+                // Create an observable for each meal entity
+                val observables = meals.map { meal ->
+                    remoteDataSource.singleMeal(meal.idMeal.toString()) // Replace with your actual second API call
+                        .map { detailsResponse ->
+                            val meals = detailsResponse.meals
+                            val entities = meals.map {
+                                Meal(
+                                    it.idMeal,
+                                    it.strMeal,
+                                    it.strCategory,
+                                    it.strArea,
+                                    it.strInstructions,
+                                    it.strMealThumb,
+                                    it.strTags,
+                                    it.strYoutube,
+                                    0.0,
 
-                    )
+                                    it.strIngredient1, it.strIngredient2, it.strIngredient3, it.strIngredient4, it.strIngredient5,
+                                    it.strIngredient6, it.strIngredient7, it.strIngredient8, it.strIngredient9, it.strIngredient10,
+                                    it.strIngredient11, it.strIngredient12, it.strIngredient13, it.strIngredient14, it.strIngredient15,
+                                    it.strIngredient16, it.strIngredient17, it.strIngredient18, it.strIngredient19, it.strIngredient20,
+
+                                    it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
+                                    it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
+                                    it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
+                                    it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                                )
+                            }
+                            val superMeal=entities[0]
+
+
+                            val modifiedEntity = ListMealEntity(
+                                superMeal.idMeal,
+                                superMeal.strMeal,
+                                superMeal.strCategory,
+                                superMeal.strArea,
+                                superMeal.strInstructions,
+                                superMeal.strMealThumb,
+                                superMeal.strTags,
+                                superMeal.strYoutube,
+                                0.0,
+
+                                superMeal.strIngredient1, superMeal.strIngredient2, superMeal.strIngredient3, superMeal.strIngredient4, superMeal.strIngredient5,
+                                superMeal.strIngredient6, superMeal.strIngredient7, superMeal.strIngredient8, superMeal.strIngredient9, superMeal.strIngredient10,
+                                superMeal.strIngredient11, superMeal.strIngredient12, superMeal.strIngredient13, superMeal.strIngredient14, superMeal.strIngredient15,
+                                superMeal.strIngredient16, superMeal.strIngredient17, superMeal.strIngredient18, superMeal.strIngredient19, superMeal.strIngredient20,
+
+                                superMeal.strMeasure1, superMeal.strMeasure2, superMeal.strMeasure3, superMeal.strMeasure4, superMeal.strMeasure5,
+                                superMeal.strMeasure6, superMeal.strMeasure7, superMeal.strMeasure8, superMeal.strMeasure9, superMeal.strMeasure10,
+                                superMeal.strMeasure11, superMeal.strMeasure12, superMeal.strMeasure13, superMeal.strMeasure14, superMeal.strMeasure15,
+                                superMeal.strMeasure16, superMeal.strMeasure17, superMeal.strMeasure18, superMeal.strMeasure19, superMeal.strMeasure20
+                            )
+                            modifiedEntity
+                        }
                 }
-                localDataSource.deleteAndInsertAll(entities)
 
+                // Use Observable.zip to combine the results of all observables
+                Observable.zip(observables) { modifiedEntities ->
+                    // Convert the array of modified entities to a list
+                    val entityList = modifiedEntities.map { it as ListMealEntity }
+                    entityList
+                }
+            }
+            .doOnNext { modifiedEntities ->
+                // Save the modified entities to the local database
+                localDataSource.deleteAndInsertAll(modifiedEntities.toList())
+            }
+            .map {
                 // Return a success resource
                 Resource.Success(Unit)
-            }    }
+            }
+    }
 
     override fun getSingleMeal(mealId: String): Observable<Meal> {
         return remoteDataSource
@@ -326,150 +455,31 @@ class ListMealRepositoryImpl(
 
     }
 
-
+//    ListMeal(
+//    it.idMeal, it.strMeal,it.strCategory,it.strArea,it.strInstructions,it.strMealThumb,it.strTags,it.strYoutube,it.calories,
+//    it.strIngredient1,it.strIngredient2,it.strIngredient3,it.strIngredient4,it.strIngredient5,it.strIngredient6,it.strIngredient7,it.strIngredient8,
+//    it.strIngredient9,it.strIngredient10,it.strIngredient11,it.strIngredient12,it.strIngredient13,it.strIngredient14,it.strIngredient15,it.strIngredient16,
+//    it.strIngredient17,it.strIngredient18,it.strIngredient19,it.strIngredient20,
+//
+//    it.strMeasure1,it.strMeasure2,it.strMeasure3,it.strMeasure4,it.strMeasure5,it.strMeasure6,it.strMeasure7,it.strMeasure8,it.strMeasure9,it.strMeasure10,
+//    it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20
+//    )
     override fun getAllMeals(): Observable<List<ListMeal>> {
+    return localDataSource
+        .getAll()
+        .map {
+            it.map {
+                    ListMeal(
+                    it.idMeal, it.strMeal,it.strCategory,it.strArea,it.strInstructions,it.strMealThumb,it.strTags,it.strYoutube,it.calories,
+                    it.strIngredient1,it.strIngredient2,it.strIngredient3,it.strIngredient4,it.strIngredient5,it.strIngredient6,it.strIngredient7,it.strIngredient8,
+                    it.strIngredient9,it.strIngredient10,it.strIngredient11,it.strIngredient12,it.strIngredient13,it.strIngredient14,it.strIngredient15,it.strIngredient16,
+                    it.strIngredient17,it.strIngredient18,it.strIngredient19,it.strIngredient20,
 
-
-        return Observable.defer {
-            localDataSourceListSingleMeal.deleteAll()
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe()
-            Observable.just(Unit)
-        }
-            .concatMap {
-                localDataSource.getAll()
-            }
-
-                .flatMap { localMeals ->
-
-                    Observable.fromIterable(localMeals)
-                        .flatMap { localMeal ->
-                            remoteDataSource
-                                .singleMeal(localMeal.idMeal.toString())
-                                .map { remoteMealResponse ->
-                                    val remoteMeal = remoteMealResponse.meals[0]
-                                    val updatedCalories = 0.1 // Implement your calorie calculation logic
-                                    val mealToAdd= ListSingleMealEntity(
-                                        remoteMeal.idMeal,
-                                        remoteMeal.strMeal,
-                                        remoteMeal.strCategory,
-                                        remoteMeal.strArea,
-                                        remoteMeal.strInstructions,
-                                        remoteMeal.strMealThumb,
-                                        remoteMeal.strTags,
-                                        remoteMeal.strYoutube,
-
-                                        updatedCalories,
-
-                                        remoteMeal.strIngredient1,
-                                        remoteMeal.strIngredient2,
-                                        remoteMeal.strIngredient3,
-                                        remoteMeal.strIngredient4,
-                                        remoteMeal.strIngredient5,
-                                        remoteMeal.strIngredient6,
-                                        remoteMeal.strIngredient7,
-                                        remoteMeal.strIngredient8,
-                                        remoteMeal.strIngredient9,
-                                        remoteMeal.strIngredient10,
-                                        remoteMeal.strIngredient11,
-                                        remoteMeal.strIngredient12,
-                                        remoteMeal.strIngredient13,
-                                        remoteMeal.strIngredient14,
-                                        remoteMeal.strIngredient15,
-                                        remoteMeal.strIngredient16,
-                                        remoteMeal.strIngredient17,
-                                        remoteMeal.strIngredient18,
-                                        remoteMeal.strIngredient19,
-                                        remoteMeal.strIngredient20,
-
-                                        remoteMeal.strMeasure1,
-                                        remoteMeal.strMeasure2,
-                                        remoteMeal.strMeasure3,
-                                        remoteMeal.strMeasure4,
-                                        remoteMeal.strMeasure5,
-                                        remoteMeal.strMeasure6,
-                                        remoteMeal.strMeasure7,
-                                        remoteMeal.strMeasure8,
-                                        remoteMeal.strMeasure9,
-                                        remoteMeal.strMeasure10,
-                                        remoteMeal.strMeasure11,
-                                        remoteMeal.strMeasure12,
-                                        remoteMeal.strMeasure13,
-                                        remoteMeal.strMeasure14,
-                                        remoteMeal.strMeasure15,
-                                        remoteMeal.strMeasure16,
-                                        remoteMeal.strMeasure17,
-                                        remoteMeal.strMeasure18,
-                                        remoteMeal.strMeasure19,
-                                        remoteMeal.strMeasure20,
-                                    )
-                                    localDataSourceListSingleMeal
-                                        .insert(mealToAdd)
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(Schedulers.io())
-                                        .subscribe(){
-
-                                        }
-                                    //localDataSourceMealWithAllData.insert(mealToAdd)
-                                    ListMeal(
-                                        localMeal.idMeal,
-                                        localMeal.strMeal,
-                                        localMeal.strMealThumb,
-                                        updatedCalories,
-//                                    remoteMeal.strCategory,
-//                                    remoteMeal.strArea,
-//                                    remoteMeal.strInstructions,
-//                                    remoteMeal.strTags,
-//                                    remoteMeal.strYoutube,
-//
-//                                    remoteMeal.strIngredient1,
-//                                    remoteMeal.strIngredient2,
-//                                    remoteMeal.strIngredient3,
-//                                    remoteMeal.strIngredient4,
-//                                    remoteMeal.strIngredient5,
-//                                    remoteMeal.strIngredient6,
-//                                    remoteMeal.strIngredient7,
-//                                    remoteMeal.strIngredient8,
-//                                    remoteMeal.strIngredient9,
-//                                    remoteMeal.strIngredient10,
-//                                    remoteMeal.strIngredient11,
-//                                    remoteMeal.strIngredient12,
-//                                    remoteMeal.strIngredient13,
-//                                    remoteMeal.strIngredient14,
-//                                    remoteMeal.strIngredient15,
-//                                    remoteMeal.strIngredient16,
-//                                    remoteMeal.strIngredient17,
-//                                    remoteMeal.strIngredient18,
-//                                    remoteMeal.strIngredient19,
-//                                    remoteMeal.strIngredient20,
-//
-//                                    remoteMeal.strMeasure1,
-//                                    remoteMeal.strMeasure2,
-//                                    remoteMeal.strMeasure3,
-//                                    remoteMeal.strMeasure4,
-//                                    remoteMeal.strMeasure5,
-//                                    remoteMeal.strMeasure6,
-//                                    remoteMeal.strMeasure7,
-//                                    remoteMeal.strMeasure8,
-//                                    remoteMeal.strMeasure9,
-//                                    remoteMeal.strMeasure10,
-//                                    remoteMeal.strMeasure11,
-//                                    remoteMeal.strMeasure12,
-//                                    remoteMeal.strMeasure13,
-//                                    remoteMeal.strMeasure14,
-//                                    remoteMeal.strMeasure15,
-//                                    remoteMeal.strMeasure16,
-//                                    remoteMeal.strMeasure17,
-//                                    remoteMeal.strMeasure18,
-//                                    remoteMeal.strMeasure19,
-//                                    remoteMeal.strMeasure20,
-                                    )
-                                }
-                        }
-                        .toList()
-                        .toObservable()
+                    it.strMeasure1,it.strMeasure2,it.strMeasure3,it.strMeasure4,it.strMeasure5,it.strMeasure6,it.strMeasure7,it.strMeasure8,it.strMeasure9,it.strMeasure10,
+                    it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20
+                    )
                 }
+            }
         }
 
     override fun clearListSingleMeals(): Completable {
@@ -514,7 +524,15 @@ class ListMealRepositoryImpl(
             .getByName(name)
             .map {
                 it.map {
-                    ListMeal(it.idMeal, it.strMeal,it.strMealThumb,it.calories)
+                    ListMeal(
+                        it.idMeal, it.strMeal,it.strCategory,it.strArea,it.strInstructions,it.strMealThumb,it.strTags,it.strYoutube,it.calories,
+                        it.strIngredient1,it.strIngredient2,it.strIngredient3,it.strIngredient4,it.strIngredient5,it.strIngredient6,it.strIngredient7,it.strIngredient8,
+                        it.strIngredient9,it.strIngredient10,it.strIngredient11,it.strIngredient12,it.strIngredient13,it.strIngredient14,it.strIngredient15,it.strIngredient16,
+                        it.strIngredient17,it.strIngredient18,it.strIngredient19,it.strIngredient20,
+
+                        it.strMeasure1,it.strMeasure2,it.strMeasure3,it.strMeasure4,it.strMeasure5,it.strMeasure6,it.strMeasure7,it.strMeasure8,it.strMeasure9,it.strMeasure10,
+                        it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20
+                        )
                 }
             }
     }
