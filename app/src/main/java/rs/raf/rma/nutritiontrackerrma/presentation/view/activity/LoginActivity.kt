@@ -45,7 +45,9 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
         viewModel.addUser(user1)
         viewModel.addUser(user2)
-        filterViewModel.insertIngredientsIntoDatabase()
+
+
+            // filterViewModel.insertIngredientsIntoDatabase()
 
 
         if (sharedPreferencesManager.isLoggedIn()) {
