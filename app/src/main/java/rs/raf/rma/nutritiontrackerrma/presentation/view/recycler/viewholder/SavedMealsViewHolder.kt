@@ -13,7 +13,10 @@ class SavedMealsViewHolder (private val itemBinding: SavedMealItemBinding, priva
 
     fun bind(meal: SavedMeal, onButtonClick: (String) -> Unit,) {
         itemBinding.titleTv.text = meal.strMeal
-        itemBinding.calorieTe.text = meal.calories.toString()
+
+        val formattedValue = String.format("%.2f", meal.calories)
+
+        itemBinding.calorieTe.text = formattedValue
 
         var dateFormat = SimpleDateFormat("dd/MM/yyyy")
 
