@@ -23,6 +23,7 @@ class SingleSavedMealViewHolder (private val itemBinding: SingleSavedMealItemBin
         itemBinding.areaTextView.text = meal.strArea
         itemBinding.whichMealTv.text = meal.whichMeal
         itemBinding.dateTv.text = dateFormat.format(meal.date)
+        itemBinding.kcalTextView.text = meal.calories.toString()
 
         itemBinding.btn.setOnClickListener {
             meal.strInstructions?.let { it1 -> onButtonClick(it1) }

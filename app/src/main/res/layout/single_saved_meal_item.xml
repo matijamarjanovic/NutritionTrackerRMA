@@ -52,6 +52,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/border_bottom" />
 
+
+        <TextView
+            android:id="@+id/kcalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/areaTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/border_bottom"
+            android:textStyle="bold"/>
+
         <Button
             android:id="@+id/btn"
             android:layout_width="wrap_content"
@@ -727,7 +740,7 @@
             android:autoLink="web"
             android:textSize="16sp"
             android:text="link"
-            app:layout_constraintTop_toBottomOf="@id/areaTextView"
+            app:layout_constraintTop_toBottomOf="@id/kcalTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/border_bottom" />

@@ -597,7 +597,7 @@ override fun fetchAllByArea(area: String): Observable<Resource<Unit>> {
             meal.strYoutube,
             date,
             whichMeal,
-            0.0,
+            meal.calories,
             username,
 
             meal.strIngredient1, meal.strIngredient2, meal.strIngredient3, meal.strIngredient4, meal.strIngredient5,

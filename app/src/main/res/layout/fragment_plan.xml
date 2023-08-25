@@ -74,15 +74,33 @@
                     android:layout_height="wrap_content"
                     android:text="@string/breakf"
                     />
-                <Spinner
-                    android:id="@+id/monSpinnerB"
+
+                <LinearLayout
+                    android:id="@+id/monBLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/monSpinnerB"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/monBTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/monL"
@@ -90,15 +108,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lun"
                     />
-                <Spinner
-                    android:id="@+id/monSpinnerL"
+                <LinearLayout
+                    android:id="@+id/monLLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/monSpinnerL"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/monLTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/monD"
@@ -106,15 +140,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/din"
                     />
-                <Spinner
-                    android:id="@+id/monSpinnerD"
+                <LinearLayout
+                    android:id="@+id/monDLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/monSpinnerD"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/monDTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -134,7 +184,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="8dp"
-
                     android:text="@string/tuesday"
                     android:textSize="36dp"
                     android:textStyle="bold" />
@@ -146,15 +195,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/breakf"
                     />
-                <Spinner
-                    android:id="@+id/tueSpinnerB"
+                <LinearLayout
+                    android:id="@+id/tueBLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/tueSpinnerB"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/tueBTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tueL"
@@ -162,15 +227,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lun"
                     />
-                <Spinner
-                    android:id="@+id/tueSpinnerL"
+                <LinearLayout
+                    android:id="@+id/tueLLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/tueSpinnerL"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/tueLTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tueD"
@@ -178,15 +259,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/din"
                     />
-                <Spinner
-                    android:id="@+id/tueSpinnerD"
+                <LinearLayout
+                    android:id="@+id/tueDLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/tueSpinnerD"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/tueDTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -219,12 +316,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/breakf"
                     />
-                <Spinner
-                    android:id="@+id/wedSpinnerB"
+                <LinearLayout
+                    android:id="@+id/wedBLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/wedSpinnerB"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/wedBTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/wedL"
@@ -232,12 +348,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lun"
                     />
-                <Spinner
-                    android:id="@+id/wedSpinnerL"
+                <LinearLayout
+                    android:id="@+id/wedLLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/wedSpinnerL"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/wedLTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/wedD"
@@ -245,12 +380,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/din"
                     />
-                <Spinner
-                    android:id="@+id/wedSpinnerD"
+                <LinearLayout
+                    android:id="@+id/wedDLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/wedSpinnerD"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/wedDTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -283,12 +437,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/breakf"
                     />
-                <Spinner
-                    android:id="@+id/thurSpinnerB"
+                <LinearLayout
+                    android:id="@+id/thurBLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/thurSpinnerB"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/thurBTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/thurL"
@@ -296,12 +469,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lun"
                     />
-                <Spinner
-                    android:id="@+id/thurSpinnerL"
+                <LinearLayout
+                    android:id="@+id/thurLLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/thurSpinnerL"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/thurLTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/thurD"
@@ -309,12 +501,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/din"
                     />
-                <Spinner
-                    android:id="@+id/thurSpinnerD"
+                <LinearLayout
+                    android:id="@+id/thurDLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/thurSpinnerD"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/thurDTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -347,12 +558,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/breakf"
                     />
-                <Spinner
-                    android:id="@+id/friSpinnerB"
+                <LinearLayout
+                    android:id="@+id/friBLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/friSpinnerB"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/friBTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/friL"
@@ -360,12 +590,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lun"
                     />
-                <Spinner
-                    android:id="@+id/friSpinnerL"
+                <LinearLayout
+                    android:id="@+id/friLLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/friSpinnerL"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/friLTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/friD"
@@ -373,12 +622,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/din"
                     />
-                <Spinner
-                    android:id="@+id/friSpinnerD"
+                <LinearLayout
+                    android:id="@+id/friDLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/friSpinnerD"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/friDTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -410,12 +678,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/breakf"
                     />
-                <Spinner
-                    android:id="@+id/satSpinnerB"
+                <LinearLayout
+                    android:id="@+id/satBLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/satSpinnerB"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/satBTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/satL"
@@ -423,12 +710,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lun"
                     />
-                <Spinner
-                    android:id="@+id/satSpinnerL"
+                <LinearLayout
+                    android:id="@+id/satLLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/satSpinnerL"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/satLTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/satD"
@@ -436,12 +742,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/din"
                     />
-                <Spinner
-                    android:id="@+id/satSpinnerD"
+                <LinearLayout
+                    android:id="@+id/satDLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/satSpinnerD"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/satDTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -473,12 +798,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/breakf"
                     />
-                <Spinner
-                    android:id="@+id/sunSpinnerB"
+                <LinearLayout
+                    android:id="@+id/sunBLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/sunSpinnerB"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/sunBTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/sunL"
@@ -486,12 +830,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lun"
                     />
-                <Spinner
-                    android:id="@+id/sunSpinnerL"
+                <LinearLayout
+                    android:id="@+id/sunLLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/sunSpinnerL"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/sunLTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/sunD"
@@ -499,12 +862,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/din"
                     />
-                <Spinner
-                    android:id="@+id/sunSpinnerD"
+                <LinearLayout
+                    android:id="@+id/sunDLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/sunSpinnerD"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mealNameTextView"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/sunDTv"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
 
             </LinearLayout>
 
