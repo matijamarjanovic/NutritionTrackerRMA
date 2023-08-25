@@ -1,6 +1,7 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.view.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -36,12 +37,16 @@ class PlanFragment : Fragment(R.layout.fragment_plan) {
     private var _binding: FragmentPlanBinding? = null
     private val binding get() = _binding!!
 
+
     var mealList : ArrayList<String> = ArrayList()
     var kcalList : ArrayList<Double> = ArrayList()
     var mealListFinal : ArrayList<String> = ArrayList(Collections.nCopies(21, ""))
 
     var savedMeals : ArrayList<SavedMeal> = ArrayList()
     var meals : ArrayList<ListMeal> = ArrayList()
+
+    private val sharedPreferencesManager = SharedPreferencesManager.getInstance()
+    val username = sharedPreferencesManager.getUsername()?:""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +58,7 @@ class PlanFragment : Fragment(R.layout.fragment_plan) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         init()
     }
 
@@ -229,7 +235,67 @@ class PlanFragment : Fragment(R.layout.fragment_plan) {
                 showLoadingState(true)
             }
         }
+
+
+
+        binding.sendEmailBtn.setOnClickListener{
+
+            val body = """
+                    Monday:
+                    
+                    Breakfast: ${mealListFinal[0]}
+                    Lunch: ${mealListFinal[1]}
+                    Dinner: ${mealListFinal[2]}
+                    ---------------------------------
+                    Tuesday:
+                    
+                    Breakfast: ${mealListFinal[3]}
+                    Lunch: ${mealListFinal[4]}
+                    Dinner: ${mealListFinal[5]}
+                    ---------------------------------
+                    Wednesday:
+                    
+                    Breakfast: ${mealListFinal[6]}
+                    Lunch: ${mealListFinal[7]}
+                    Dinner: ${mealListFinal[8]}
+                    ---------------------------------
+                    Thursday:
+                    
+                    Breakfast: ${mealListFinal[9]}
+                    Lunch: ${mealListFinal[10]}
+                    Dinner: ${mealListFinal[11]}
+                    ---------------------------------
+                    Friday:
+                    
+                    Breakfast: ${mealListFinal[12]}
+                    Lunch: ${mealListFinal[13]}
+                    Dinner: ${mealListFinal[14]}
+                    ---------------------------------
+                    Saturday:
+                    
+                    Breakfast: ${mealListFinal[15]}
+                    Lunch: ${mealListFinal[16]}
+                    Dinner: ${mealListFinal[17]}
+                    ---------------------------------
+                    Sunday:
+                    
+                    Breakfast: ${mealListFinal[18]}
+                    Lunch: ${mealListFinal[19]}
+                    Dinner: ${mealListFinal[20]}
+                """.trimIndent()
+
+            if (!isValidEmail(binding.emailEt.toString().trim())){
+                showDialogue("Please enter a valid email.")
+            }else if(username == ""){
+                showDialogue("Cannot register the logged in user.")
+            }else{
+                sendEmail(binding.emailEt.toString(), "Plan ishrane $username", body)
+            }
+
+        }
     }
+
+
 
     private fun renderStateSaved(state: SavedMealsState) {
         when (state) {
@@ -318,5 +384,23 @@ class PlanFragment : Fragment(R.layout.fragment_plan) {
         dialog.show()
     }
 
+    private fun sendEmail(email : String, subject : String, body : String) {
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.type = "text/plain"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email)) // Recipient's email address
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body)
+
+        startActivity(Intent.createChooser(emailIntent, "Send Email"))
+    }
+
+    fun isValidEmail(email: String): Boolean {
+        val emailRegex = Regex("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+\$")
+        return email.matches(emailRegex)
+    }
+
+    fun hasEmptyElement(list: ArrayList<String>): Boolean {
+        return list.any { it.isEmpty() }
+    }
 
 }

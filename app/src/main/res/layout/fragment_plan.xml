@@ -40,12 +40,12 @@
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
             <LinearLayout
                 android:id="@+id/monLay"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="32dp"
@@ -83,7 +83,7 @@
                     <Spinner
                         android:id="@+id/monSpinnerB"
                         android:layout_width="0dp"
-                        android:layout_weight="20"
+                        android:layout_weight="40"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +169,7 @@
 
             <LinearLayout
                 android:id="@+id/tueLay"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="32dp"
@@ -289,7 +289,7 @@
 
             <LinearLayout
                 android:id="@+id/wedLay"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="32dp"
@@ -410,7 +410,7 @@
 
             <LinearLayout
                 android:id="@+id/thurLay"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="32dp"
@@ -531,7 +531,7 @@
 
             <LinearLayout
                 android:id="@+id/friLay"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="32dp"
@@ -652,7 +652,7 @@
 
             <LinearLayout
                 android:id="@+id/satLay"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="32dp"
@@ -772,7 +772,7 @@
 
             <LinearLayout
                 android:id="@+id/sunLay"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="32dp"
