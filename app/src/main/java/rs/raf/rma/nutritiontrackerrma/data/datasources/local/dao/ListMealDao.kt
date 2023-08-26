@@ -31,6 +31,9 @@ abstract class ListMealDao {
 
     @Query("SELECT * FROM meals WHERE strMeal LIKE :name || '%'")
     abstract fun getByName(name: String): Observable<List<ListMealEntity>>
+    @Query("SELECT * FROM meals WHERE strTags LIKE '%' || :searchString || '%' ORDER BY calories DESC")
+    abstract fun getMealsContainingString(searchString: String): Observable<List<ListMealEntity>>
+
     @Query("DELETE FROM savedMeals WHERE idMeal = :id")
     abstract fun delete(id: String): Completable
 

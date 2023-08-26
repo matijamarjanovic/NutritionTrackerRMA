@@ -32,6 +32,7 @@ import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.CategoryViewModel
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.FilterViewModel
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.IngredientsViewModel
 import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.MealsViewModel
+import rs.raf.rma.nutritiontrackerrma.presentation.viewmodels.SearchType
 import timber.log.Timber
 
 class FilterFragment : Fragment(R.layout.fragment_filter) {
@@ -66,6 +67,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        binding.tagsRb.visibility = View.GONE
+        mealsViewModel.setSelectedSearchType(SearchType.BY_NAME)
+
+
     }
 
     private fun init() {
@@ -78,12 +83,14 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
     var filterTest=""
     private fun initRecycler() {
-       // binding.catRb.isChecked=true
+
+        // binding.catRb.isChecked=true
         binding.listRv.layoutManager = LinearLayoutManager(context)
         adapter = FilterAdapter{ text ->
             filterTest=text
             binding.listRv.adapter = adapter2
             binding.backButton.visibility = View.VISIBLE
+
 
             mealsViewModel.getAllMeals()
             mealsViewModel.fetchAllMealsByArea(text)
@@ -100,6 +107,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
             binding.linearLay.visibility = View.GONE
             binding.kcalFilterLay.visibility = View.VISIBLE
+            binding.tagsRb.visibility = View.VISIBLE
+            binding.tagsRb.isChecked = true
 
             binding.sortDescendingBtn.visibility = View.GONE
             binding.sortAscendingBtn.visibility = View.GONE
@@ -113,6 +122,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             binding.searchBar.isEnabled = false
             binding.backButton.visibility = View.VISIBLE
             binding.kcalFilterLay.visibility = View.GONE
+
+            binding.tagsRb.visibility=View.GONE
 
             binding.listRv.adapter = adapter3
 
@@ -132,7 +143,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
 
         adapter4 = AddMealAdapter { meal, text, date ->
-
+//            binding.tagsRb.visibility = View.GONE
             if (text == "cancel"){
                 binding.listRv.adapter = adapter3
             }else if(text.contains("nothingSelected")){
@@ -144,25 +155,41 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
         binding.listRv.adapter = adapter
     }
-
+    var tagFlag=1;
     private fun initListeners() {
 
+        mealsViewModel.setSelectedSearchType(SearchType.BY_NAME)
         binding.searchBar.doAfterTextChanged { it1 ->
             val filter = it1.toString()
             filterViewModel.getItemByName(filter)
-
-            if (binding.listRv.adapter == adapter2){
-                binding.searchBar.doAfterTextChanged {
-                    val filter = it.toString()
-                    mealsViewModel.getMealByName(filter)
+        }
+        binding.tagsRb.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                mealsViewModel.setSelectedSearchType(SearchType.BY_TAGS)
+                if (binding.listRv.adapter == adapter2){
+                    binding.searchBar.doAfterTextChanged {
+                        val filter = it.toString()
+                        mealsViewModel.getMealByTags(filter)
+                    }
+                }
+            }else{
+                if (binding.listRv.adapter == adapter2){
+                    mealsViewModel.setSelectedSearchType(SearchType.BY_NAME)
+                    binding.searchBar.doAfterTextChanged {
+                        val filter = it.toString()
+                        mealsViewModel.getMealByName(filter)
+                    }
                 }
             }
         }
+
 
         binding.backButton.setOnClickListener{
             if (binding.listRv.adapter == adapter2){
                 binding.listRv.adapter = adapter
                 binding.backButton.visibility = View.GONE
+
+
 
                 binding.searchBar.doAfterTextChanged {
                     val filter = it.toString()
@@ -174,14 +201,19 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
                 binding.linearLay.visibility = View.VISIBLE
                 binding.kcalFilterLay.visibility = View.GONE
+                binding.tagsRb.visibility = View.GONE
 
 
 
             }else if(binding.listRv.adapter == adapter3){
+               // binding.tagsRb.visibility = View.GONE
+
 
                 binding.listRv.adapter = adapter2
                 binding.searchBar.isEnabled = true
                 binding.kcalFilterLay.visibility = View.VISIBLE
+                binding.tagsRb.visibility=View.VISIBLE
+
 
                 binding.linearLay.visibility = View.GONE
 
@@ -189,6 +221,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 binding.sortAscendingBtn.visibility = View.GONE
 
             } else if(binding.listRv.adapter == adapter4){
+           //     binding.tagsRb.visibility = View.GONE
+
                 binding.listRv.adapter = adapter3
 
             }
@@ -359,6 +393,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         binding.searchBar.clearFocus()
 
         binding.kcalFilterLay.visibility = View.GONE
+        binding.tagsRb.visibility =View.GONE
     }
 
     private fun renderState(state: FilterState) {
@@ -409,7 +444,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 if (mealList.isNotEmpty())
                     adapter2.submitList(mealList)
                 else{
-                    showDialogue("No meals in the given range of calories.")
+                   // showDialogue("No meals in the given range of calories.")
                     adapter2.submitList(null)
                 }
 

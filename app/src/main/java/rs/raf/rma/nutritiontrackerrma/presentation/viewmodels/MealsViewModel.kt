@@ -1,5 +1,6 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -34,23 +35,33 @@ class MealsViewModel(
     override val savedMealState : MutableLiveData<SavedMealsState> = MutableLiveData()
     override val savedMealState2: MutableLiveData<SavedMealPageState> = MutableLiveData()
 
+    override val selectedSearchType : MutableLiveData<SearchType> = MutableLiveData()
+
     override val addDone: MutableLiveData<AddListMealState> = MutableLiveData()
 
     private val publishSubject: PublishSubject<String> = PublishSubject.create()
+
 
     init {
         val subscription = publishSubject
             .debounce(200, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
-            .switchMap {
-                listMealRepository
-                    .getAllByName(it)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnError {
-                        Timber.e("Error in publish subject")
-                        Timber.e(it)
+            .switchMap { searchQuery ->
+                when (selectedSearchType.value) {
+                    SearchType.BY_NAME -> {
+                        listMealRepository.getAllByName(searchQuery)
                     }
+                    SearchType.BY_TAGS -> {
+                        listMealRepository.getAllByTags(searchQuery)
+                    }
+                    else -> Observable.empty() // Handle the default case appropriately
+                }
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                Timber.e("Error in publish subject")
+                Timber.e(it)
             }
             .subscribe(
                 {
@@ -63,6 +74,10 @@ class MealsViewModel(
             )
 
         subscriptions.add(subscription)
+    }
+
+    override  fun setSelectedSearchType(searchType: SearchType) {
+        selectedSearchType.value = searchType
     }
 
     override fun fetchAllMealsByArea(area:String) {
@@ -224,6 +239,10 @@ class MealsViewModel(
 
     override fun getMealByName(name: String) {
         publishSubject.onNext(name)
+    }
+
+    override fun getMealByTags(tags: String) {
+        publishSubject.onNext(tags)
     }
 
     override fun getAllSavedMeals(user:String) {
