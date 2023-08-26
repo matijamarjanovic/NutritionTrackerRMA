@@ -1,8 +1,10 @@
 package rs.raf.rma.nutritiontrackerrma.presentation.view.activity
 
 import SharedPreferencesManager
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
@@ -28,7 +30,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModel()
-    private val filterViewModel :FilterViewModel by viewModel()
+    //private val filterViewModel :FilterViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,10 +75,11 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                     }
                     redirectToMainActivity()
                 } else {
-
+                    showDialogue("Pogresna sifra")
                 }
 
             }else{
+                showDialogue("Korisnik ne postoji")
                 sharedPreferencesManager.saveUsername("")
             }
 
@@ -97,5 +100,25 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun showDialogue(text: String) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null)
+        val dialogEditText: TextView = dialogView.findViewById(R.id.dialogEditText)
+
+        dialogEditText.text = text
+        dialogEditText.isFocusable = false
+        dialogEditText.isClickable = false
+        dialogEditText.isLongClickable = false
+
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setPositiveButton("OK") { dialog, _ ->
+                // Handle the OK button click if needed
+                dialog.dismiss()
+            }
+
+        val dialog = dialogBuilder.create()
+        dialog.show()
     }
 }

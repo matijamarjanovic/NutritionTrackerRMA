@@ -38,12 +38,13 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private val filterViewModel : FilterContract.ViewModel by sharedViewModel<FilterViewModel>()
     private val mealsViewModel : MealsContract.ViewModel by sharedViewModel<MealsViewModel> ()
-    private val ingredientsViewModel : IngredientsContract.ViewModel by sharedViewModel<IngredientsViewModel>()
+    //private val ingredientsViewModel : IngredientsContract.ViewModel by sharedViewModel<IngredientsViewModel>()
 
     private var _binding : FragmentFilterBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var adapter : FilterAdapter
+    private lateinit var adapter1 : FilterAdapter
     private lateinit var adapter2 : MealsAdapter
     private lateinit var adapter3: SingleMealAdapter
     private lateinit var adapter4: AddMealAdapter
@@ -68,8 +69,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun init() {
-        initObservers()
         initUi()
+        initObservers()
     }
     private fun initUi() {
         initRecycler()
@@ -77,6 +78,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun initRecycler() {
+       // binding.catRb.isChecked=true
         binding.listRv.layoutManager = LinearLayoutManager(context)
         adapter = FilterAdapter{ text ->
 
@@ -84,6 +86,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             binding.backButton.visibility = View.VISIBLE
 
             mealsViewModel.getAllMeals()
+            mealsViewModel.fetchAllMealsByArea(text)
 
             if(binding.areaRb.isChecked)
                 mealsViewModel.fetchAllMealsByArea(text)
@@ -91,6 +94,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 mealsViewModel.fetchAllMealsByCategory(text)
             else if (binding.ingRb.isChecked)
                 mealsViewModel.fetchAllMealsByIngridient(text)
+
+
 
 
             binding.linearLay.visibility = View.GONE
@@ -474,7 +479,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     it.strIngredient17,it.strIngredient18,it.strIngredient19,it.strIngredient20,
 
     it.strMeasure1,it.strMeasure2,it.strMeasure3,it.strMeasure4,it.strMeasure5,it.strMeasure6,it.strMeasure7,it.strMeasure8,it.strMeasure9,it.strMeasure10,
-    it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20
+    it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20,
+                            it.caloriesList
     )
                 } }
                 adapter2.submitList(list)

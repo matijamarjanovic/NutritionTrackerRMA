@@ -11,6 +11,7 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.ListSingleMealD
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.SavedMealDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.dao.UserDao
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.database.convreters.DateConverter
+import rs.raf.rma.nutritiontrackerrma.data.datasources.local.database.convreters.ListConverter
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.CategoryEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.FilterEntity
 import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.IngredientEntity
@@ -24,10 +25,10 @@ import rs.raf.rma.nutritiontrackerrma.data.datasources.local.models.UserEntity
         FilterEntity::class, SavedMealEntity::class,
         UserEntity::class,IngredientEntity::class,
         ListSingleMealEntity::class],
-    version = 16,
+    version = 18,
     exportSchema = false
 )
-@TypeConverters(DateConverter::class)
+@TypeConverters(DateConverter::class, ListConverter::class)
 abstract class MealsDatabase : RoomDatabase() {
     abstract fun getCategoryDao() : CategoryDao
     abstract fun getListMealDao() : ListMealDao

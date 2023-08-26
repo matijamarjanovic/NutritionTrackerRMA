@@ -17,6 +17,9 @@ abstract class ListMealDao {
     @Query("SELECT * FROM meals")
     abstract fun getAll(): Observable<List<ListMealEntity>>
 
+    @Query("SELECT * FROM meals WHERE calories BETWEEN :minCalories AND :maxCalories ORDER BY calories DESC")
+    abstract fun getAllSortedByCalDes(minCalories: Int, maxCalories: Int): Observable<List<ListMealEntity>>
+
     @Query("DELETE FROM meals")
     abstract fun deleteAll()
 

@@ -50,6 +50,8 @@ class ListMealRepositoryImpl(
                         .flatMap { detailsResponse ->
                             val meals = detailsResponse.meals
                             val entities = meals.map {
+                                val emptyArrayList = ArrayList<Double>()
+
                                 Meal(
                                     it.idMeal,
                                     it.strMeal,
@@ -69,7 +71,8 @@ class ListMealRepositoryImpl(
                                     it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
                                     it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
                                     it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
-                                    it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                                    it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20,
+                                    emptyArrayList
                                 )
                             }
                             val superMeal = entities[0]
@@ -98,10 +101,13 @@ class ListMealRepositoryImpl(
                             remoteDataSourceCalories
                                 .getCalories(a)
                                 .map { calorieResponse ->
-                                    // Calculate the sum of calories
-                                    val sum = calorieResponse.map { it.calories }.sum()
 
-                                    // Create a modified entity with calorie information
+                                    var calorieList=ArrayList<Double>()
+                                    calorieResponse.map {
+                                        calorieList.add(it.calories)
+                                    }
+                                    val sum = calorieResponse.map { it.calories }.sum()
+                                    println("LIST"+calorieList)
                                     val modifiedEntity = ListMealEntity(
                                         superMeal.idMeal,
                                         superMeal.strMeal,
@@ -121,7 +127,8 @@ class ListMealRepositoryImpl(
                                         superMeal.strMeasure1, superMeal.strMeasure2, superMeal.strMeasure3, superMeal.strMeasure4, superMeal.strMeasure5,
                                         superMeal.strMeasure6, superMeal.strMeasure7, superMeal.strMeasure8, superMeal.strMeasure9, superMeal.strMeasure10,
                                         superMeal.strMeasure11, superMeal.strMeasure12, superMeal.strMeasure13, superMeal.strMeasure14, superMeal.strMeasure15,
-                                        superMeal.strMeasure16, superMeal.strMeasure17, superMeal.strMeasure18, superMeal.strMeasure19, superMeal.strMeasure20
+                                        superMeal.strMeasure16, superMeal.strMeasure17, superMeal.strMeasure18, superMeal.strMeasure19, superMeal.strMeasure20,
+                                        calorieList
                                     )
                                     modifiedEntity
                                 }
@@ -182,6 +189,8 @@ class ListMealRepositoryImpl(
         return null
     }
 
+
+
     override fun fetchAllByCategory(category: String): Observable<Resource<Unit>> {
         return remoteDataSource
             .getAllMealsByCategory(category)
@@ -195,6 +204,8 @@ class ListMealRepositoryImpl(
                         .flatMap { detailsResponse ->
                             val meals = detailsResponse.meals
                             val entities = meals.map {
+                                val emptyArrayList = ArrayList<Double>()
+
                                 Meal(
                                     it.idMeal,
                                     it.strMeal,
@@ -214,7 +225,8 @@ class ListMealRepositoryImpl(
                                     it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
                                     it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
                                     it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
-                                    it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                                    it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20,
+                                    emptyArrayList
                                 )
                             }
                             val superMeal = entities[0]
@@ -243,7 +255,10 @@ class ListMealRepositoryImpl(
                             remoteDataSourceCalories
                                 .getCalories(a)
                                 .map { calorieResponse ->
-                                    // Calculate the sum of calories
+                                    var calorieList=ArrayList<Double>()
+                                    calorieResponse.map {
+                                        calorieList.add(it.calories)
+                                    }
                                     val sum = calorieResponse.map { it.calories }.sum()
 
                                     // Create a modified entity with calorie information
@@ -266,7 +281,8 @@ class ListMealRepositoryImpl(
                                         superMeal.strMeasure1, superMeal.strMeasure2, superMeal.strMeasure3, superMeal.strMeasure4, superMeal.strMeasure5,
                                         superMeal.strMeasure6, superMeal.strMeasure7, superMeal.strMeasure8, superMeal.strMeasure9, superMeal.strMeasure10,
                                         superMeal.strMeasure11, superMeal.strMeasure12, superMeal.strMeasure13, superMeal.strMeasure14, superMeal.strMeasure15,
-                                        superMeal.strMeasure16, superMeal.strMeasure17, superMeal.strMeasure18, superMeal.strMeasure19, superMeal.strMeasure20
+                                        superMeal.strMeasure16, superMeal.strMeasure17, superMeal.strMeasure18, superMeal.strMeasure19, superMeal.strMeasure20,
+                                        calorieList
                                     )
                                     modifiedEntity
                                 }
@@ -302,6 +318,7 @@ class ListMealRepositoryImpl(
                     remoteDataSource.singleMeal(meal.idMeal.toString()) // Replace with your actual second API call
                         .flatMap { detailsResponse ->
                             val meals = detailsResponse.meals
+                            val emptyArrayList =ArrayList<Double>()
                             val entities = meals.map {
                                 Meal(
                                     it.idMeal,
@@ -322,7 +339,8 @@ class ListMealRepositoryImpl(
                                     it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
                                     it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
                                     it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
-                                    it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                                    it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20,
+                                    emptyArrayList
                                 )
                             }
                             val superMeal = entities[0]
@@ -351,7 +369,10 @@ class ListMealRepositoryImpl(
                             remoteDataSourceCalories
                                 .getCalories(a)
                                 .map { calorieResponse ->
-                                    // Calculate the sum of calories
+                                    var calorieList=ArrayList<Double>()
+                                    calorieResponse.map{
+                                        calorieList.add(it.calories)
+                                    }
                                     val sum = calorieResponse.map { it.calories }.sum()
 
                                     // Create a modified entity with calorie information
@@ -374,7 +395,9 @@ class ListMealRepositoryImpl(
                                         superMeal.strMeasure1, superMeal.strMeasure2, superMeal.strMeasure3, superMeal.strMeasure4, superMeal.strMeasure5,
                                         superMeal.strMeasure6, superMeal.strMeasure7, superMeal.strMeasure8, superMeal.strMeasure9, superMeal.strMeasure10,
                                         superMeal.strMeasure11, superMeal.strMeasure12, superMeal.strMeasure13, superMeal.strMeasure14, superMeal.strMeasure15,
-                                        superMeal.strMeasure16, superMeal.strMeasure17, superMeal.strMeasure18, superMeal.strMeasure19, superMeal.strMeasure20
+                                        superMeal.strMeasure16, superMeal.strMeasure17, superMeal.strMeasure18, superMeal.strMeasure19, superMeal.strMeasure20,
+
+                                        calorieList
                                     )
                                     modifiedEntity
                                 }
@@ -403,6 +426,8 @@ class ListMealRepositoryImpl(
             .singleMeal(mealId)
             .flatMap { response1 ->
                 val meal = response1.meals[0]
+                val emptyArrayList = ArrayList<Double>() // Create an empty ArrayList
+
                 var superMeal = Meal(
                     meal.idMeal,
                     meal.strMeal,
@@ -420,7 +445,9 @@ class ListMealRepositoryImpl(
                     meal.strMeasure1, meal.strMeasure2, meal.strMeasure3, meal.strMeasure4, meal.strMeasure5,
                     meal.strMeasure6, meal.strMeasure7, meal.strMeasure8, meal.strMeasure9, meal.strMeasure10,
                     meal.strMeasure11, meal.strMeasure12, meal.strMeasure13, meal.strMeasure14, meal.strMeasure15,
-                    meal.strMeasure16, meal.strMeasure17, meal.strMeasure18, meal.strMeasure19, meal.strMeasure20
+                    meal.strMeasure16, meal.strMeasure17, meal.strMeasure18, meal.strMeasure19, meal.strMeasure20,
+
+                    emptyArrayList
                 )
 
                 val measurements = ArrayList<String>()
@@ -449,9 +476,12 @@ class ListMealRepositoryImpl(
                 remoteDataSourceCalories.getCalories(a)
                     .map { response2 ->
                         val sum = response2.map { it.calories }.sum()
+                        response2.map{
+                            superMeal.caloriesList?.add(it.calories) ?: 0.0
+                        }
 
                         superMeal.calories = sum
-
+                        println("LIST :="+superMeal.caloriesList)
                         superMeal
                     }
             }
@@ -467,7 +497,7 @@ class ListMealRepositoryImpl(
                 .singleMeal(meal.idMeal.toString())
                 .map { response ->
                     val meals = response.meals
-
+                    val empty = ArrayList<Double>()
                     val entities = meals.map {
                         Meal(
                             it.idMeal,
@@ -520,7 +550,8 @@ class ListMealRepositoryImpl(
                             it.strMeasure17,
                             it.strMeasure18,
                             it.strMeasure19,
-                            it.strMeasure20
+                            it.strMeasure20,
+                            empty
                         )
                     }
                     entities[0]
@@ -555,12 +586,12 @@ class ListMealRepositoryImpl(
                         it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
                         it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
                         it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
-                        it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                        it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20,
+                        it.caloriesList
                     )
-                    }
-                savedMeals
                 }
-
+                savedMeals
+            }
     }
 
     override fun getAllMeals(): Observable<List<ListMeal>> {
@@ -568,19 +599,40 @@ class ListMealRepositoryImpl(
         .getAll()
         .map {
             it.map {
-                    ListMeal(
+                val emptyArrayList = ArrayList<Double>()
+                ListMeal(
                     it.idMeal, it.strMeal,it.strCategory,it.strArea,it.strInstructions,it.strMealThumb,it.strTags,it.strYoutube,it.calories,
                     it.strIngredient1,it.strIngredient2,it.strIngredient3,it.strIngredient4,it.strIngredient5,it.strIngredient6,it.strIngredient7,it.strIngredient8,
                     it.strIngredient9,it.strIngredient10,it.strIngredient11,it.strIngredient12,it.strIngredient13,it.strIngredient14,it.strIngredient15,it.strIngredient16,
                     it.strIngredient17,it.strIngredient18,it.strIngredient19,it.strIngredient20,
 
                     it.strMeasure1,it.strMeasure2,it.strMeasure3,it.strMeasure4,it.strMeasure5,it.strMeasure6,it.strMeasure7,it.strMeasure8,it.strMeasure9,it.strMeasure10,
-                    it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20
+                    it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20,
+                        emptyArrayList
+
                     )
                 }
             }
         }
+    override fun getAllMealsSortedCalories(min: Int, max: Int): Observable<List<ListMeal>> {
+        return localDataSource
+            .getAllSortedByCalDes(min,max)
+            .map {
+                it.map {
+                    val emptyArrayList = ArrayList<Double>()
+                    ListMeal(
+                        it.idMeal, it.strMeal,it.strCategory,it.strArea,it.strInstructions,it.strMealThumb,it.strTags,it.strYoutube,it.calories,
+                        it.strIngredient1,it.strIngredient2,it.strIngredient3,it.strIngredient4,it.strIngredient5,it.strIngredient6,it.strIngredient7,it.strIngredient8,
+                        it.strIngredient9,it.strIngredient10,it.strIngredient11,it.strIngredient12,it.strIngredient13,it.strIngredient14,it.strIngredient15,it.strIngredient16,
+                        it.strIngredient17,it.strIngredient18,it.strIngredient19,it.strIngredient20,
 
+                        it.strMeasure1,it.strMeasure2,it.strMeasure3,it.strMeasure4,it.strMeasure5,it.strMeasure6,it.strMeasure7,it.strMeasure8,it.strMeasure9,it.strMeasure10,
+                        it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20,
+                        emptyArrayList
+                    )
+                }
+            }
+    }
     override fun clearListSingleMeals(): Completable {
             return localDataSourceListSingleMeal.deleteAll()
     }
@@ -612,7 +664,9 @@ class ListMealRepositoryImpl(
                             it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
                             it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
                             it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
-                            it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                            it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20,
+
+                            it.caloriesList
                     )
                 }
             }
@@ -630,7 +684,8 @@ class ListMealRepositoryImpl(
                         it.strIngredient17,it.strIngredient18,it.strIngredient19,it.strIngredient20,
 
                         it.strMeasure1,it.strMeasure2,it.strMeasure3,it.strMeasure4,it.strMeasure5,it.strMeasure6,it.strMeasure7,it.strMeasure8,it.strMeasure9,it.strMeasure10,
-                        it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20
+                        it.strMeasure11,it.strMeasure12,it.strMeasure13,it.strMeasure14,it.strMeasure15,it.strMeasure16,it.strMeasure17, it.strMeasure18,it.strMeasure19,it.strMeasure20,
+                        it.caloriesList
                         )
                 }
             }
@@ -662,7 +717,9 @@ class ListMealRepositoryImpl(
                         it.strMeasure1, it.strMeasure2, it.strMeasure3, it.strMeasure4, it.strMeasure5,
                         it.strMeasure6, it.strMeasure7, it.strMeasure8, it.strMeasure9, it.strMeasure10,
                         it.strMeasure11, it.strMeasure12, it.strMeasure13, it.strMeasure14, it.strMeasure15,
-                        it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20
+                        it.strMeasure16, it.strMeasure17, it.strMeasure18, it.strMeasure19, it.strMeasure20,
+
+                        it.caloriesList
                     )
                 }
             }
@@ -692,7 +749,9 @@ class ListMealRepositoryImpl(
             meal.strMeasure1, meal.strMeasure2, meal.strMeasure3, meal.strMeasure4, meal.strMeasure5,
             meal.strMeasure6, meal.strMeasure7, meal.strMeasure8, meal.strMeasure9, meal.strMeasure10,
             meal.strMeasure11, meal.strMeasure12, meal.strMeasure13, meal.strMeasure14, meal.strMeasure15,
-            meal.strMeasure16, meal.strMeasure17, meal.strMeasure18, meal.strMeasure19, meal.strMeasure20
+            meal.strMeasure16, meal.strMeasure17, meal.strMeasure18, meal.strMeasure19, meal.strMeasure20,
+
+            meal.caloriesList
             )
 
 
@@ -723,7 +782,9 @@ class ListMealRepositoryImpl(
             meal.strMeasure1, meal.strMeasure2, meal.strMeasure3, meal.strMeasure4, meal.strMeasure5,
             meal.strMeasure6, meal.strMeasure7, meal.strMeasure8, meal.strMeasure9, meal.strMeasure10,
             meal.strMeasure11, meal.strMeasure12, meal.strMeasure13, meal.strMeasure14, meal.strMeasure15,
-            meal.strMeasure16, meal.strMeasure17, meal.strMeasure18, meal.strMeasure19, meal.strMeasure20
+            meal.strMeasure16, meal.strMeasure17, meal.strMeasure18, meal.strMeasure19, meal.strMeasure20,
+
+            meal.caloriesList
         )
 
         return localDataSourceSaved.update(savedMeal)

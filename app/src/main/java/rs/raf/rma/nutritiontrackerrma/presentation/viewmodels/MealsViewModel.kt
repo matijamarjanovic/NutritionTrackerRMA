@@ -203,6 +203,25 @@ class MealsViewModel(
         subscriptions.add(subscription)
     }
 
+    override fun getAllMealsSortedByCal(min: Int, max: Int) {
+        val subscription = listMealRepository
+            .clearListSingleMeals()
+            .andThen(listMealRepository.getAllMealsSortedCalories(min,max))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    mealsState.value = MealsState.Success(it)
+                },
+                {
+                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
+                    mealsState2.value = MealPageState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
     override fun getMealByName(name: String) {
         publishSubject.onNext(name)
     }
@@ -213,11 +232,18 @@ class MealsViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {
-                    var list :  ArrayList<SavedMeal> = ArrayList(it)
+                { it ->
+                    if (it.isNotEmpty()) {
+                        savedMealState.value = SavedMealsState.Success(it)
+                        savedMealState2.value = SavedMealPageState.Success(it[0], it)
+                    } else {
+                        savedMealState.value = SavedMealsState.Error("No saved meals found.")
+                    }
+//                    var list :  ArrayList<SavedMeal> = ArrayList(it)
+//
+//                    savedMealState.value = SavedMealsState.Success(it)
+//                    savedMealState2.value = SavedMealPageState.Success(it[0], it)
 
-                    savedMealState.value = SavedMealsState.Success(it)
-                    savedMealState2.value = SavedMealPageState.Success(it[0], it)
                 },
                 {
                     savedMealState.value = SavedMealsState.Error("Error happened while fetching data from db")

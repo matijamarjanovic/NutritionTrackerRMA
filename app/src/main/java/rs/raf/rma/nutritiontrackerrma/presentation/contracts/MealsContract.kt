@@ -27,6 +27,7 @@ interface MealsContract {
         fun getSingleMeal(mealId : String)
         fun getAllSingleMeals(mealList: ArrayList<ListMeal>)
         fun getAllMeals()
+        fun getAllMealsSortedByCal(min:Int,max:Int)
         fun getMealByName(name: String)
         fun getAllSavedMeals(user:String)
         fun getSavedMealByName(name: String)

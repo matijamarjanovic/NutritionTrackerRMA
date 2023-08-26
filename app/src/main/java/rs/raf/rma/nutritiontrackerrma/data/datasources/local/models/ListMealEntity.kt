@@ -2,6 +2,7 @@ package rs.raf.rma.nutritiontrackerrma.data.datasources.local.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.ArrayList
 
 @Entity(tableName = "meals")
 data class ListMealEntity(
@@ -56,5 +57,8 @@ data class ListMealEntity(
     val strMeasure17: String?,
     val strMeasure18: String?,
     val strMeasure19: String?,
-    val strMeasure20: String?
+    val strMeasure20: String?,
+
+    var  caloriesList: ArrayList<Double>?
+
 )
