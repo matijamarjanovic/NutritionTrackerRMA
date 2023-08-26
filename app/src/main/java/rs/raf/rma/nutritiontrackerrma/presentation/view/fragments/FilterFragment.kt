@@ -76,12 +76,12 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         initRecycler()
         initListeners()
     }
-
+    var filterTest=""
     private fun initRecycler() {
        // binding.catRb.isChecked=true
         binding.listRv.layoutManager = LinearLayoutManager(context)
         adapter = FilterAdapter{ text ->
-
+            filterTest=text
             binding.listRv.adapter = adapter2
             binding.backButton.visibility = View.VISIBLE
 
@@ -242,7 +242,22 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
 
         binding.filterKcalBtn.setOnClickListener{
-            mealsViewModel.getAllMeals()
+            val min=binding.fromEt.text.toString().toDouble()
+            val max=binding.toEt.text.toString().toDouble()
+
+            mealsViewModel.getAllMealsSortedByCal(min,max)
+//            if(area==true){
+//                mealsViewModel.fetchAllMealsByArea(filterTest)
+//            }
+//            else if(cat==true){
+//                mealsViewModel.fetchAllMealsByCategory(filterTest)
+//
+//            }
+//            else if(ing==true){
+//                mealsViewModel.fetchAllMealsByIngridient(filterTest)
+//
+//            }
+        //mealsViewModel.fetchAllMealsByArea()
         }
 
         binding.resetBtn.setOnClickListener{

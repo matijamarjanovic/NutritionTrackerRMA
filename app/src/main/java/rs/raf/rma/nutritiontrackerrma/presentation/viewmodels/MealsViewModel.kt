@@ -203,7 +203,7 @@ class MealsViewModel(
         subscriptions.add(subscription)
     }
 
-    override fun getAllMealsSortedByCal(min: Int, max: Int) {
+    override fun getAllMealsSortedByCal(min: Double, max: Double) {
         val subscription = listMealRepository
             .clearListSingleMeals()
             .andThen(listMealRepository.getAllMealsSortedCalories(min,max))

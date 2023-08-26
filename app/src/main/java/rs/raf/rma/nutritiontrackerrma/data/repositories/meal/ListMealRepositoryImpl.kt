@@ -190,7 +190,6 @@ class ListMealRepositoryImpl(
     }
 
 
-
     override fun fetchAllByCategory(category: String): Observable<Resource<Unit>> {
         return remoteDataSource
             .getAllMealsByCategory(category)
@@ -614,7 +613,7 @@ class ListMealRepositoryImpl(
                 }
             }
         }
-    override fun getAllMealsSortedCalories(min: Int, max: Int): Observable<List<ListMeal>> {
+    override fun getAllMealsSortedCalories(min: Double, max: Double): Observable<List<ListMeal>> {
         return localDataSource
             .getAllSortedByCalDes(min,max)
             .map {
