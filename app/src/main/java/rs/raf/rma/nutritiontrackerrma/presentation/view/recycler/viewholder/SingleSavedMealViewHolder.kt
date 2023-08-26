@@ -86,26 +86,34 @@ class SingleSavedMealViewHolder (private val itemBinding: SingleSavedMealItemBin
         itemBinding.measure19.text = meal.strMeasure19
         itemBinding.measure20.text = meal.strMeasure20
 
-        itemBinding.kcal1.text = "0.0"
-        itemBinding.kcal2.text = "0.0"
-        itemBinding.kcal3.text = "0.0"
-        itemBinding.kcal4.text = "0.0"
-        itemBinding.kcal5.text = "0.0"
-        itemBinding.kcal6.text = "0.0"
-        itemBinding.kcal7.text = "0.0"
-        itemBinding.kcal8.text = "0.0"
-        itemBinding.kcal9.text = "0.0"
-        itemBinding.kcal10.text = "0.0"
-        itemBinding.kcal11.text = "0.0"
-        itemBinding.kcal12.text = "0.0"
-        itemBinding.kcal13.text = "0.0"
-        itemBinding.kcal14.text = "0.0"
-        itemBinding.kcal15.text = "0.0"
-        itemBinding.kcal16.text = "0.0"
-        itemBinding.kcal17.text = "0.0"
-        itemBinding.kcal18.text = "0.0"
-        itemBinding.kcal19.text = "0.0"
-        itemBinding.kcal20.text = "0.0"
+        var list =meal.caloriesList
+        if (list != null) {
+
+            for ((index, item) in list.withIndex()) {
+                if(index==0){itemBinding.kcal1.text = item.toString()  }
+                else if(index==1){ itemBinding.kcal2.text = item.toString() }
+                else if(index==2){itemBinding.kcal3.text = item.toString()}
+                else if(index==3){itemBinding.kcal4.text = item.toString()}
+                else if(index==4){itemBinding.kcal5.text = item.toString()}
+                else if(index==5){itemBinding.kcal6.text = item.toString()}
+                else if(index==6){itemBinding.kcal7.text = item.toString()}
+                else if(index==7){itemBinding.kcal8.text = item.toString()}
+                else if(index==8){itemBinding.kcal9.text = item.toString()}
+                else if(index==9){itemBinding.kcal10.text = item.toString()}
+                else if(index==10){itemBinding.kcal11.text = item.toString()}
+                else if(index==11){itemBinding.kcal12.text = item.toString()}
+                else if(index==12){itemBinding.kcal13.text = item.toString()}
+                else if(index==13){itemBinding.kcal14.text = item.toString()}
+                else if(index==14){itemBinding.kcal15.text = item.toString()}
+                else if(index==15){itemBinding.kcal16.text = item.toString()}
+                else if(index==16){itemBinding.kcal17.text = item.toString()}
+                else if(index==17){itemBinding.kcal18.text = item.toString()}
+                else if(index==18){itemBinding.kcal19.text = item.toString()}
+                else if(index==19){itemBinding.kcal20.text = item.toString()}
+
+                //println("Position $index: $item") // Replace with the action you want to perform
+            }
+        }
 
         if (meal.strIngredient1 == ""){
             itemBinding.im1.visibility = View.GONE
