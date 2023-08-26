@@ -117,6 +117,10 @@ class MealPageFragment : Fragment(R.layout.fragment_meal_page) {
             if(s != "")
                 binding.ingredientsTextView.text = binding.ingredientsTextView.text.toString() + ", " + s
         }
+        for (s : String in ingredients){
+            if(s != "")
+                binding.ingredientsTextView.text = binding.ingredientsTextView.text.toString() + ", " + s
+        }
 
 
         Glide
