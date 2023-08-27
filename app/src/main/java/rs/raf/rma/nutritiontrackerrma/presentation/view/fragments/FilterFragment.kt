@@ -276,27 +276,15 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
 
         binding.filterKcalBtn.setOnClickListener{
-            val min=binding.fromEt.text.toString().toDouble()
-            val max=binding.toEt.text.toString().toDouble()
+            val min = binding.fromEt.text.toString().toDouble()
+            val max = binding.toEt.text.toString().toDouble()
 
-            mealsViewModel.getAllMealsSortedByCal(min,max)
-//            if(area==true){
-//                mealsViewModel.fetchAllMealsByArea(filterTest)
-//            }
-//            else if(cat==true){
-//                mealsViewModel.fetchAllMealsByCategory(filterTest)
-//
-//            }
-//            else if(ing==true){
-//                mealsViewModel.fetchAllMealsByIngridient(filterTest)
-//
-//            }
-        //mealsViewModel.fetchAllMealsByArea()
+            mealsViewModel.getAllMealsSortedByCal(min, max)
         }
 
         binding.resetBtn.setOnClickListener{
-            binding.fromEt.setText("")
-            binding.toEt.setText("")
+            binding.fromEt.setText("0")
+            binding.toEt.setText("10000")
             binding.filterKcalBtn.performClick()
         }
 
@@ -423,30 +411,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         when (state) {
             is MealsState.Success -> {
                 showLoadingState(false)
-                mealList = ArrayList(state.meals)
 
-                if (binding.fromEt.text.toString() != ""){
-                    from = binding.fromEt.text.toString().toDouble()
-                }else{
-                    from = 0.0
-                }
-                if (binding.toEt.text.toString() != ""){
-                    to = binding.fromEt.text.toString().toDouble()
-                }else{
-                    to = 10000.0
-                }
-                mealList.clear()
-                for (m in state.meals){
-                    if (m.calories in from..to)
-                        mealList.add(m)
-                }
+                adapter2.submitList(state.meals)
 
-                if (mealList.isNotEmpty())
-                    adapter2.submitList(mealList)
-                else{
-                   // showDialogue("No meals in the given range of calories.")
-                    adapter2.submitList(null)
-                }
 
 
             }
