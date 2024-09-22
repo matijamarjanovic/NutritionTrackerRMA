@@ -30,6 +30,9 @@
 
 ## Technologies Used
 
-- *Android Development*: The app is built using Android Studio, targeting Android devices.
+- *Android Development*: The app is built using Android Studio, in Kotlin,  targeting Android devices.
 - *SQLite*: Local storage is managed with SQLite, ensuring that saved dishes and meal plans can be accessed offline.
+- *Firebase* : for database and user authentication
+- *Graphical Libraries for charting* (e.g., MPAndroidChart)
+- *REST APIs for nutritional data*
 - *YouTube API*: The app integrates with YouTube to provide video instructions for various dishes.
